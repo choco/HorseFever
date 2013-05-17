@@ -10,6 +10,7 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class BetManager {
+
     private ArrayList<Bet> bets;
 
     boolean insertBet(Bet bet) {
@@ -21,6 +22,7 @@ public class BetManager {
        return false;
     }
 
+    //validità scommessa nelle due bet phases, no doppia scommessa
     boolean checkBetValidity(Bet bet) {
         for(Bet temp : bets) {
             if(bet.getBettingPlayer()==temp.getBettingPlayer()) {
@@ -41,13 +43,15 @@ public class BetManager {
     /*
     void payBet(Bet bet) {
         if(checkWinningBet(bet)) {
-            if(bet.getType() == BetType.WINNING)
+            if(bet.getType() == BetType.WINNING) {
+
+            }
         }
     }*/
 
     void paymentTime(BlackBoard board) {
         for(Bet bet : bets) {
-            ;
+           ;
         }
     }
 

@@ -26,12 +26,23 @@ class InvalidBetException extends Exception {
 }
 
 public class Bet {
-    public Player getBettingPlayer() {
-        return bettingPlayer;
-    }
 
     private Player bettingPlayer;
     private int amount;
+    private Lane bettingLane;
+    private BetType type;
+
+
+    public Bet(Player bettingPlayer, int amount, Lane bettingLane, BetType type) {
+        this.bettingPlayer = bettingPlayer;
+        this.amount = amount;
+        this.bettingLane = bettingLane;
+        this.type = type;
+    }
+
+    public Player getBettingPlayer() {
+        return bettingPlayer;
+    }
 
     public Lane getBettingLane() {
         return bettingLane;
@@ -41,13 +52,7 @@ public class Bet {
         return type;
     }
 
-    private Lane bettingLane;
-    private BetType type;
 
-    public Bet(Player bettingPlayer, int amount, Lane bettingLane, BetType type) {
-        this.bettingPlayer = bettingPlayer;
-        this.amount = amount;
-        this.bettingLane = bettingLane;
-        this.type = type;
-    }
+
+
 }

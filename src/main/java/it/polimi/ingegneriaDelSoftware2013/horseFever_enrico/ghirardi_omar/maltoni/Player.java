@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class Player {
     private String idTag;
     private int money;
-    private int victoryPoint;
+    private int victoryPoints;
     private int remainingBets;
     private boolean isFirstPlayer;
     private CharacterCard charCard;
@@ -22,7 +22,7 @@ public class Player {
     Bet makeBet(int amount, BetType type, Lane lane) throws InvalidBetException{
         if(remainingBets > 0) {
             if(amount <= money) {
-                if(amount >= victoryPoint*100) {
+                if(amount >= victoryPoints*100) {
                     money -= amount;
                     remainingBets--;
                     return new Bet(this, amount, lane, type);
