@@ -1,6 +1,7 @@
 package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,16 +12,27 @@ import java.util.ArrayList;
  */
 public class Deck {
     private ArrayList<Card> cards;
+    private static final int numOfShuffles = 100;
 
     void shuffle() {
-        ;
+        Random generator = new Random();
+        int firstIndex, secondIndex;
+        Card temp;
+
+        for(int i=0; i<numOfShuffles; i++) {
+            firstIndex = generator.nextInt(cards.size()-1);
+            secondIndex = generator.nextInt(cards.size()-1);
+            temp = cards.get(firstIndex);
+            cards.set(firstIndex, cards.get(secondIndex));
+            cards.set(secondIndex, temp);
+        }
     }
 
     Card draw() {
-        ;
+        return cards.remove(0);
     }
 
     void putBottom(Card card) {
-
+        cards.add(card);
     }
 }
