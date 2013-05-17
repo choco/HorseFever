@@ -3,39 +3,47 @@
   <ID>JAVA</ID>
   <OriginalElement>it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni</OriginalElement>
   <nodes>
-    <node x="0.0" y="314.0">it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.Player</node>
-    <node x="464.6279761904762" y="80.0">it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.Horse</node>
-    <node x="354.25000000000006" y="783.0">it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.BlackBoard</node>
-    <node x="54.25" y="750.0">it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.BetManager</node>
-    <node x="75.75" y="571.0">it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.Bet</node>
-    <node x="0.0" y="969.0">it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.AppTest</node>
-    <node x="776.6279761904761" y="112.5">it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.Deck</node>
-    <node x="454.0" y="969.0">it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.Match</node>
-    <node x="558.25" y="0.0">it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.Card</node>
-    <node x="623.1279761904761" y="739.0">it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.RaceManager</node>
-    <node x="75.5" y="102.0">it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.ActionCard</node>
-    <node x="450.1279761904762" y="347.0">it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.Lane</node>
-    <node x="240.0" y="969.0">it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.App</node>
-    <node x="400.25000000000006" y="592.5">it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.Standing</node>
+    <node x="124.0" y="80.0">it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.CharacterCard</node>
+    <node x="259.0" y="305.0">it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.Stable</node>
+    <node x="0.0" y="380.0">it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.Player</node>
+    <node x="116.0" y="380.0">it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.Horse</node>
+    <node x="292.0" y="0.0">it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.InvalidBetExceptionType</node>
+    <node x="150.0" y="230.0">it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.BlackBoard</node>
+    <node x="363.0" y="155.0">it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.BetManager</node>
+    <node x="0.0" y="305.0">it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.AppTest</node>
+    <node x="0.0" y="455.0">it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.Bet</node>
+    <node x="0.0" y="155.0">it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.InvalidBetException</node>
+    <node x="232.0" y="380.0">it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.Deck</node>
+    <node x="87.25" y="0.0">it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.Card</node>
+    <node x="376.0" y="305.0">it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.Match</node>
+    <node x="202.0" y="155.0">it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.RaceManager</node>
+    <node x="0.0" y="80.0">it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.ActionCard</node>
+    <node x="343.0" y="380.0">it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.Lane</node>
+    <node x="451.0" y="380.0">it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.App</node>
+    <node x="297.0" y="230.0">it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.Standing</node>
+    <node x="131.0" y="305.0">it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.BetType</node>
+    <node x="0.0" y="230.0">it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.ActionType</node>
   </nodes>
   <notes />
   <edges>
+    <edge source="it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.CharacterCard" target="it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.Card">
+      <point x="0.0" y="-15.0" />
+      <point x="185.5" y="55.0" />
+      <point x="134.5" y="55.0" />
+      <point x="15.75" y="15.0" />
+    </edge>
     <edge source="it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.ActionCard" target="it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.Card">
-      <point x="0.0" y="-70.0" />
-      <point x="194.5" y="60.0" />
-      <point x="568.75" y="60.0" />
-      <point x="-21.0" y="15.0" />
+      <point x="0.0" y="-15.0" />
+      <point x="52.0" y="55.0" />
+      <point x="103.0" y="55.0" />
+      <point x="-15.75" y="15.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="0.5377532228360957" x="1321.3424657534247" y="1022.5839041095891" />
-  <SelectedNodes />
-  <Categories>
-    <Category>Constructors</Category>
-    <Category>Fields</Category>
-    <Category>Methods</Category>
-    <Category>Inner Classes</Category>
-    <Category>Properties</Category>
-  </Categories>
+  <settings layout="Hierarchic Group" zoom="1.0" x="255.0" y="242.5" />
+  <SelectedNodes>
+    <node>it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.ActionCard</node>
+  </SelectedNodes>
+  <Categories />
   <SCOPE>All</SCOPE>
   <VISIBILITY>private</VISIBILITY>
 </Diagram>

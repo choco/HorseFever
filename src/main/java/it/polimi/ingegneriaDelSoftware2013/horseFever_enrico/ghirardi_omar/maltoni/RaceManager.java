@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class RaceManager {
-    private final int finishLine;
+    private final int finishLine = 12; //numero caselle per il traguardo
     private ArrayList<Lane> laneList;
     private Standing standing;
     private Deck movementCardDeck;

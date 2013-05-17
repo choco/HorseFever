@@ -10,7 +10,7 @@ import java.util.Dictionary;
  * To change this template use File | Settings | File Templates.
  */
 public class Standing {
-    private Dictionary<Lane, int> standing;
+    private Dictionary<Lane, Integer> standing;
 
     void updateStandings() {
         ;

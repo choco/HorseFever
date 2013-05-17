@@ -7,6 +7,11 @@ package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.malt
  * Time: 15:43
  * To change this template use File | Settings | File Templates.
  */
+
+enum ActionType {
+    POSITIVE, NEGATIVE, NEUTRAL
+}
+
 public class ActionCard extends Card {
     private String cardName;
     private String action;
