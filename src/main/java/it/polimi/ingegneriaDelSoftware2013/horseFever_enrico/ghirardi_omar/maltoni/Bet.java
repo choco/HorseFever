@@ -7,9 +7,47 @@ package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.malt
  * Time: 15:38
  * To change this template use File | Settings | File Templates.
  */
+
+enum BetType {
+    WINNING, PLACED
+}
+
+enum InvalidBetExceptionType {
+    NOTENOUGHTMONEY, NOTAMINIMUMBET, NOMOREREMAINIGBETS
+}
+
+class InvalidBetException extends Exception {
+
+    private InvalidBetExceptionType type;
+
+    public InvalidBetException(InvalidBetExceptionType type) {
+        this.type = type;
+    }
+}
+
 public class Bet {
+    public Player getBettingPlayer() {
+        return bettingPlayer;
+    }
+
     private Player bettingPlayer;
     private int amount;
+
+    public Lane getBettingLane() {
+        return bettingLane;
+    }
+
+    public BetType getType() {
+        return type;
+    }
+
     private Lane bettingLane;
     private BetType type;
+
+    public Bet(Player bettingPlayer, int amount, Lane bettingLane, BetType type) {
+        this.bettingPlayer = bettingPlayer;
+        this.amount = amount;
+        this.bettingLane = bettingLane;
+        this.type = type;
+    }
 }
