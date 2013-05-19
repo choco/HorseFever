@@ -15,7 +15,7 @@ public class RaceManager {
     private Standing standing;
     private Deck movementCardDeck;
 
-    void throwSprintDices() {
+    void throwSprintDice() {
         ;
     }
 

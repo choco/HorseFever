@@ -38,6 +38,7 @@ public class Player {
         else {
             throw new InvalidBetException(InvalidBetExceptionType.NOMOREREMAINIGBETS);
         }
+
     }
 
 

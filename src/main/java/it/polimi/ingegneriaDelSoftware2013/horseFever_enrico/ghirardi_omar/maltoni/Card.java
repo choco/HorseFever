@@ -7,5 +7,5 @@ package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.malt
  * Time: 15:42
  * To change this template use File | Settings | File Templates.
  */
-public class Card {
+public class Card {  //interfaccia?
 }

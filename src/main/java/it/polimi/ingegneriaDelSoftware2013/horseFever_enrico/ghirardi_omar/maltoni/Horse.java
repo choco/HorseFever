@@ -9,7 +9,7 @@ package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.malt
  */
 public class Horse {
     private Stable ownerStable;
-    private Card horseCard;
+    private HorseCard horseCard;
     private int fixedStartSteps;
     private int addStartSteps;
     private int fixedSprintSteps;
