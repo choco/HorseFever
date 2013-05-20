@@ -9,9 +9,18 @@ package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.malt
  */
 
 enum StableColor {
-      BLACK, BLUE,GREEN, RED, YELLOW, WHITE
+    BLACK, BLUE, GREEN, RED, YELLOW, WHITE
 }
+
 public class Stable {
+
+    private StableColor color;
+
+    /*temporary constructor for testing*/
+
+    public Stable(StableColor color) {
+        this.color = color;
+    }
 
     /*    Stable interfaccia di StableCard? Non ricordo come volevamo implementare
 

@@ -15,4 +15,17 @@ public class Horse {
     private int fixedSprintSteps;
     private int addSprintSteps;
     private int currentPosition;
+    private boolean finishedRace;
+
+    public int getCurrentPosition() {
+        return currentPosition;
+    }
+
+    public void setCurrentPosition(int position) {
+        this.currentPosition = position;
+    }
+
+    public boolean hasFinishedRace() {
+        return finishedRace;
+    }
 }
