@@ -15,12 +15,25 @@ public class Match {
     private ArrayList<Player> players;
     private Player currentPLayer; //giocatore in azione
     private int currentTurn;
+    private int mainPlayer;  // indice primo giocatore nell'array list
+    private Deck movementCardDeck;
+    private Deck actionCardDeck;
+
+    /* mazzi board game
+
+    private Deck characterCardDeck;
+    private Deck stableCardDeck;
+    private Deck horseCardDeck;
+    private Deck employerCardDeck; //mazzo carte aiutanti
+    private Deck goalCardDeck;
+    //come implementare le carte debito?
+
+    */
     //...
 
     public Match (){
-                // riceve dati da interfaccia o lancia lui l'interfaccia?  inizializza il gioco o è l'istanza dei turni? ... lo lancia HorseFever
+        // riceve dati da interfaccia o lancia lui l'interfaccia?  inizializza il gioco o è l'istanza dei turni? ... lo lancia HorseFever
     }
-
 
 }
 

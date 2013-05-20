@@ -9,5 +9,11 @@ package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.malt
  */
 public class HorseFever {
     //lancio gioco con main!
+    public void main (String args[]){
+        Match match;
+
+        match = new Match();
+
+    }
 
 }
