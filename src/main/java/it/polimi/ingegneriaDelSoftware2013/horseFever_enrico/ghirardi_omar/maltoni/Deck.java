@@ -14,6 +14,10 @@ public class Deck {
     private ArrayList<Card> cards;
     private static final int numOfShuffles = 100;
 
+    public Deck (){
+        //streaming da file...
+    }
+
     void shuffle() {
         Random generator = new Random();
         int firstIndex, secondIndex;

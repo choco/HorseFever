@@ -12,7 +12,7 @@ public class HorseFever {
     public void main (String args[]){
         Match match;
 
-        match = new Match();
+      /*  match = new Match();    */
 
     }
 
