@@ -40,4 +40,8 @@ public class Standing {
             }
         }
     }
+
+    public void fixUpStandingsBasedOnQuotations(BlackBoard board) {
+        /* usa le quotazioni salvate dentro la blackboard per determinare la classifica finale */
+    }
 }

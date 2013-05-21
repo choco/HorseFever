@@ -42,9 +42,7 @@ public class BlackBoard {
         }
     }
 
-
     void updateQuotations(Standing s) {
-        ;
     }
 
 

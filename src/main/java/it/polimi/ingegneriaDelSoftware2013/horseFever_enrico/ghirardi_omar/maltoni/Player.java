@@ -15,35 +15,68 @@ public class Player {
     private int money;
     private int victoryPoints;
     private int remainingBets;
-    private boolean isFirstPlayer;
+    private boolean firstPlayer;
     private CharacterCard charCard;
     private ArrayList<ActionCard> actionCardPile;
 
-    Bet makeBet(int amount, BetType type, Lane lane) throws InvalidBetException{
-        if(remainingBets > 0) {
-            if(amount <= money) {
-                if(amount >= victoryPoints*100) {
+    public Player(String name) {
+        idTag = name;
+        money = 0;
+        victoryPoints = 1;
+        remainingBets = 2;
+        firstPlayer = false;
+        //characterCard
+        actionCardPile = new ArrayList<ActionCard>();
+    }
+
+    public boolean isActionCardPileEmpty() {
+        return actionCardPile.isEmpty();
+    }
+
+    public boolean isFirstPlayer() {
+        return firstPlayer;
+    }
+
+
+    public void setFirstPlayer(boolean value) {
+        firstPlayer = value;
+    }
+
+    Bet makeBet(int amount, BetType type, Lane lane) throws InvalidBetException {
+        if (remainingBets > 0) {
+            if (amount <= money) {
+                if (amount >= victoryPoints * 100) {
                     money -= amount;
                     remainingBets--;
                     return new Bet(this, amount, lane, type);
-                }
-                else {
+                } else {
                     throw new InvalidBetException(InvalidBetExceptionType.NOTAMINIMUMBET);
                 }
-            }
-            else {
+            } else {
                 throw new InvalidBetException(InvalidBetExceptionType.NOTENOUGHTMONEY);
             }
-        }
-        else {
+        } else {
             throw new InvalidBetException(InvalidBetExceptionType.NOMOREREMAINIGBETS);
         }
 
     }
 
+    public void setCharCard(CharacterCard card) {
+        charCard = card;
+        updatePlayerInfo();
+    }
+
+    private void updatePlayerInfo() {
+        // prende dati dalla charcard che gli è stata assegnata (soldi, colore) con anche le abilità (se aggiungiamo carte opzionali)
+    }
+
+    public void addActionCard(ActionCard card) {
+        actionCardPile.add(card);
+    }
+
 
     void playActionCard(ActionCard card, Lane lane) {
-        ;
+        lane.addActionCard((ActionCard) actionCardPile.remove(actionCardPile.indexOf(card)));
     }
 }
 

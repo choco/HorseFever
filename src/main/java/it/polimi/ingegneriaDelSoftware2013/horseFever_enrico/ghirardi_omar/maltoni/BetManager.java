@@ -13,21 +13,25 @@ public class BetManager {
 
     private ArrayList<Bet> bets;
 
-    boolean insertBet(Bet bet) {
-       if(checkBetValidity(bet)) {
-           bets.add(bet);
-           return true;
-       }
+    public BetManager() {
+        bets = new ArrayList<Bet>();
+    }
 
-       return false;
+    boolean insertBet(Bet bet) {
+        if (checkBetValidity(bet)) {
+            bets.add(bet);
+            return true;
+        }
+
+        return false;
     }
 
     //validità scommessa nelle due bet phases, no doppia scommessa
     boolean checkBetValidity(Bet bet) {
-        for(Bet temp : bets) {
-            if(bet.getBettingPlayer()==temp.getBettingPlayer()) {
-                if(bet.getBettingLane()==temp.getBettingLane()) {
-                    if(bet.getType()==temp.getType())
+        for (Bet temp : bets) {
+            if (bet.getBettingPlayer() == temp.getBettingPlayer()) {
+                if (bet.getBettingLane() == temp.getBettingLane()) {
+                    if (bet.getType() == temp.getType())
                         return false;
                 }
             }
@@ -50,8 +54,8 @@ public class BetManager {
     }*/
 
     void paymentTime(BlackBoard board) {
-        for(Bet bet : bets) {
-           ;
+        for (Bet bet : bets) {
+            ;
         }
     }
 

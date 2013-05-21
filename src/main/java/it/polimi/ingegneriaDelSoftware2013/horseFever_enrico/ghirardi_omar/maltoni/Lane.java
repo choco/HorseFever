@@ -16,7 +16,7 @@ public class Lane implements Comparable<Lane> {
 
 
     void addActionCard(ActionCard card) {
-        ;
+        actionPile.add(card);
     }
 
     Horse getHorse() {
