@@ -111,8 +111,14 @@ public class Match {
                 }
                 return cards;
             }
-            case MOVEMENT:
-                break;
+            case MOVEMENT: {
+                cards = new ArrayList<MovementCard>();
+                while (jp.nextToken() == JsonToken.START_OBJECT) {
+                    MovementCard card = mapper.readValue(jp, MovementCard.class);
+                    cards.add(card);
+                }
+                return cards;
+            }
             case CHARACTER:
                 break;
             case STABLE:

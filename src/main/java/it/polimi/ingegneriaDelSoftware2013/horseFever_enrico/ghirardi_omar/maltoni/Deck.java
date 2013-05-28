@@ -14,8 +14,8 @@ public class Deck {
     private ArrayList<Card> cards;
     private static final int numOfShuffles = 100;
 
-    public Deck (){
-        //streaming da file...
+    public Deck(ArrayList<Card> cards) {
+        this.cards = cards;
     }
 
     void shuffle() {
@@ -23,9 +23,9 @@ public class Deck {
         int firstIndex, secondIndex;
         Card temp;
 
-        for(int i=0; i<numOfShuffles; i++) {
-            firstIndex = generator.nextInt(cards.size()-1);
-            secondIndex = generator.nextInt(cards.size()-1);
+        for (int i = 0; i < numOfShuffles; i++) {
+            firstIndex = generator.nextInt(cards.size() - 1);
+            secondIndex = generator.nextInt(cards.size() - 1);
             temp = cards.get(firstIndex);
             cards.set(firstIndex, cards.get(secondIndex));
             cards.set(secondIndex, temp);
