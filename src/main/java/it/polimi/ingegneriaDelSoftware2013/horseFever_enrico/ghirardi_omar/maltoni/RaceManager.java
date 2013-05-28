@@ -39,8 +39,29 @@ public class RaceManager {
         }
     }
 
-    void throwSprintDice() {
-        ;
+    public StableColor throwSprintDice() {
+
+        int roll = -1;
+        Random r = new Random();
+        roll = r.nextInt(horsesList.size() - 1);
+
+        switch (roll) {
+            case 0:
+                return StableColor.BLACK;
+            case 1:
+                return StableColor.BLUE;
+            case 2:
+                return StableColor.GREEN;
+            case 3:
+                return StableColor.RED;
+            case 4:
+                return StableColor.WHITE;
+            case 5:
+                return StableColor.YELLOW;
+            default:
+                break;
+        }
+        return null;
     }
 
     void startRace() {
@@ -75,6 +96,16 @@ public class RaceManager {
     public void fixUpStandingsBasedOnQuotations() {
         /* usa le quotazioni salvate dentro la blackboard per determinare la classifica finale */
     }
+
+    public void resetRace() {
+
+        for (Horse horse : horsesList) {
+            horse.resetVars();
+        }
+
+
+    }
+
 
 }
 

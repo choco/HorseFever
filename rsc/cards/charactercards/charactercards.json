@@ -1,0 +1,38 @@
+[
+    {
+        "imagePath": "CharacterCard71",
+        "charName": "Cranio Mercanti",
+        "startingMoney": 3400,
+        "baseStableQuotation": 2
+    },
+    {
+        "imagePath": "CharacterCard72",
+        "charName": "Steve Mc Skull",
+        "startingMoney": 3600,
+        "baseStableQuotation": 3
+    },
+    {
+        "imagePath": "CharacterCard73",
+        "charName": "Victor Von Shadel",
+        "startingMoney": 3800,
+        "baseStableQuotation": 4
+    },
+    {
+        "imagePath": "CharacterCard74",
+        "charName": "Cesar Crane",
+        "startingMoney": 4000,
+        "baseStableQuotation": 5
+    },
+    {
+        "imagePath": "CharacterCard75",
+        "charName": "Sigvard Skalle",
+        "startingMoney": 4200,
+        "baseStableQuotation": 6
+    },
+    {
+        "imagePath": "CharacterCard76",
+        "charName": "Crarveo Cervantes",
+        "startingMoney": 4400,
+        "baseStableQuotation": 7
+    }
+]

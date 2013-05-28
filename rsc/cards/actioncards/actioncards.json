@@ -1,0 +1,146 @@
+[
+    {
+        "imagePath": "actioncard01",
+        "cardName": "Magna Velocitas",
+        "action": "fixedStartSteps",
+        "type": "POSITIVE",
+        "actionValue": 4,
+        "cardLetter": "A"
+    },
+    {
+        "imagePath": "actioncard02",
+        "cardName": "Fortuna Benevola",
+        "action": "addStartSteps",
+        "type": "POSITIVE",
+        "actionValue": 1,
+        "cardLetter": "B"
+    },
+    {
+        "imagePath": "actioncard03",
+        "cardName": "Flagellum Fulguris",
+        "action": "addSprintSteps",
+        "type": "POSITIVE",
+        "actionValue": 1,
+        "cardLetter": "C"
+    },
+    {
+        "imagePath": "actioncard04",
+        "cardName": "Herba Magica",
+        "action": "fixedSrintSteps",
+        "type": "POSITIVE",
+        "actionValue": 2,
+        "cardLetter": "D"
+    },
+    {
+        "imagePath": "actioncard05",
+        "cardName": "In Ignis Veritas",
+        "action": "winsPhotofinish",
+        "type": "POSITIVE",
+        "actionValue": 1,
+        "cardLetter": "F"
+    },
+    {
+        "imagePath": "actioncard06",
+        "cardName": "Fustis et Radix",
+        "action": "addFinishSteps",
+        "type": "POSITIVE",
+        "actionValue": 2,
+        "cardLetter": "E"
+    },
+    {
+        "imagePath": "actioncard07",
+        "cardName": "Vigor Ferreum",
+        "action": "isLastFixedSteps",
+        "type": "POSITIVE",
+        "actionValue": 4,
+        "cardLetter": "G"
+    },
+    {
+        "imagePath": "actioncard08",
+        "cardName": "Globus Obscurus",
+        "action": "fixedStartSteps",
+        "type": "NEGATIVE",
+        "actionValue": 0,
+        "cardLetter": "A"
+    },
+    {
+        "imagePath": "actioncard09",
+        "cardName": "Aqua Putrida",
+        "action": "fixedStartSteps",
+        "type": "NEGATIVE",
+        "actionValue": -1,
+        "cardLetter": "B"
+    },
+    {
+        "imagePath": "actioncard10",
+        "cardName": "Serum Maleficum",
+        "action": "fixedSprintSteps",
+        "type": "NEGATIVE",
+        "actionValue": 0,
+        "cardLetter": "C"
+    },
+    {
+        "imagePath": "actioncard11",
+        "cardName": "Venenum Veneficum",
+        "action": "addSprintSteps",
+        "type": "NEGATIVE",
+        "actionValue": -1,
+        "cardLetter": "D"
+    },
+    {
+        "imagePath": "actioncard12",
+        "cardName": "MalaTempora",
+        "action": "winsPhotofinish",
+        "type": "NEGATIVE",
+        "actionValue": 0,
+        "cardLetter": "F"
+    },
+    {
+        "imagePath": "actioncard13",
+        "cardName": "XIII",
+        "action": "canMoveAfterFinishLine",
+        "type": "NEGATIVE",
+        "actionValue": 0,
+        "cardLetter": "E"
+    },
+    {
+        "imagePath": "actioncard14",
+        "cardName": "Felix Infernalis",
+        "action": "isFirstFixedSteps",
+        "type": "NEGATIVE",
+        "actionValue": 0,
+        "cardLetter": "G"
+    },
+    {
+        "imagePath": "actioncard15",
+        "cardName": "Alfio Allibratore",
+        "action": "addQuotation",
+        "type": "NEUTRAL",
+        "actionValue": 2,
+        "cardLetter": "N"
+    },
+    {
+        "imagePath": "actioncard16",
+        "cardName": "Friz Finden",
+        "action": "removeNegativeactioncards",
+        "type": "NEUTRAL",
+        "actionValue": 1,
+        "cardLetter": "N"
+    },
+    {
+        "imagePath": "actioncard19",
+        "cardName": "Steven Sting",
+        "action": "addQuotation",
+        "type": "NEUTRAL",
+        "actionValue": -2,
+        "cardLetter": "N"
+    },
+    {
+        "imagePath": "actioncard20",
+        "cardName": "Rochelle Recherche",
+        "action": "removePositiveactioncards",
+        "type": "NEUTRAL",
+        "actionValue": 1,
+        "cardLetter": "N"
+    }
+]

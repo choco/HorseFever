@@ -39,4 +39,8 @@ public class Horse {
     public boolean hasFinishedRace() {
         return finishedRace;
     }
+
+    public void resetVars() {
+
+    }
 }

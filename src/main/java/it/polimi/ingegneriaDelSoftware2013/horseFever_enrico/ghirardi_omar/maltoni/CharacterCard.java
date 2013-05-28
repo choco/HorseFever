@@ -8,5 +8,9 @@ package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.malt
  * To change this template use File | Settings | File Templates.
  */
 public class CharacterCard extends Card {
-}
+    private String charName;
+    private int startingMoney;
+    private int baseStableQuotation;
 
+    //setter e getter
+}
