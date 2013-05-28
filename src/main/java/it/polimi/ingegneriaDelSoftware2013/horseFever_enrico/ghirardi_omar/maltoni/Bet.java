@@ -29,14 +29,14 @@ public class Bet {
 
     private Player bettingPlayer;
     private int amount;
-    private Lane bettingLane;
+    private Stable bettingStable;
     private BetType type;
 
 
-    public Bet(Player bettingPlayer, int amount, Lane bettingLane, BetType type) {
+    public Bet(Player bettingPlayer, int amount, Stable bettingStable, BetType type) {
         this.bettingPlayer = bettingPlayer;
         this.amount = amount;
-        this.bettingLane = bettingLane;
+        this.bettingStable = bettingStable;
         this.type = type;
     }
 
@@ -44,15 +44,13 @@ public class Bet {
         return bettingPlayer;
     }
 
-    public Lane getBettingLane() {
-        return bettingLane;
+    public Stable getBettingStable() {
+        return bettingStable;
     }
 
     public BetType getType() {
         return type;
     }
-
-
 
 
 }

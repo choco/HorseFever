@@ -30,7 +30,7 @@ public class BetManager {
     boolean checkBetValidity(Bet bet) {
         for (Bet temp : bets) {
             if (bet.getBettingPlayer() == temp.getBettingPlayer()) {
-                if (bet.getBettingLane() == temp.getBettingLane()) {
+                if (bet.getBettingStable() == temp.getBettingStable()) {
                     if (bet.getType() == temp.getType())
                         return false;
                 }
@@ -53,7 +53,7 @@ public class BetManager {
         }
     }*/
 
-    void paymentTime(BlackBoard board) {
+    void paymentTime() {
         for (Bet bet : bets) {
             ;
         }

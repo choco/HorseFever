@@ -1,5 +1,7 @@
 package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni;
 
+import java.util.ArrayList;
+
 /**
  * Created with IntelliJ IDEA.
  * User: cHoco
@@ -9,13 +11,22 @@ package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.malt
  */
 public class Horse {
     private Stable ownerStable;
-    private HorseCard horseCard;
+    //private HorseCard horseCard;
     private int fixedStartSteps;
     private int addStartSteps;
     private int fixedSprintSteps;
     private int addSprintSteps;
     private int currentPosition;
     private boolean finishedRace;
+    private ArrayList<ActionCard> actionPile;
+
+    void addActionCard(ActionCard card) {
+        actionPile.add(card);
+    }
+
+    void applyActionCards() {
+
+    }
 
     public int getCurrentPosition() {
         return currentPosition;

@@ -42,13 +42,13 @@ public class Player {
         firstPlayer = value;
     }
 
-    Bet makeBet(int amount, BetType type, Lane lane) throws InvalidBetException {
+    Bet makeBet(int amount, BetType type, Stable stable) throws InvalidBetException {
         if (remainingBets > 0) {
             if (amount <= money) {
                 if (amount >= victoryPoints * 100) {
                     money -= amount;
                     remainingBets--;
-                    return new Bet(this, amount, lane, type);
+                    return new Bet(this, amount, stable, type);
                 } else {
                     throw new InvalidBetException(InvalidBetExceptionType.NOTAMINIMUMBET);
                 }
@@ -75,8 +75,8 @@ public class Player {
     }
 
 
-    void playActionCard(ActionCard card, Lane lane) {
-        lane.addActionCard((ActionCard) actionCardPile.remove(actionCardPile.indexOf(card)));
+    void playActionCard(ActionCard card, Horse horse) {
+        horse.addActionCard((ActionCard) actionCardPile.remove(actionCardPile.indexOf(card)));
     }
 }
 

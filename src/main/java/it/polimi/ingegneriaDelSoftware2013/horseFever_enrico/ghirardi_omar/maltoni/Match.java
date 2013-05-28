@@ -1,7 +1,13 @@
 package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni;
 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,16 +16,18 @@ import java.util.Random;
  * Time: 15:41
  * To change this template use File | Settings | File Templates.
  */
-public abstract class Match {
+public class Match {
 
     private ArrayList<Player> players;
-    private Player currentPLayer; //giocatore in azione
+    private ArrayList<Stable> stables;
+    private int currentPLayer; //giocatore in azione
     private int currentTurn;
-    private int mainPlayer;  // indice primo giocatore nell'array list
+    private int firstPlayer;  // indice primo giocatore nell'array list
     private Deck movementCardDeck;
     private Deck actionCardDeck;
 
     private BetManager betManager;
+    private RaceManager raceManager;
 
     // mazzi board game
 
@@ -44,114 +52,15 @@ public abstract class Match {
 
     }
 
-    public void startMatch() {
-        giveCharacterCards();
-        setFirstPlayer();
-        /* se è family game */
-        giveActionCards(2);
-
-        betPhase(true);
-        rigPhase();
-        betPhase(false);
-
-        racePhase();
-
-    }
-
-    private void racePhase() {
-
-    }
-
-    private void rigPhase() {
-        //sempre questione del giro orario che parte dal first player da risolvere
-        while (someoneStillHasActionCards()) {
-            for (Player player : players) {
-                if (!player.isActionCardPileEmpty()) {
-                    //chiamiamo interfaccia per determinare carta e lane su cui giocare la carta stessa
-                    player.playActionCard(card, lane);
-                }
-            }
-        }
-    }
-
-    private boolean someoneStillHasActionCards() {
-        for (Player player : players) {
-            if (!player.isActionCardPileEmpty())
-                return true;
-        }
-        return false;
-    }
-
-    private boolean someoneStillHasBetsToMake() {
-        //da implementare
-        return false;
-    }
-
-    private void betPhase(boolean mandatory) {
-        /*per family game e quasi anche per il boardgame */
-
-        //prima fase
-
-        // bisogna implementare il problema di compiere questo for in senso antiorario o orario in base alla variabile mandatory (true = orario, false = antiorario)
-        for (Player player : players) {   //senso orario
-            if (!mandatory) {
-                // possibilita di uscire dalla funzione e non farla
-                /*
-                if(false) { //se ha scelto di non farla
-                    continue;
-                }                  */
-            }
-            //chiama interfaccia e chiede al giocatore i valori per la makeBet
-
-
-            boolean betCorrectlyMade = false;
-            while (!betCorrectlyMade) {
-                Bet playerBet;
-
-                try {
-                    playerBet = player.makeBet(amount, type, lane);
-                } catch () {
-
-                }
-
-                if (betManager.insertBet(playerBet)) {
-                    betCorrectlyMade = true;
-                }
-
-            }
-        }
-
-
-    }
-
-    private void giveActionCards(int numCards) {
-        /* assegnamento temporaneo in attesa di struttura migliore per gestire i players */
-        for (Player player : players) {
-            for (int i = 0; i < numCards; i++)
-                player.addActionCard((ActionCard) actionCardDeck.draw());
-        }
-    }
-
-    private void setFirstPlayer() {
-        Random generator = new Random();
-        players.get(generator.nextInt(players.size() - 1)).setFirstPlayer(true);
-    }
-
-    private void giveCharacterCards() {
-        for (Player player : players) {
-            player.setCharCard((CharacterCard) characterCardDeck.draw());
-        }
-    }
-
     public void addPlayer(Player player) {
         players.add(player);
     }
 
-    private int getNumberOfPlayers() { //lancia interfaccia grafica e compila la lista giocatori.. eccezione da gestire se vengono aggiunti più di 6 e meno di 2 giocatori
+    public int getNumberOfPlayers() {
         return players.size();
     }
 
-    private int getNumberOfTurns() {
+    public int getNumberOfTurns() {
         switch (players.size()) {
             case 2:
             case 3:
@@ -167,7 +76,7 @@ public abstract class Match {
 
     }
 
-    private int numberOfMarksPerColor() {
+    public int numberOfMarksPerColor() {
         switch (players.size()) {
             case 2:
                 return 1;
@@ -181,13 +90,43 @@ public abstract class Match {
             default:
                 return -1;
         }
-
     }
 
-    static void main() {
-        Match partita = new Match();
-        partita.addPlayer(player);
-        partita.startMatch();
+    private ArrayList loadCards(String cardsFile, CardType type) throws IOException {
+        ArrayList cards;
+
+        JsonFactory f = new JsonFactory();
+        JsonParser jp = f.createParser(new FileInputStream(cardsFile));
+        ObjectMapper mapper = new ObjectMapper();
+        // advance stream to START_ARRAY first:
+        jp.nextToken();
+
+        switch (type) {
+            case ACTION: {
+                cards = new ArrayList<ActionCard>();
+                // and then each time, advance to opening START_OBJECT
+                while (jp.nextToken() == JsonToken.START_OBJECT) {
+                    ActionCard card = mapper.readValue(jp, ActionCard.class);
+                    cards.add(card);
+                }
+                return cards;
+            }
+            case MOVEMENT:
+                break;
+            case CHARACTER:
+                break;
+            case STABLE:
+                break;
+            case HORSE:
+                break;
+            case EMPLOYER:
+                break;
+            case GOAL:
+                break;
+            default:
+                break;
+        }
+        return null;
     }
 }
 
