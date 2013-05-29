@@ -1,12 +1,5 @@
 package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni;
 
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonToken;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -26,9 +19,6 @@ public class Match {
     private Deck movementCardDeck;
     private Deck actionCardDeck;
 
-    private BetManager betManager;
-    private RaceManager raceManager;
-
     // mazzi board game
 
     private Deck characterCardDeck;
@@ -46,10 +36,17 @@ public class Match {
         //inizializzi i mazzi
         // inizializzi la blackboard
         //inizializzi bet manager
-        betManager = new BetManager();
-        //inizializzi lane
-        //inizializzi race manager;
+        //inizializzi stable
 
+
+    }
+
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
+    public Deck getActionCardDeck() {
+        return actionCardDeck;
     }
 
     public void addPlayer(Player player) {
@@ -90,49 +87,6 @@ public class Match {
             default:
                 return -1;
         }
-    }
-
-    private ArrayList loadCards(String cardsFile, CardType type) throws IOException {
-        ArrayList cards;
-
-        JsonFactory f = new JsonFactory();
-        JsonParser jp = f.createParser(new FileInputStream(cardsFile));
-        ObjectMapper mapper = new ObjectMapper();
-        // advance stream to START_ARRAY first:
-        jp.nextToken();
-
-        switch (type) {
-            case ACTION: {
-                cards = new ArrayList<ActionCard>();
-                // and then each time, advance to opening START_OBJECT
-                while (jp.nextToken() == JsonToken.START_OBJECT) {
-                    ActionCard card = mapper.readValue(jp, ActionCard.class);
-                    cards.add(card);
-                }
-                return cards;
-            }
-            case MOVEMENT: {
-                cards = new ArrayList<MovementCard>();
-                while (jp.nextToken() == JsonToken.START_OBJECT) {
-                    MovementCard card = mapper.readValue(jp, MovementCard.class);
-                    cards.add(card);
-                }
-                return cards;
-            }
-            case CHARACTER:
-                break;
-            case STABLE:
-                break;
-            case HORSE:
-                break;
-            case EMPLOYER:
-                break;
-            case GOAL:
-                break;
-            default:
-                break;
-        }
-        return null;
     }
 }
 

@@ -1,5 +1,7 @@
 package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni;
 
+import java.util.ArrayList;
+
 /**
  * Created with IntelliJ IDEA.
  * User: cHoco
@@ -8,6 +10,37 @@ package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.malt
  * To change this template use File | Settings | File Templates.
  */
 public class MatchController {
+
+    private Match match;
+
+    private BetManager betManager;
+    private RaceManager raceManager;
+
+    private void giveActionCards(int numCards) {
+        // assegnamento temporaneo in attesa di struttura migliore per gestire i players
+
+        ArrayList<Player> players = match.getPlayers();
+
+        Player player = null;
+        for (Player temp : players) {
+            if (temp.isFirstPlayer()) {
+                player = temp;
+                break;
+            }
+
+        }
+
+        int j = players.indexOf(player) + 1;
+        for (int i = 0; i < players.size(); i++) {
+            if (j >= players.size()) j = 0;
+
+            for (int k = 0; k < numCards; k++) {
+                players.get(j).addActionCard((ActionCard) match.getActionCardDeck().draw());
+
+            }
+            ++j;
+        }
+    }
     /*
     public void startMatch() {
         giveCharacterCards();
