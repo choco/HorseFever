@@ -31,6 +31,7 @@ public class Player {
         actionCardPile = new ArrayList<ActionCard>();
     }
 
+    //method used in the boardgame
     public boolean isActionCardPileEmpty() {
         return actionCardPile.isEmpty();
     }

@@ -14,8 +14,7 @@ enum StableColor {
 
 public class Stable implements Comparable<Stable> {
 
-    private StableColor color;
-
+    private StableColor color; //true stable ID...it is unique for each stable
     private Horse horse;
     private StableCard stableCard;
     private int quotation;
@@ -50,8 +49,6 @@ public class Stable implements Comparable<Stable> {
     /*    Stable interfaccia di StableCard? Non ricordo come volevamo implementare
 
     private String stableName; //quello sulla carta, giusto per l'interfaccia
-    private StableColor color; //vero ID che nella logica contraddistingue una scuderia, univoco (static final?)
-
 
     public StableColor getColor (){
         return this.color;

@@ -64,11 +64,8 @@ private boolean someoneStillHasBetsToMake() {
 }
    */
     private void betPhase(boolean mandatory) {
-        //per family game e quasi anche per il boardgame
 
-        //prima fase
-
-        //variabili da aggiornare da interfaccia utente
+        //variables which will be updated via user interface
         int amount = 0;
         Stable stable = null;
         BetType type = null;
@@ -78,6 +75,9 @@ private boolean someoneStillHasBetsToMake() {
         Player firstPlayer = match.getFirstPlayer();
         int j = players.indexOf(firstPlayer);
 
+        /* if the bet is mandatory it means the game is currently at the first bet which every player have to do in clockwise order starting from the 1st player
+           if the bet isn't mandatory the players, starting from the 1st player, are not obliged to do a bet (anticlockwise order)
+         */
         if (mandatory) {
             /*for (Player player : match.getPlayers()) {   //senso orario
                 /* if (!mandatory) {
@@ -89,7 +89,6 @@ private boolean someoneStillHasBetsToMake() {
                 }    */
             for (int i = 0; i < players.size(); i++) {
                 if (j >= players.size()) j = 0;
-
 
                 //chiama interfaccia e chiede al giocatore i valori per la makeBet
 
@@ -147,15 +146,10 @@ private boolean someoneStillHasBetsToMake() {
 
         ArrayList<Player> players = match.getPlayers();
 
-        Player player = null;
-        for (Player temp : players) {
-            if (temp.isFirstPlayer()) {
-                player = temp;
-                break;
-            }
+        Player player = match.getFirstPlayer();
 
-        }
-
+        // j is the index of the current player
+        // j is initialized as the index of the player next to the first player (clockwise)
         int j = players.indexOf(player) + 1;
         for (int i = 0; i < players.size(); i++) {
             if (j >= players.size()) j = 0;

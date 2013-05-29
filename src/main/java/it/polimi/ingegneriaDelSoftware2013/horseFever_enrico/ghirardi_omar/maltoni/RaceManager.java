@@ -13,7 +13,7 @@ import java.util.Random;
  * To change this template use File | Settings | File Templates.
  */
 public class RaceManager {
-    private final int finishLine = 12; //numero caselle per il traguardo
+    private final int finishLine = 12; //no. of steps to finish line
     private ArrayList<Horse> horsesList;
     private Deck movementCardDeck;
     private Map<Stable, Integer> standing;
@@ -28,7 +28,7 @@ public class RaceManager {
         Random generator = new Random();
 
         while (numbers.size() < size) {
-            int random = generator.nextInt(size) + 2; //quotazione parte da 2
+            int random = generator.nextInt(size) + 2; //quotation starts from 2
             if (!numbers.contains(random)) {
                 numbers.add(random);
             }
@@ -64,9 +64,14 @@ public class RaceManager {
         return null;
     }
 
-    void startRace() {
+    void startRace() {      // handles the start
         ;
     }
+
+    void raceTurn() {        // handles every race turn
+        ;
+    }
+
 
     void checkActionCardsAtStart() {
         ;
@@ -94,7 +99,7 @@ public class RaceManager {
     }
 
     public void fixUpStandingsBasedOnQuotations() {
-        /* usa le quotazioni salvate dentro la blackboard per determinare la classifica finale */
+        /* usa le quotazioni per determinare la classifica finale */
     }
 
     public void resetRace() {

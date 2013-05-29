@@ -41,6 +41,12 @@ public class Horse {
     }
 
     public void resetVars() {
-
+        this.fixedStartSteps = 0;
+        this.addStartSteps = 0;
+        this.fixedSprintSteps = 0;
+        this.addSprintSteps = 0;
+        this.currentPosition = 0;
+        this.finishedRace = false;
+        this.actionPile = null;
     }
 }
