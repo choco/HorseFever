@@ -61,6 +61,10 @@ public class Match {
         return actionCardDeck;
     }
 
+    public Deck getCharacterCardDeck() {
+        return characterCardDeck;
+    }
+
     public void addPlayer(Player player) {
         players.add(player);
     }
@@ -99,6 +103,21 @@ public class Match {
             default:
                 return -1;
         }
+    }
+
+    public Player getFirstPlayer() {
+
+
+        Player player = null;
+        for (Player temp : players) {
+            if (temp.isFirstPlayer()) {
+                player = temp;
+                break;
+            }
+
+        }
+        return player;
+
     }
 }
 
