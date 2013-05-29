@@ -21,7 +21,34 @@ public class Deck {
     private ArrayList<Card> cards;
     private static final int numOfShuffles = 100;
 
-    public Deck(String cardsFile, CardType type) throws IOException {
+    private static final String ACTIONCARDS_FILEPATH = "rsc/cards/actioncards/actioncards.json";
+    private static final String MOVEMENTCARDS_FILEPATH = "rsc/cards/movementcards/movementcards.json";
+    private static final String CHARACTERCARDS_FILEPATH = "rsc/cards/charactercards/charactercards.json";
+    private static final String STABLECARDS_FILEPATH = "rsc/cards/stablecards/stablecards.json";
+
+    public Deck(CardType type) throws IOException {
+        String cardsFile = null;
+        switch (type) {
+            case ACTION:
+                cardsFile = ACTIONCARDS_FILEPATH;
+                break;
+            case MOVEMENT:
+                cardsFile = MOVEMENTCARDS_FILEPATH;
+                break;
+            case CHARACTER:
+                cardsFile = CHARACTERCARDS_FILEPATH;
+                break;
+            case STABLE:
+                cardsFile = STABLECARDS_FILEPATH;
+                break;
+            case HORSE:
+                break;
+            case EMPLOYER:
+                break;
+            case GOAL:
+                break;
+        }
+
         ArrayList cards = new ArrayList();
 
         JsonFactory f = new JsonFactory();

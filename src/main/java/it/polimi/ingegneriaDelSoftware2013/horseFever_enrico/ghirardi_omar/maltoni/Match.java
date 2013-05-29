@@ -1,5 +1,6 @@
 package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -18,7 +19,6 @@ public class Match {
     private int firstPlayer;  // indice primo giocatore nell'array list
     private Deck movementCardDeck;
     private Deck actionCardDeck;
-
     // mazzi board game
 
     private Deck characterCardDeck;
@@ -30,14 +30,26 @@ public class Match {
     //...
 
     public Match() {
-        // riceve dati da interfaccia o lancia lui l'interfaccia?  inizializza il gioco o è l'istanza dei turni? ... lo lancia HorseFever
-        //inizializza le variabili dei mazzi con la chiamata del costruttore
 
         //inizializzi i mazzi
-        // inizializzi la blackboard
-        //inizializzi bet manager
         //inizializzi stable
 
+        try {
+            movementCardDeck = new Deck(CardType.MOVEMENT);
+            actionCardDeck = new Deck(CardType.ACTION);
+            stableCardDeck = new Deck(CardType.STABLE);
+            characterCardDeck = new Deck(CardType.CHARACTER);
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+
+        players = new ArrayList<Player>();
+        stables = new ArrayList<Stable>();
+
+        for (StableColor color : StableColor.values()) {
+            Stable stable = new Stable(color);
+            stables.add(stable);
+        }
 
     }
 

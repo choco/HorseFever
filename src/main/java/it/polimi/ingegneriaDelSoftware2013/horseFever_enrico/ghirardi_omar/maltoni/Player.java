@@ -19,6 +19,8 @@ public class Player {
     private CharacterCard charCard;
     private ArrayList<ActionCard> actionCardPile;
 
+    private ArrayList<Stable> ownedStables;
+
     public Player(String name) {
         idTag = name;
         money = 0;
