@@ -146,11 +146,7 @@ private boolean someoneStillHasBetsToMake() {
 
         ArrayList<Player> players = match.getPlayers();
 
-        Player player = match.getFirstPlayer();
-
-        // j is the index of the current player
-        // j is initialized as the index of the player next to the first player (clockwise)
-        int j = players.indexOf(player) + 1;
+        int j = players.indexOf(match.getFirstPlayer()) + 1;
         for (int i = 0; i < players.size(); i++) {
             if (j >= players.size()) j = 0;
 

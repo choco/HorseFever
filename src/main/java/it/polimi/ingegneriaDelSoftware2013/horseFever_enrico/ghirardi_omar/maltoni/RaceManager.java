@@ -17,8 +17,22 @@ public class RaceManager {
     private ArrayList<Horse> horsesList;
     private Deck movementCardDeck;
     private Map<Stable, Integer> standing;
+    private ArrayList<ActionCard> playedActionCards;
 
-    public RaceManager(Stable[] stables) {
+    private static final String FIXED_START_STEPS = "fixedStartSteps";
+    private static final String ADD_START_STEPS = "addStartSteps";
+    private static final String ADD_SPRINT_STEPS = "addSprintSteps";
+    private static final String FIXED_SPRINT_STEPS = "fixedSprintSteps";
+    private static final String WINS_PHOTOFINISH = "winsPhotofinish";
+    private static final String ADD_FINISH_STEPS = "addFinishSteps";
+    private static final String IS_LAST_FIXED_STEPS = "isLastFixedSteps";
+    private static final String CAN_MOVE_AFTER_FINISH_LINE = "canMoveAfterFinishLine";
+    private static final String IS_FIRST_FIXED_STEPS = "isFirstFixedSteps";
+    private static final String ADD_QUOTATION = "addQuotation";
+    private static final String REMOVE_NEGATIVE_ACTIONCARDS = "removeNegativeActioncards";
+    private static final String REMOVE_POSITIVE_ACTIONCARDS = "removePositiveActioncards";
+
+    public RaceManager(Stable[] stables, Deck movementCardDeck) {
         for (Stable stable : stables) {
             standing.put(stable, 0);
         }
@@ -37,6 +51,68 @@ public class RaceManager {
         for (int i = 0; i < size && !numbers.isEmpty(); i++) {
             stables[i].setQuotation(numbers.remove(0));
         }
+
+        this.movementCardDeck = movementCardDeck;
+        playedActionCards = new ArrayList<ActionCard>();
+    }
+
+    public void removeActionCardsOfTypeFromHorse(ActionType actionType, Horse horse) {
+        for (ActionCard card : horse.getActionPile()) {
+            if (card.getType() == actionType) {
+                playedActionCards.add(card);
+                horse.getActionPile().remove(card);
+            }
+        }
+    }
+
+    public void applyNeutralCards() {
+        for (Horse horse : horsesList) {
+            for (ActionCard card : horse.getActionPile()) {
+                if (card.getType() == ActionType.NEUTRAL) {
+                    if (card.getAction().equals(ADD_QUOTATION))
+                        horse.getOwnerStable().setQuotation(horse.getOwnerStable().getQuotation() + card.getActionValue());
+                    else if (card.getAction().equals(REMOVE_NEGATIVE_ACTIONCARDS))
+                        removeActionCardsOfTypeFromHorse(ActionType.NEGATIVE, horse);
+                    else if (card.getAction().equals(REMOVE_POSITIVE_ACTIONCARDS))
+                        removeActionCardsOfTypeFromHorse(ActionType.POSITIVE, horse);
+                }
+            }
+        }
+    }
+
+    public void applyMovementRelatedActionCardsToHorse(Horse horse) {
+
+        for (ActionCard card : horse.getActionPile()) {
+
+            if (card.getAction().equals(FIXED_START_STEPS))
+                horse.setFixedStartSteps(card.getActionValue());
+
+            else if (card.getAction().equals(ADD_START_STEPS))
+                horse.setAddStartSteps(horse.getAddStartSteps() + card.getActionValue());
+
+            else if (card.getAction().equals(FIXED_SPRINT_STEPS))
+                horse.setFixedSprintSteps(card.getActionValue());
+
+            else if (card.getAction().equals(ADD_SPRINT_STEPS))
+                horse.setAddSprintSteps(horse.getAddSprintSteps() + card.getActionValue());
+
+            else if (card.getAction().equals(WINS_PHOTOFINISH))
+                horse.setWinsPhotofinish(card.getActionValue());
+
+            else if (card.getAction().equals(ADD_FINISH_STEPS))
+                horse.setAddFinishSteps(horse.getAddFinishSteps() + card.getActionValue());
+
+            else if (card.getAction().equals(IS_LAST_FIXED_STEPS))
+                horse.setLastFixedSteps(card.getActionValue());
+
+            else if (card.getAction().equals(IS_FIRST_FIXED_STEPS))
+                horse.setFirstFixedSteps(card.getActionValue());
+
+            else if (card.getAction().equals(CAN_MOVE_AFTER_FINISH_LINE))
+                horse.setCanMoveAfterFinishLine(card.getActionValue());
+
+        }
+
     }
 
     public StableColor throwSprintDice() {

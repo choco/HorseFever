@@ -26,6 +26,11 @@ public class Stable implements Comparable<Stable> {
     }
 
     public void setQuotation(int quotation) {
+        if (quotation > 7)
+            quotation = 7;
+        else if (quotation < 2)
+            quotation = 2;
+
         this.quotation = quotation;
     }
 

@@ -26,7 +26,7 @@
     {
         "imagePath": "actioncard04",
         "cardName": "Herba Magica",
-        "action": "fixedSrintSteps",
+        "action": "fixedSprintSteps",
         "type": "POSITIVE",
         "actionValue": 2,
         "cardLetter": "D"
@@ -122,7 +122,7 @@
     {
         "imagePath": "actioncard16",
         "cardName": "Friz Finden",
-        "action": "removeNegativeactioncards",
+        "action": "removeNegativeActioncards",
         "type": "NEUTRAL",
         "actionValue": 1,
         "cardLetter": "N"
@@ -138,7 +138,7 @@
     {
         "imagePath": "actioncard20",
         "cardName": "Rochelle Recherche",
-        "action": "removePositiveactioncards",
+        "action": "removePositiveActioncards",
         "type": "NEUTRAL",
         "actionValue": 1,
         "cardLetter": "N"
