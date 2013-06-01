@@ -16,6 +16,27 @@ public class MovementCard extends Card {
         movements = new ArrayList<Integer>();
     }
 
+    public int getMovementForQuotation(int quotation) {
+        switch (quotation) {
+            case 2:
+                return movements.get(0);
+            case 3:
+                return movements.get(1);
+            case 4:
+                return movements.get(2);
+            case 5:
+                return movements.get(3);
+            case 6:
+                return movements.get(4);
+            case 7:
+                return movements.get(5);
+            default:
+                break;
+        }
+
+        return 0;
+    }
+
     public void setMovements(ArrayList<Integer> movements) {
         this.movements = movements;
     }

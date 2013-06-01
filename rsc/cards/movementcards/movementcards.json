@@ -1,94 +1,94 @@
 [
     {
         "imagePath": "movementcard83",
-        "movementes": [3, 3, 2, 2, 2, 2]
+        "movements": [3, 3, 2, 2, 2, 2]
     },
     {
         "imagePath": "movementcard84",
-        "movementes": [3, 2, 3, 2, 2, 2]
+        "movements": [3, 2, 3, 2, 2, 2]
     },
     {
         "imagePath": "movementcard85",
-        "movementes": [3, 2, 2, 3, 2, 2]
+        "movements": [3, 2, 2, 3, 2, 2]
     },
     {
         "imagePath": "movementcard86",
-        "movementes": [3, 2, 2, 2, 3, 2]
+        "movements": [3, 2, 2, 2, 3, 2]
     },
     {
         "imagePath": "movementcard87",
-        "movementes": [2, 2, 2, 2, 3, 3]
+        "movements": [2, 2, 2, 2, 3, 3]
     },
     {
         "imagePath": "movementcard88",
-        "movementes": [2, 2, 2, 3, 2, 3]
+        "movements": [2, 2, 2, 3, 2, 3]
     },
     {
         "imagePath": "movementcard89",
-        "movementes": [2, 2, 3, 2, 2, 3]
+        "movements": [2, 2, 3, 2, 2, 3]
     },
     {
         "imagePath": "movementcard90",
-        "movementes": [2, 3, 2, 2, 2, 3]
+        "movements": [2, 3, 2, 2, 2, 3]
     },
     {
         "imagePath": "movementcard91",
-        "movementes": [2, 3, 2, 2, 3, 2]
+        "movements": [2, 3, 2, 2, 3, 2]
     },
     {
         "imagePath": "movementcard92",
-        "movementes": [2, 3, 2, 2, 3, 2]
+        "movements": [2, 3, 2, 2, 3, 2]
     },
     {
         "imagePath": "movementcard93",
-        "movementes": [2, 3, 3, 2, 2, 2]
+        "movements": [2, 3, 3, 2, 2, 2]
     },
     {
         "imagePath": "movementcard94",
-        "movementes": [3, 2, 2, 2, 3, 3]
+        "movements": [3, 2, 2, 2, 3, 3]
     },
     {
         "imagePath": "movementcard95",
-        "movementes": [2, 2, 3, 3, 2, 2]
+        "movements": [2, 2, 3, 3, 2, 2]
     },
     {
         "imagePath": "movementcard96",
-        "movementes": [2, 2, 3, 2, 3, 2]
+        "movements": [2, 2, 3, 2, 3, 2]
     },
     {
         "imagePath": "movementcard97",
-        "movementes": [2, 2, 2, 3, 3, 2]
+        "movements": [2, 2, 2, 3, 3, 2]
     },
     {
         "imagePath": "movementcard98",
-        "movementes": [3, 3, 2, 2, 2, 2]
+        "movements": [3, 3, 2, 2, 2, 2]
     },
     {
         "imagePath": "movementcard99",
-        "movementes": [4, 3, 2, 2, 2, 2]
+        "movements": [4, 3, 2, 2, 2, 2]
     },
     {
         "imagePath": "movementcard100",
-        "movementes": [4, 2, 2, 2, 2, 0]
+        "movements": [4, 2, 2, 2, 2, 0]
     },
     {
         "imagePath": "movementcard101",
-        "movementes": [2, 2, 2, 2, 1, 0]
+        "movements": [2, 2, 2, 2, 1, 0]
     },
     {
         "imagePath": "movementcard102",
-        "movementes": [2, 2, 2, 2, 1, 1]
+        "movements": [2, 2, 2, 2, 1, 1]
     },
     {
         "imagePath": "movementcard103",
-        "movementes": [3, 2, 2, 2, 2, 1]
+        "movements": [3, 2, 2, 2, 2, 1]
     },
     {
         "imagePath": "movementcard104",
-        "movementes": [2, 2, 3, 1, 2, 2]
+        "movements": [2, 2, 3, 1, 2, 2]
     },
     {
         "imagePath": "movementcard105",
-        "movementes": [2, 4, 2, 2, 0, 2]
+        "movements": [2, 4, 2, 2, 0, 2]
     }
 ]

@@ -26,6 +26,77 @@ public class Horse {
     private boolean finishedRace;
     private ArrayList<ActionCard> actionPile;
 
+    private static final int DID_NOT_CHANGE = -100;
+
+    public Horse() {
+        fixedStartSteps =
+                addStartSteps =
+                        fixedSprintSteps =
+                                addSprintSteps =
+                                        winsPhotofinish =
+                                                canMoveAfterFinishLine =
+                                                        addFinishSteps =
+                                                                isLastFixedSteps =
+                                                                        isFirstFixedSteps = DID_NOT_CHANGE;
+        currentPosition = 0;
+        finishedRace = false;
+        actionPile = new ArrayList<ActionCard>();
+    }
+
+    boolean didFixedStartStepsChange() {
+        if (fixedStartSteps != DID_NOT_CHANGE)
+            return true;
+        return false;
+    }
+
+    boolean didAddStartStepsChange() {
+        if (addStartSteps != DID_NOT_CHANGE)
+            return true;
+        return false;
+    }
+
+    boolean didFixedSprintStepsChange() {
+        if (fixedSprintSteps != DID_NOT_CHANGE)
+            return true;
+        return false;
+    }
+
+    boolean didAddSprintStepsChange() {
+        if (addSprintSteps != DID_NOT_CHANGE)
+            return true;
+        return false;
+    }
+
+    boolean didWinsPhotofinishChange() {
+        if (winsPhotofinish != DID_NOT_CHANGE)
+            return true;
+        return false;
+    }
+
+    boolean didCanMoveAfterFinishLineChange() {
+        if (canMoveAfterFinishLine != DID_NOT_CHANGE)
+            return true;
+        return false;
+    }
+
+    boolean didAddFinishStepsChange() {
+        if (addFinishSteps != DID_NOT_CHANGE)
+            return true;
+        return false;
+    }
+
+    boolean didIsLastFixedStepsChange() {
+        if (isLastFixedSteps != DID_NOT_CHANGE)
+            return true;
+        return false;
+    }
+
+    boolean didIsFirstFixedStepsChange() {
+        if (isFirstFixedSteps != DID_NOT_CHANGE)
+            return true;
+        return false;
+    }
+
     public Stable getOwnerStable() {
         return ownerStable;
     }
@@ -127,6 +198,8 @@ public class Horse {
     }
 
     public void setCurrentPosition(int position) {
+        if (position < 0)
+            position = 0;
         this.currentPosition = position;
     }
 

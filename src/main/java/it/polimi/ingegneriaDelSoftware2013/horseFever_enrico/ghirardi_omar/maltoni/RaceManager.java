@@ -12,12 +12,21 @@ import java.util.Random;
  * Time: 15:42
  * To change this template use File | Settings | File Templates.
  */
+
+enum RacePhase {
+    START,
+    MIDDLE,
+    SPRINT,
+    FINISH
+}
+
 public class RaceManager {
     private final int finishLine = 12; //no. of steps to finish line
     private ArrayList<Horse> horsesList;
     private Deck movementCardDeck;
     private Map<Stable, Integer> standing;
     private ArrayList<ActionCard> playedActionCards;
+    private RacePhase racePhase;
 
     private static final String FIXED_START_STEPS = "fixedStartSteps";
     private static final String ADD_START_STEPS = "addStartSteps";
@@ -63,6 +72,39 @@ public class RaceManager {
                 horse.getActionPile().remove(card);
             }
         }
+    }
+
+    public void applyMovementCardToHorse(MovementCard card, Horse horse) {
+        int baseMovement = card.getMovementForQuotation(horse.getOwnerStable().getQuotation());
+
+        switch (racePhase) {
+
+            case START:
+                if (horse.didFixedSprintStepsChange()) {
+                    if (horse.didAddStartStepsChange())
+                        horse.setCurrentPosition(horse.getFixedStartSteps() + horse.getAddStartSteps());
+                    else
+                        horse.setCurrentPosition(horse.getFixedStartSteps());
+                } else {
+                    if (horse.didAddStartStepsChange())
+                        horse.setCurrentPosition(baseMovement + horse.getAddStartSteps());
+                    else
+                        horse.setCurrentPosition(baseMovement);
+                }
+                break;
+            case MIDDLE:
+                if (horse.didIsFirstFixedStepsChange()) {
+                    if (isHorseFirst(horse))
+                        horse.setCurrentPosition(horse.getCurrentPosition() + horse.getFirstFixedSteps());
+                } else if (horse.didIsLastFixedStepsChange()) {
+                    if (isHorseLast(horse))
+                        horse.setCurrentPosition(horse.getCurrentPosition() + horse.getLastFixedSteps());
+                } else
+                    horse.setCurrentPosition(horse.getCurrentPosition() + baseMovement);
+                break;
+
+        }
+
     }
 
     public void applyNeutralCards() {
@@ -117,9 +159,8 @@ public class RaceManager {
 
     public StableColor throwSprintDice() {
 
-        int roll = -1;
         Random r = new Random();
-        roll = r.nextInt(horsesList.size() - 1);
+        int roll = r.nextInt(horsesList.size() - 1);
 
         switch (roll) {
             case 0:
@@ -172,6 +213,25 @@ public class RaceManager {
                 lastPosition = stable.getHorse().getCurrentPosition();
             }
         }
+    }
+
+    private boolean isHorseFirst(Horse horse) {
+        if (standing.get(horse.getOwnerStable()) == 1)
+            return true;
+
+        return false;
+    }
+
+    private boolean isHorseLast(Horse horse) {
+        for (Stable temp : standing.keySet()) {
+            if (standing.get(temp) == 6 && temp == horse.getOwnerStable())
+                return true;
+        }
+
+        if (standing.get(horse.getOwnerStable()) == 5)
+            return true;
+
+        return false;
     }
 
     public void fixUpStandingsBasedOnQuotations() {
