@@ -21,12 +21,14 @@ enum RacePhase {
 }
 
 public class RaceManager {
-    private final int finishLine = 12; //no. of steps to finish line
     private ArrayList<Horse> horsesList;
     private Deck movementCardDeck;
     private Map<Stable, Integer> standing;
     private ArrayList<ActionCard> playedActionCards;
     private RacePhase racePhase;
+
+    private static final int FINISH_LINE = 12; //no. of steps to finish line
+    private static final int STANDARD_SPRINT_STEPS = 1;
 
     private static final String FIXED_START_STEPS = "fixedStartSteps";
     private static final String ADD_START_STEPS = "addStartSteps";
@@ -74,13 +76,48 @@ public class RaceManager {
         }
     }
 
+    public boolean allHorsesFinishedRace() {
+        for (Horse horse : horsesList) {
+            if (!horse.hasFinishedRace())
+                return false;
+        }
+
+        return true;
+    }
+
+    public void checkIfHorseArrived(Horse horse) {
+        if (horse.getCurrentPosition() >= FINISH_LINE) {
+            if (horse.didAddFinishStepsChange())
+                horse.setCurrentPosition(horse.getCurrentPosition() + horse.getAddFinishSteps());
+            else if (horse.didCanMoveAfterFinishLineChange())
+                horse.setCurrentPosition(FINISH_LINE);
+
+            horse.setFinishedRace(true);
+        }
+    }
+
+    public void makeHorseSprint(Horse horse) {
+        int current = horse.getCurrentPosition();
+        if (horse.didFixedSprintStepsChange()) {
+            if (horse.didAddSprintStepsChange())
+                horse.setCurrentPosition(current + horse.getFixedSprintSteps() + horse.getAddSprintSteps());
+            else
+                horse.setCurrentPosition(current + horse.getFixedSprintSteps());
+        } else {
+            if (horse.didAddSprintStepsChange())
+                horse.setCurrentPosition(current + horse.getAddSprintSteps() + STANDARD_SPRINT_STEPS);
+            else
+                horse.setCurrentPosition(current + STANDARD_SPRINT_STEPS);
+        }
+    }
+
     public void applyMovementCardToHorse(MovementCard card, Horse horse) {
         int baseMovement = card.getMovementForQuotation(horse.getOwnerStable().getQuotation());
 
         switch (racePhase) {
 
             case START:
-                if (horse.didFixedSprintStepsChange()) {
+                if (horse.didFixedStartStepsChange()) {
                     if (horse.didAddStartStepsChange())
                         horse.setCurrentPosition(horse.getFixedStartSteps() + horse.getAddStartSteps());
                     else
@@ -198,22 +235,45 @@ public class RaceManager {
     public void updateStanding() {
         ArrayList<Stable> temp = new ArrayList<Stable>(standing.keySet());
         Collections.sort(temp);
-        int rank = 0;
+        int rank, posFix;
+        rank = posFix = 0;
+
         for (Stable stable : temp) {
-            if ((stable.getHorse().hasFinishedRace()))
+            if ((stable.getHorse().gotPlaced()))
                 rank++;
         }
 
         int lastPosition = -1;
         for (Stable stable : temp) {
-            if (!stable.getHorse().hasFinishedRace()) {
+            if (!stable.getHorse().gotPlaced()) {
                 if ((stable.getHorse()).getCurrentPosition() != lastPosition)
-                    rank += 1;
+                    rank += posFix + 1;
+                else
+                    posFix += 1;
                 standing.put(stable, rank);
+                if (stable.getHorse().hasFinishedRace())
+                    stable.getHorse().setGotPlaced(true);
                 lastPosition = stable.getHorse().getCurrentPosition();
             }
         }
     }
+
+    public void fixStandingBasedOnQuotation() {
+        ArrayList<Stable> temp = new ArrayList<Stable>(standing.keySet());
+        for (int i = 0; i < temp.size(); i++) {
+            for (int j = 0; j < temp.size(); j++) {
+                if (i != j && (standing.get(temp.get(i)) == standing.get(temp.get(j))) && temp.get(i).getHorse().gotPlaced() && temp.get(j).getHorse().gotPlaced()) {
+                    if (temp.get(i).getQuotation() > temp.get(j).getQuotation())
+                        standing.put(temp.get(i), standing.get(temp.get(i)) + 1);
+                    else if (temp.get(i).getQuotation() < temp.get(j).getQuotation())
+                        standing.put(temp.get(j), standing.get(temp.get(j)) + 1);
+                    else
+                        ;//chiamo interfaccia deve decidere il primo giocatore!!!!!!
+                }
+            }
+        }
+    }
+
 
     private boolean isHorseFirst(Horse horse) {
         if (standing.get(horse.getOwnerStable()) == 1)
@@ -224,8 +284,12 @@ public class RaceManager {
 
     private boolean isHorseLast(Horse horse) {
         for (Stable temp : standing.keySet()) {
-            if (standing.get(temp) == 6 && temp == horse.getOwnerStable())
-                return true;
+            if (standing.get(temp) == 6) {
+                if (temp == horse.getOwnerStable())
+                    return true;
+                else
+                    return false;
+            }
         }
 
         if (standing.get(horse.getOwnerStable()) == 5)
@@ -234,8 +298,13 @@ public class RaceManager {
         return false;
     }
 
-    public void fixUpStandingsBasedOnQuotations() {
-        /* usa le quotazioni per determinare la classifica finale */
+    public void updateStableQuotations() {
+        for (Stable temp : standing.keySet()) {
+            if (temp.getQuotation() - 1 > standing.get(temp))
+                temp.setQuotation(temp.getQuotation() - 1);
+            else if (temp.getQuotation() - 1 < standing.get(temp))
+                temp.setQuotation(temp.getQuotation() + 1);
+        }
     }
 
     public void resetRace() {

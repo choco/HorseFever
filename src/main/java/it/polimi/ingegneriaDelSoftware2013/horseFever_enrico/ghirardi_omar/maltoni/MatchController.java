@@ -15,7 +15,12 @@ public class MatchController {
     private Match match;
     private BetManager betManager;
     private RaceManager raceManager;
-    private GameInterface gameInterface;
+    public GameInterface gameInterface;
+
+
+    public MatchController() {
+
+    }
 
     public void startMatch() {
         //gameInterface = new GameInterface();
@@ -168,4 +173,5 @@ private boolean someoneStillHasBetsToMake() {
             player.setCharCard((CharacterCard) match.getCharacterCardDeck().draw());
         }
     }
+
 }

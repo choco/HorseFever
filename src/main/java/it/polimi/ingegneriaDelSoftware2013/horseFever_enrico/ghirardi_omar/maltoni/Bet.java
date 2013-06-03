@@ -40,6 +40,10 @@ public class Bet {
         this.type = type;
     }
 
+    public int getAmount() {
+        return amount;
+    }
+
     public Player getBettingPlayer() {
         return bettingPlayer;
     }

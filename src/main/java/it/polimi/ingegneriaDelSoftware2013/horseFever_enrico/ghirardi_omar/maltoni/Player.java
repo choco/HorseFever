@@ -14,6 +14,23 @@ public class Player {
     private String idTag;
     private int money;
     private int victoryPoints;
+
+    public int getVictoryPoints() {
+        return victoryPoints;
+    }
+
+    public void setVictoryPoints(int victoryPoints) {
+        this.victoryPoints = victoryPoints;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
     private int remainingBets;
     private boolean firstPlayer;
     private CharacterCard charCard;
@@ -30,6 +47,7 @@ public class Player {
         //characterCard
         actionCardPile = new ArrayList<ActionCard>();
     }
+
 
     //method used in the boardgame
     public boolean isActionCardPileEmpty() {

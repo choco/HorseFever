@@ -24,6 +24,7 @@ public class Horse {
     private int isFirstFixedSteps;
     private int currentPosition;
     private boolean finishedRace;
+    private boolean gotPlaced;
     private ArrayList<ActionCard> actionPile;
 
     private static final int DID_NOT_CHANGE = -100;
@@ -205,6 +206,18 @@ public class Horse {
 
     public boolean hasFinishedRace() {
         return finishedRace;
+    }
+
+    public void setHasFinishedRace(boolean finished) {
+        finishedRace = finished;
+    }
+
+    public void setGotPlaced(boolean placed) {
+        gotPlaced = placed;
+    }
+
+    public boolean gotPlaced() {
+        return gotPlaced;
     }
 
     public void resetVars() {

@@ -1,6 +1,7 @@
 package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,6 +13,10 @@ import java.util.ArrayList;
 public class BetManager {
 
     private ArrayList<Bet> bets;
+
+    private static final int WINNING_BET_VICTORY_POINTS = 3;
+    private static final int PLACED_BET_VICTORY_POINTS = 1;
+    private static final int PLACED_BET_MONEY_MULTIPLIER = 2;
 
     public BetManager() {
         bets = new ArrayList<Bet>();
@@ -40,23 +45,39 @@ public class BetManager {
         return true;
     }
 
-    boolean checkWinningBet(Bet bet) {
-        return true;
+    boolean checkWinningBet(Bet bet, int position) {
+        if (bet.getType() == BetType.WINNING) {
+            if (position == 1)
+                return true;
+        } else if (bet.getType() == BetType.PLACED) {
+            if (position >= 1 && position <= 3)
+                return true;
+        }
+
+        return false;
     }
 
-    /*
-    void payBet(Bet bet) {
-        if(checkWinningBet(bet)) {
-            if(bet.getType() == BetType.WINNING) {
 
+    void payBet(Bet bet) {
+        Player winner = bet.getBettingPlayer();
+        if (bet.getType() == BetType.WINNING) {
+            winner.setMoney(winner.getMoney() + bet.getAmount() * bet.getBettingStable().getQuotation());
+            winner.setVictoryPoints(winner.getVictoryPoints() + WINNING_BET_VICTORY_POINTS);
+        } else if (bet.getType() == BetType.PLACED) {
+            winner.setMoney(winner.getMoney() + bet.getAmount() * PLACED_BET_MONEY_MULTIPLIER);
+            winner.setVictoryPoints(winner.getVictoryPoints() + PLACED_BET_VICTORY_POINTS);
+        }
+    }
+
+    void paymentTime(Map<Stable, Integer> standing) {
+        for (Bet bet : bets) {
+            int position = standing.get(bet.getBettingStable());
+            if (checkWinningBet(bet, position)) {
+                payBet(bet);
             }
         }
-    }*/
 
-    void paymentTime() {
-        for (Bet bet : bets) {
-            ;
-        }
+        //pagare i giocatori proprietari di scuderie che si sono piazzate
     }
 
 }
