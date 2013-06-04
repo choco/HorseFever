@@ -77,7 +77,25 @@ public class BetManager {
             }
         }
 
-        //pagare i giocatori proprietari di scuderie che si sono piazzate
+        for (Stable stable : standing.keySet()) {
+            int earningMoney = 0;
+            switch (standing.get(stable)) {
+                case 1:
+                    earningMoney = stable.getStableCard().getPlacementEarning().get(1);
+                    break;
+                case 2:
+                    earningMoney = stable.getStableCard().getPlacementEarning().get(2);
+                    break;
+                case 3:
+                    earningMoney = stable.getStableCard().getPlacementEarning().get(3);
+                    break;
+                default:
+                    break;
+            }
+
+            stable.getStableOwner().setMoney(stable.getStableOwner().getMoney() + earningMoney);
+        }
+
     }
 
 }

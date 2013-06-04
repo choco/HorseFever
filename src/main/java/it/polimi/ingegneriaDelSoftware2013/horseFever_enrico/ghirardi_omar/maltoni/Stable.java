@@ -15,6 +15,7 @@ enum StableColor {
 public class Stable implements Comparable<Stable> {
 
     private StableColor color; //true stable ID...it is unique for each stable
+    private Player stableOwner;
     private Horse horse;
     private StableCard stableCard;
     private int quotation;
@@ -23,6 +24,14 @@ public class Stable implements Comparable<Stable> {
 
     public Stable(StableColor color) {
         this.color = color;
+    }
+
+    public Player getStableOwner() {
+        return stableOwner;
+    }
+
+    public void setStableOwner(Player player) {
+        stableOwner = player;
     }
 
     public void setQuotation(int quotation) {
@@ -40,6 +49,10 @@ public class Stable implements Comparable<Stable> {
 
     Horse getHorse() {
         return horse;
+    }
+
+    public StableCard getStableCard() {
+        return stableCard;
     }
 
     public int compareTo(Stable stable) {

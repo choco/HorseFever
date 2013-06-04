@@ -13,4 +13,8 @@ public class StableCard extends Card {
     private String stableName;
     private StableColor color;
     private ArrayList<Integer> placementEarning;
+
+    public ArrayList<Integer> getPlacementEarning() {
+        return placementEarning;
+    }
 }
