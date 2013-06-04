@@ -194,6 +194,22 @@ public class RaceManager {
 
     }
 
+    public void removeSameCharCards() {
+
+        for (Horse horse : horsesList) {
+            for (int i = 0; i < horse.getActionPile().size(); i++) {
+                for (int j = 0; j < horse.getActionPile().size(); j++) {
+                    if (j != i && horse.getActionPile().get(j).getCardLetter() == horse.getActionPile().get(i).getCardLetter()) {
+
+                        playedActionCards.add(horse.getActionPile().remove(j));
+                        playedActionCards.add(horse.getActionPile().remove(i));
+                    }
+                }
+            }
+        }
+    }
+
+
     public StableColor throwSprintDice() {
 
         Random r = new Random();
@@ -219,16 +235,33 @@ public class RaceManager {
     }
 
     void startRace() {      // handles the start
-        ;
+
+        MovementCard movementCard = (MovementCard) movementCardDeck.draw();
+        checkActionCardsAtStart();
+        for (Horse horse : horsesList) {
+            applyMovementCardToHorse(movementCard, horse);
+        }
+
     }
 
     void raceTurn() {        // handles every race turn
-        ;
+
+
     }
 
 
     void checkActionCardsAtStart() {
-        ;
+
+        removeSameCharCards();
+        applyNeutralCards();
+
+        for (Horse horse : horsesList) {
+
+            applyMovementRelatedActionCardsToHorse(horse);
+
+        }
+
+
     }
 
     /* currently untested!!!!! */
