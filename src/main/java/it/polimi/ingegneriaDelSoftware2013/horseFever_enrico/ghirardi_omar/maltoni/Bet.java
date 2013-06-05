@@ -20,6 +20,10 @@ class InvalidBetException extends Exception {
 
     private InvalidBetExceptionType type;
 
+    public InvalidBetExceptionType getType() {
+        return type;
+    }
+
     public InvalidBetException(InvalidBetExceptionType type) {
         this.type = type;
     }

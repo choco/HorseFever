@@ -17,6 +17,7 @@ public class MatchController {
     private RaceManager raceManager;
     public GameLobbyInterface lobbyInterface;
     public GameInterface gameInterface;
+    public BetPhaseInterface betPhaseInterface;
 
     private static final int NUMBER_OF_ACTIONCARDS_AT_EACH_TURN = 2;
 
@@ -32,7 +33,7 @@ public class MatchController {
 
     public void startMatch() {
         giveCharacterCards();
-        setFirstPlayer();
+        initializeFirstPlayer();
         startTurn();
     }
 
@@ -113,6 +114,15 @@ public class MatchController {
                     try {
                         playerBet = players.get(j).makeBet(amount, type, stable);
                     } catch (InvalidBetException e) {
+                        switch (e.getType()) {
+
+                            case NOTENOUGHTMONEY:
+                                break;
+                            case NOTAMINIMUMBET:
+                                break;
+                            case NOMOREREMAINIGBETS:
+                                break;
+                        }
 
                     }
 
@@ -171,7 +181,7 @@ public class MatchController {
         }
     }
 
-    private void setFirstPlayer() {
+    private void initializeFirstPlayer() {
         Random generator = new Random();
         match.getPlayers().get(generator.nextInt(match.getPlayers().size() - 1)).setFirstPlayer(true);
     }
