@@ -29,7 +29,7 @@ public class Horse {
 
     private static final int DID_NOT_CHANGE = -100;
 
-    public Horse() {
+    public Horse(Stable ownerStable) {
         fixedStartSteps =
                 addStartSteps =
                         fixedSprintSteps =
@@ -42,6 +42,7 @@ public class Horse {
         currentPosition = 0;
         finishedRace = false;
         actionPile = new ArrayList<ActionCard>();
+        this.ownerStable = ownerStable;
     }
 
     boolean didFixedStartStepsChange() {

@@ -43,24 +43,13 @@ public class RaceManager {
     private static final String REMOVE_NEGATIVE_ACTIONCARDS = "removeNegativeActioncards";
     private static final String REMOVE_POSITIVE_ACTIONCARDS = "removePositiveActioncards";
 
-    public RaceManager(Stable[] stables, Deck movementCardDeck) {
+    public RaceManager(ArrayList<Stable> stables, Deck movementCardDeck) {
+
+        horsesList = new ArrayList<Horse>();
+
         for (Stable stable : stables) {
             standing.put(stable, 0);
-        }
-
-        int size = stables.length;
-        ArrayList<Integer> numbers = new ArrayList<Integer>();
-        Random generator = new Random();
-
-        while (numbers.size() < size) {
-            int random = generator.nextInt(size) + 2; //quotation starts from 2
-            if (!numbers.contains(random)) {
-                numbers.add(random);
-            }
-        }
-
-        for (int i = 0; i < size && !numbers.isEmpty(); i++) {
-            stables[i].setQuotation(numbers.remove(0));
+            horsesList.add(stable.getHorse());
         }
 
         this.movementCardDeck = movementCardDeck;

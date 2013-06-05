@@ -15,59 +15,75 @@ public class MatchController {
     private Match match;
     private BetManager betManager;
     private RaceManager raceManager;
+    public GameLobbyInterface lobbyInterface;
     public GameInterface gameInterface;
+
+    private static final int NUMBER_OF_ACTIONCARDS_AT_EACH_TURN = 2;
 
 
     public MatchController() {
+        match = new Match();
+        betManager = new BetManager();
+        raceManager = new RaceManager(match.getStables(), match.getMovementCardDeck());
+        lobbyInterface = new GameLobbyView();
 
+        //mostra interfaccia
     }
 
     public void startMatch() {
-        //gameInterface = new GameInterface();
         giveCharacterCards();
         setFirstPlayer();
-        giveActionCards(2);
+        startTurn();
+    }
+
+    public void startTurn() {
+        giveActionCards(NUMBER_OF_ACTIONCARDS_AT_EACH_TURN);
+
+
     }
 
     /*
-    betPhase(true);
-    rigPhase();
-    betPhase(false);
+    *
+    * Riceve un ArrayList di stringhe che corrispondono ai "nickname" scelti per ogni giocatore
+    * e crea nel modello i giocatori corrispondenti, successivamente avvia la partita
+    *
+    * @param players    ArrayList<String> nickname dei giocatori
+    *
+     */
 
-    racePhase();
+    public void setPlayers(ArrayList<String> players) {
+        for (String temp : players) {
+            match.addPlayer(new Player(temp));
+        }
 
-}
-
-
-private void racePhase() {
-
-}
-
-private void rigPhase() {
-    //sempre questione del giro orario che parte dal first player da risolvere
-    while (someoneStillHasActionCards()) {
-        for (Player player : players) {
-            if (!player.isActionCardPileEmpty()) {
-                //chiamiamo interfaccia per determinare carta e lane su cui giocare la carta stessa
-                player.playActionCard(card, lane);
+        startMatch();
+    }
+      /*
+    private void rigPhase() {
+        //sempre questione del giro orario che parte dal first player da risolvere
+        while (someoneStillHasActionCards()) {
+            for (Player player : match.getPlayers()) {
+                if (!player.isActionCardPileEmpty()) {
+                    //chiamiamo interfaccia per determinare carta e lane su cui giocare la carta stessa
+                    player.playActionCard(card, lane);
+                }
             }
         }
-    }
-}
+    }  */
 
-private boolean someoneStillHasActionCards() {
-    for (Player player : players) {
-        if (!player.isActionCardPileEmpty())
-            return true;
+    private boolean someoneStillHasActionCards() {
+        for (Player player : match.getPlayers()) {
+            if (!player.isActionCardPileEmpty())
+                return true;
+        }
+        return false;
     }
-    return false;
-}
 
-private boolean someoneStillHasBetsToMake() {
-    //da implementare
-    return false;
-}
-   */
+    private boolean someoneStillHasBetsToMake() {
+        //da implementare
+        return false;
+    }
+
     private void betPhase(boolean mandatory) {
 
         //variables which will be updated via user interface
@@ -75,7 +91,6 @@ private boolean someoneStillHasBetsToMake() {
         Stable stable = null;
         BetType type = null;
 
-        // bisogna implementare il problema di compiere questo for in senso antiorario o orario in base alla variabile mandatory (true = orario, false = antiorario)
         ArrayList<Player> players = match.getPlayers();
         Player firstPlayer = match.getFirstPlayer();
         int j = players.indexOf(firstPlayer);
@@ -84,21 +99,15 @@ private boolean someoneStillHasBetsToMake() {
            if the bet isn't mandatory the players, starting from the 1st player, are not obliged to do a bet (anticlockwise order)
          */
         if (mandatory) {
-            /*for (Player player : match.getPlayers()) {   //senso orario
-                /* if (!mandatory) {
-                    // possibilita di uscire dalla funzione e non farla
-
-                    if(false) { //se ha scelto di non farla
-                        continue;
-                    }
-                }    */
             for (int i = 0; i < players.size(); i++) {
                 if (j >= players.size()) j = 0;
 
-                //chiama interfaccia e chiede al giocatore i valori per la makeBet
-
                 boolean betCorrectlyMade = false;
                 while (!betCorrectlyMade) {
+
+                    //chiama interfaccia e chiede al giocatore i valori per la makeBet
+
+
                     Bet playerBet = null;
 
                     try {
@@ -147,7 +156,6 @@ private boolean someoneStillHasBetsToMake() {
     }
 
     private void giveActionCards(int numCards) {
-        // assegnamento temporaneo in attesa di struttura migliore per gestire i players
 
         ArrayList<Player> players = match.getPlayers();
 
@@ -171,6 +179,30 @@ private boolean someoneStillHasBetsToMake() {
     private void giveCharacterCards() {
         for (Player player : match.getPlayers()) {
             player.setCharCard((CharacterCard) match.getCharacterCardDeck().draw());
+        }
+
+        initializePlayersInfo();
+    }
+
+
+    /*
+    *
+    *  Give players their starting money based on the character card they got
+    *  Player and respective stable get linked
+    *
+     */
+
+    private void initializePlayersInfo() {
+        for (Player player : match.getPlayers()) {
+            player.setMoney(player.getCharCard().getStartingMoney());
+            for (Stable stable : match.getStables()) {
+                if (stable.getQuotation() == player.getCharCard().getBaseStableQuotation()) {
+                    stable.setStableOwner(player);
+                    player.addStable(stable);
+                    break;
+                }
+            }
+
         }
     }
 

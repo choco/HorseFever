@@ -14,6 +14,26 @@ public class Player {
     private String idTag;
     private int money;
     private int victoryPoints;
+    private int remainingBets;
+    private boolean firstPlayer;
+    private CharacterCard charCard;
+    private ArrayList<ActionCard> actionCardPile;
+    private ArrayList<Stable> ownedStables;
+
+    public Player(String name) {
+        idTag = name;
+        money = 0;
+        victoryPoints = 1;
+        remainingBets = 2;
+        firstPlayer = false;
+        //characterCard
+        actionCardPile = new ArrayList<ActionCard>();
+        ownedStables = new ArrayList<Stable>();
+    }
+
+    public void addStable(Stable stable) {
+        ownedStables.add(stable);
+    }
 
     public int getVictoryPoints() {
         return victoryPoints;
@@ -30,24 +50,6 @@ public class Player {
     public void setMoney(int money) {
         this.money = money;
     }
-
-    private int remainingBets;
-    private boolean firstPlayer;
-    private CharacterCard charCard;
-    private ArrayList<ActionCard> actionCardPile;
-
-    private ArrayList<Stable> ownedStables;
-
-    public Player(String name) {
-        idTag = name;
-        money = 0;
-        victoryPoints = 1;
-        remainingBets = 2;
-        firstPlayer = false;
-        //characterCard
-        actionCardPile = new ArrayList<ActionCard>();
-    }
-
 
     //method used in the boardgame
     public boolean isActionCardPileEmpty() {
@@ -84,11 +86,10 @@ public class Player {
 
     public void setCharCard(CharacterCard card) {
         charCard = card;
-        updatePlayerInfo();
     }
 
-    private void updatePlayerInfo() {
-        // prende dati dalla charcard che gli è stata assegnata (soldi, colore) con anche le abilità (se aggiungiamo carte opzionali)
+    public CharacterCard getCharCard() {
+        return charCard;
     }
 
     public void addActionCard(ActionCard card) {

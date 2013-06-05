@@ -12,5 +12,16 @@ public class CharacterCard extends Card {
     private int startingMoney;
     private int baseStableQuotation;
 
-    //setter e getter
+    public String getCharName() {
+        return charName;
+    }
+
+    public int getStartingMoney() {
+        return startingMoney;
+    }
+
+    public int getBaseStableQuotation() {
+        return baseStableQuotation;
+    }
+
 }

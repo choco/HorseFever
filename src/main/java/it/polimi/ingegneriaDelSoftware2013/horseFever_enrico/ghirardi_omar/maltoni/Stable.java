@@ -24,6 +24,7 @@ public class Stable implements Comparable<Stable> {
 
     public Stable(StableColor color) {
         this.color = color;
+        horse = new Horse(this);
     }
 
     public Player getStableOwner() {

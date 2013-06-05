@@ -2,6 +2,7 @@ package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.malt
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,8 +11,18 @@ import java.util.ArrayList;
  * Time: 15:41
  * To change this template use File | Settings | File Templates.
  */
+
+enum MatchPhase {
+    START_GAME,
+    BET_PHASE,
+    RIG_PHASE,
+    RACE_PHASE,
+    END_GAME
+}
+
 public class Match {
 
+    private MatchPhase matchPhase;
     private ArrayList<Player> players;
     private ArrayList<Stable> stables;
     private int currentPLayer; //giocatore in azione
@@ -30,6 +41,8 @@ public class Match {
     //...
 
     public Match() {
+
+        matchPhase = MatchPhase.START_GAME;
 
         //inizializzi i mazzi
         //inizializzi stable
@@ -51,10 +64,41 @@ public class Match {
             stables.add(stable);
         }
 
+        int size = stables.size();
+        ArrayList<Integer> numbers = new ArrayList<Integer>();
+        Random generator = new Random();
+
+        while (numbers.size() < size) {
+            int random = generator.nextInt(size) + 2; //quotation starts from 2
+            if (!numbers.contains(random)) {
+                numbers.add(random);
+            }
+        }
+
+        for (int i = 0; i < size && !numbers.isEmpty(); i++) {
+            stables.get(i).setQuotation(numbers.remove(0));
+        }
+
+    }
+
+    public void setMatchPhase(MatchPhase phase) {
+        matchPhase = phase;
+    }
+
+    public MatchPhase getMatchPhase() {
+        return matchPhase;
+    }
+
+    public Deck getMovementCardDeck() {
+        return movementCardDeck;
     }
 
     public ArrayList<Player> getPlayers() {
         return players;
+    }
+
+    public ArrayList<Stable> getStables() {
+        return stables;
     }
 
     public Deck getActionCardDeck() {
