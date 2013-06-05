@@ -21,6 +21,8 @@ enum RacePhase {
 }
 
 public class RaceManager {
+
+    private RaceInterface raceInterface;
     private ArrayList<Horse> horsesList;
     private Deck movementCardDeck;
     private Map<Stable, Integer> standing;
@@ -29,6 +31,8 @@ public class RaceManager {
 
     private static final int FINISH_LINE = 12; //no. of steps to finish line
     private static final int STANDARD_SPRINT_STEPS = 1;
+    private static final int NUMBER_OF_DICE = 2;
+
 
     private static final String FIXED_START_STEPS = "fixedStartSteps";
     private static final String ADD_START_STEPS = "addStartSteps";
@@ -56,7 +60,94 @@ public class RaceManager {
         playedActionCards = new ArrayList<ActionCard>();
     }
 
-    public void removeActionCardsOfTypeFromHorse(ActionType actionType, Horse horse) {
+    public void updateStableQuotations() {
+        for (Stable temp : standing.keySet()) {
+            if (temp.getQuotation() - 1 > standing.get(temp))
+                temp.setQuotation(temp.getQuotation() - 1);
+            else if (temp.getQuotation() - 1 < standing.get(temp))
+                temp.setQuotation(temp.getQuotation() + 1);
+        }
+    }
+
+
+    /**
+     * Standing is reset, played actioncards are put back
+     * in the respective deck.
+     *
+     * @param actionCardsDeck A reference to the match action cards deck
+     */
+
+    public void resetRace(Deck actionCardsDeck) {
+
+        for (ActionCard card : playedActionCards) {
+            actionCardsDeck.putBottom(card);
+            playedActionCards.remove(card);
+        }
+        for (Horse horse : horsesList) {
+            horse.resetVars();
+        }
+
+
+    }
+
+
+    public void startRace() {      // handles the start
+
+        racePhase = RacePhase.START;
+        checkActionCardsAtStart();
+
+        while (!allHorsesGotPlaced()) {
+            raceTurn();
+        }
+
+        racePhase = RacePhase.FINISH;
+
+        fixStandingBasedOnQuotation();
+
+    }
+
+    private void raceTurn() {        // handles every race turn
+
+        MovementCard movementCard = (MovementCard) movementCardDeck.draw();
+        movementCardDeck.putBottom(movementCard);
+
+        for (Horse horse : horsesList) {
+            applyMovementCardToHorse(movementCard, horse);
+        }
+
+        racePhase = RacePhase.MIDDLE;
+
+        for (Horse horse : horsesList) {
+            checkIfHorseArrived(horse);
+        }
+
+        racePhase = RacePhase.SPRINT;
+
+        ArrayList<StableColor> sprintingColors = new ArrayList<StableColor>();
+        for (int i = 0; i < NUMBER_OF_DICE; i++) {
+            StableColor temp = throwSprintDice();
+            if (!sprintingColors.contains(temp))
+                sprintingColors.add(temp);
+        }
+
+        for (StableColor color : sprintingColors) {
+            for (Stable stable : standing.keySet()) {
+                if (stable.getColor() == color)
+                    makeHorseSprint(stable.getHorse());
+            }
+        }
+
+        for (Horse horse : horsesList) {
+            checkIfHorseArrived(horse);
+        }
+
+        updateStanding();
+
+        racePhase = RacePhase.MIDDLE;
+    }
+
+
+    private void removeActionCardsOfTypeFromHorse(ActionType actionType, Horse horse) {
         for (ActionCard card : horse.getActionPile()) {
             if (card.getType() == actionType) {
                 playedActionCards.add(card);
@@ -65,7 +156,7 @@ public class RaceManager {
         }
     }
 
-    public boolean allHorsesFinishedRace() {
+    private boolean allHorsesFinishedRace() {
         for (Horse horse : horsesList) {
             if (!horse.hasFinishedRace())
                 return false;
@@ -74,7 +165,16 @@ public class RaceManager {
         return true;
     }
 
-    public void checkIfHorseArrived(Horse horse) {
+    private boolean allHorsesGotPlaced() {
+        for (Horse horse : horsesList) {
+            if (!horse.gotPlaced())
+                return false;
+        }
+
+        return true;
+    }
+
+    private void checkIfHorseArrived(Horse horse) {
         if (horse.getCurrentPosition() >= FINISH_LINE) {
             if (horse.didAddFinishStepsChange())
                 horse.setCurrentPosition(horse.getCurrentPosition() + horse.getAddFinishSteps());
@@ -85,7 +185,7 @@ public class RaceManager {
         }
     }
 
-    public void makeHorseSprint(Horse horse) {
+    private void makeHorseSprint(Horse horse) {
         int current = horse.getCurrentPosition();
         if (horse.didFixedSprintStepsChange()) {
             if (horse.didAddSprintStepsChange())
@@ -100,7 +200,7 @@ public class RaceManager {
         }
     }
 
-    public void applyMovementCardToHorse(MovementCard card, Horse horse) {
+    private void applyMovementCardToHorse(MovementCard card, Horse horse) {
         int baseMovement = card.getMovementForQuotation(horse.getOwnerStable().getQuotation());
 
         switch (racePhase) {
@@ -133,7 +233,7 @@ public class RaceManager {
 
     }
 
-    public void applyNeutralCards() {
+    private void applyNeutralCards() {
         for (Horse horse : horsesList) {
             for (ActionCard card : horse.getActionPile()) {
                 if (card.getType() == ActionType.NEUTRAL) {
@@ -148,7 +248,7 @@ public class RaceManager {
         }
     }
 
-    public void applyMovementRelatedActionCardsToHorse(Horse horse) {
+    private void applyMovementRelatedActionCardsToHorse(Horse horse) {
 
         for (ActionCard card : horse.getActionPile()) {
 
@@ -183,7 +283,7 @@ public class RaceManager {
 
     }
 
-    public void removeSameCharCards() {
+    private void removeSameCharCards() {
 
         for (Horse horse : horsesList) {
             for (int i = 0; i < horse.getActionPile().size(); i++) {
@@ -199,7 +299,7 @@ public class RaceManager {
     }
 
 
-    public StableColor throwSprintDice() {
+    private StableColor throwSprintDice() {
 
         Random r = new Random();
         int roll = r.nextInt(horsesList.size() - 1);
@@ -223,23 +323,7 @@ public class RaceManager {
         return null;
     }
 
-    void startRace() {      // handles the start
-
-        MovementCard movementCard = (MovementCard) movementCardDeck.draw();
-        checkActionCardsAtStart();
-        for (Horse horse : horsesList) {
-            applyMovementCardToHorse(movementCard, horse);
-        }
-
-    }
-
-    void raceTurn() {        // handles every race turn
-
-
-    }
-
-
-    void checkActionCardsAtStart() {
+    private void checkActionCardsAtStart() {
 
         removeSameCharCards();
         applyNeutralCards();
@@ -254,7 +338,7 @@ public class RaceManager {
     }
 
     /* currently untested!!!!! */
-    public void updateStanding() {
+    private void updateStanding() {
         ArrayList<Stable> temp = new ArrayList<Stable>(standing.keySet());
         Collections.sort(temp);
         int rank, posFix;
@@ -280,7 +364,7 @@ public class RaceManager {
         }
     }
 
-    public void fixStandingBasedOnQuotation() {
+    private void fixStandingBasedOnQuotation() {
         ArrayList<Stable> temp = new ArrayList<Stable>(standing.keySet());
         for (int i = 0; i < temp.size(); i++) {
             for (int j = 0; j < temp.size(); j++) {
@@ -318,24 +402,6 @@ public class RaceManager {
             return true;
 
         return false;
-    }
-
-    public void updateStableQuotations() {
-        for (Stable temp : standing.keySet()) {
-            if (temp.getQuotation() - 1 > standing.get(temp))
-                temp.setQuotation(temp.getQuotation() - 1);
-            else if (temp.getQuotation() - 1 < standing.get(temp))
-                temp.setQuotation(temp.getQuotation() + 1);
-        }
-    }
-
-    public void resetRace() {
-
-        for (Horse horse : horsesList) {
-            horse.resetVars();
-        }
-
-
     }
 
 

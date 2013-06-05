@@ -65,13 +65,7 @@ public class Stable implements Comparable<Stable> {
             return -1;
     }
 
-    /*    Stable interfaccia di StableCard? Non ricordo come volevamo implementare
-
-    private String stableName; //quello sulla carta, giusto per l'interfaccia
-
-    public StableColor getColor (){
+    public StableColor getColor() {
         return this.color;
     }
-
-    */
 }
