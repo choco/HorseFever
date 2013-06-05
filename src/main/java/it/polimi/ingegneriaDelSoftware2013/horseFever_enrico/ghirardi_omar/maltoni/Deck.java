@@ -101,7 +101,11 @@ public class Deck {
         this.cards = cards;
     }
 
-    void shuffle() {
+    public boolean isDeckEmpty() {
+        return cards.isEmpty();
+    }
+
+    public void shuffle() {
         Random generator = new Random();
         int firstIndex, secondIndex;
         Card temp;
@@ -115,11 +119,11 @@ public class Deck {
         }
     }
 
-    Card draw() {
+    public Card draw() {
         return cards.remove(0);
     }
 
-    void putBottom(Card card) {
+    public void putBottom(Card card) {
         cards.add(card);
     }
 }

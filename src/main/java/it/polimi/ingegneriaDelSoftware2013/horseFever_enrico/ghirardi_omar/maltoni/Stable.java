@@ -35,6 +35,10 @@ public class Stable implements Comparable<Stable> {
         stableOwner = player;
     }
 
+    public void setStableCard(StableCard card) {
+        stableCard = card;
+    }
+
     public void setQuotation(int quotation) {
         if (quotation > 7)
             quotation = 7;

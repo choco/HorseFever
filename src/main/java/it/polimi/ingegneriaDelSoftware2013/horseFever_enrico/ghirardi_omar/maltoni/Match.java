@@ -34,9 +34,9 @@ public class Match {
 
     private Deck characterCardDeck;
     private Deck stableCardDeck;
-    private Deck horseCardDeck;
-    private Deck employerCardDeck; //mazzo carte aiutanti
-    private Deck goalCardDeck;
+    //private Deck horseCardDeck;
+    //private Deck employerCardDeck; //mazzo carte aiutanti
+    //private Deck goalCardDeck;
     //come implementare le carte debito?
     //...
 
@@ -59,8 +59,11 @@ public class Match {
         players = new ArrayList<Player>();
         stables = new ArrayList<Stable>();
 
-        for (StableColor color : StableColor.values()) {
-            Stable stable = new Stable(color);
+
+        while (!stableCardDeck.isDeckEmpty()) {
+            StableCard temp = (StableCard) stableCardDeck.draw();
+            Stable stable = new Stable(temp.getColor());
+            stable.setStableCard(temp);
             stables.add(stable);
         }
 

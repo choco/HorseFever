@@ -1,9 +1,6 @@
 package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -50,6 +47,7 @@ public class RaceManager {
     public RaceManager(ArrayList<Stable> stables, Deck movementCardDeck) {
 
         horsesList = new ArrayList<Horse>();
+        standing = new HashMap<Stable, Integer>();
 
         for (Stable stable : stables) {
             standing.put(stable, 0);
