@@ -95,6 +95,8 @@ public class Deck {
         }
 
         this.cards = cards;
+
+        shuffle();
     }
 
     public Deck(ArrayList<Card> cards) {

@@ -72,4 +72,12 @@ public class Stable implements Comparable<Stable> {
     public StableColor getColor() {
         return this.color;
     }
+
+
+    @Override
+
+    public String toString() {
+        return "Stable Info:\nColor=" + color + "\nStable Owner=" + stableOwner.getCharCard().getCharName() +
+                "\nHorse=" + horse + "\nQuotation=" + quotation + "\nStable card=" + stableCard.getStableName() + "\n";
+    }
 }

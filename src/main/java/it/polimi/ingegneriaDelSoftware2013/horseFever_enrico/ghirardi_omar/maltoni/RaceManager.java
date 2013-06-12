@@ -67,6 +67,9 @@ public class RaceManager {
         }
     }
 
+    public Map<Stable, Integer> getStanding() {
+        return standing;
+    }
 
     /**
      * Standing is reset, played actioncards are put back
@@ -77,6 +80,9 @@ public class RaceManager {
 
     public void resetRace(Deck actionCardsDeck) {
 
+        for (Stable stable : standing.keySet())
+            standing.put(stable, 0);
+
         for (ActionCard card : playedActionCards) {
             actionCardsDeck.putBottom(card);
             playedActionCards.remove(card);
@@ -84,7 +90,6 @@ public class RaceManager {
         for (Horse horse : horsesList) {
             horse.resetVars();
         }
-
 
     }
 
@@ -367,7 +372,17 @@ public class RaceManager {
         for (int i = 0; i < temp.size(); i++) {
             for (int j = 0; j < temp.size(); j++) {
                 if (i != j && (standing.get(temp.get(i)) == standing.get(temp.get(j))) && temp.get(i).getHorse().gotPlaced() && temp.get(j).getHorse().gotPlaced()) {
-                    if (temp.get(i).getQuotation() > temp.get(j).getQuotation())
+                    if (temp.get(i).getHorse().didWinsPhotofinishChange()) {
+                        if (temp.get(i).getHorse().getWinsPhotofinish() == 1)
+                            standing.put(temp.get(j), standing.get(temp.get(j)) + 1);
+                        else
+                            standing.put(temp.get(i), standing.get(temp.get(i)) + 1);
+                    } else if (temp.get(j).getHorse().didWinsPhotofinishChange()) {
+                        if (temp.get(j).getHorse().getWinsPhotofinish() == 1)
+                            standing.put(temp.get(i), standing.get(temp.get(i)) + 1);
+                        else
+                            standing.put(temp.get(j), standing.get(temp.get(j)) + 1);
+                    } else if (temp.get(i).getQuotation() > temp.get(j).getQuotation())
                         standing.put(temp.get(i), standing.get(temp.get(i)) + 1);
                     else if (temp.get(i).getQuotation() < temp.get(j).getQuotation())
                         standing.put(temp.get(j), standing.get(temp.get(j)) + 1);

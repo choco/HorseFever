@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 public class Player {
     private String idTag;
+    private int turnOrder;
     private int money;
     private int victoryPoints;
     private int remainingBets;
@@ -23,12 +24,21 @@ public class Player {
     public Player(String name) {
         idTag = name;
         money = 0;
+        turnOrder = 0;
         victoryPoints = 1;
         remainingBets = 2;
         firstPlayer = false;
         //characterCard
         actionCardPile = new ArrayList<ActionCard>();
         ownedStables = new ArrayList<Stable>();
+    }
+
+    public int getTurnOrder() {
+        return turnOrder;
+    }
+
+    public void setTurnOrder(int turnOrder) {
+        this.turnOrder = turnOrder;
     }
 
     public void addStable(Stable stable) {
@@ -84,6 +94,12 @@ public class Player {
 
     }
 
+    boolean canMakeMinimumBet() {
+        if (victoryPoints * 100 > money)
+            return false;
+        return true;
+    }
+
     public void setCharCard(CharacterCard card) {
         charCard = card;
     }
@@ -99,6 +115,14 @@ public class Player {
 
     void playActionCard(ActionCard card, Horse horse) {
         horse.addActionCard((ActionCard) actionCardPile.remove(actionCardPile.indexOf(card)));
+    }
+
+    @Override
+
+    public String toString() {
+        return "Player Info:\nNickname=" + idTag + "\nTurn order=" + turnOrder +
+                "\nMoney=" + money + "\nVictory Points=" + victoryPoints + "\nIs First Player:" + firstPlayer +
+                "\nCharacter name=" + charCard.getCharName() + "\nAction cards=" + actionCardPile + "\nStables=" + ownedStables + "\n";
     }
 }
 

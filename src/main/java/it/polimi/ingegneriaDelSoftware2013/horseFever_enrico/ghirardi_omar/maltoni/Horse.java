@@ -30,17 +30,7 @@ public class Horse {
     private static final int DID_NOT_CHANGE = -100;
 
     public Horse(Stable ownerStable) {
-        fixedStartSteps =
-                addStartSteps =
-                        fixedSprintSteps =
-                                addSprintSteps =
-                                        winsPhotofinish =
-                                                canMoveAfterFinishLine =
-                                                        addFinishSteps =
-                                                                isLastFixedSteps =
-                                                                        isFirstFixedSteps = DID_NOT_CHANGE;
-        currentPosition = 0;
-        finishedRace = false;
+        resetVars();
         actionPile = new ArrayList<ActionCard>();
         this.ownerStable = ownerStable;
     }
@@ -222,12 +212,17 @@ public class Horse {
     }
 
     public void resetVars() {
-        this.fixedStartSteps = 0;
-        this.addStartSteps = 0;
-        this.fixedSprintSteps = 0;
-        this.addSprintSteps = 0;
-        this.currentPosition = 0;
-        this.finishedRace = false;
-        this.actionPile = null;
+        fixedStartSteps =
+                addStartSteps =
+                        fixedSprintSteps =
+                                addSprintSteps =
+                                        winsPhotofinish =
+                                                canMoveAfterFinishLine =
+                                                        addFinishSteps =
+                                                                isLastFixedSteps =
+                                                                        isFirstFixedSteps = DID_NOT_CHANGE;
+        currentPosition = 0;
+        finishedRace = false;
+        gotPlaced = false;
     }
 }

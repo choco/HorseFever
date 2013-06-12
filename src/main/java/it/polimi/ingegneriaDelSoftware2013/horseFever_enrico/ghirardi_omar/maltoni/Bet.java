@@ -13,7 +13,7 @@ enum BetType {
 }
 
 enum InvalidBetExceptionType {
-    NOTENOUGHTMONEY, NOTAMINIMUMBET, NOMOREREMAINIGBETS
+    NOTENOUGHTMONEY, NOTAMINIMUMBET, NOMOREREMAINIGBETS, NOT_ENOUGH_BET_MARKS, SAME_BET
 }
 
 class InvalidBetException extends Exception {

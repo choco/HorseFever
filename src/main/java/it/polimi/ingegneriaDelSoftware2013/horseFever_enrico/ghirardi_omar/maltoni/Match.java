@@ -2,6 +2,8 @@ package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.malt
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -14,7 +16,8 @@ import java.util.Random;
 
 enum MatchPhase {
     START_GAME,
-    BET_PHASE,
+    FIRST_BET_PHASE,
+    SECOND_BET_PHASE,
     RIG_PHASE,
     RACE_PHASE,
     END_GAME
@@ -27,7 +30,9 @@ public class Match {
     private ArrayList<Stable> stables;
     private int currentPLayer; //giocatore in azione
     private int currentTurn;
-    private int firstPlayer;  // indice primo giocatore nell'array list
+    private int numberOfTurns; //???
+
+    private Map<StableColor, Integer> betMarkPool;
     private Deck movementCardDeck;
     private Deck actionCardDeck;
     // mazzi board game
@@ -58,6 +63,7 @@ public class Match {
 
         players = new ArrayList<Player>();
         stables = new ArrayList<Stable>();
+        betMarkPool = new HashMap<StableColor, Integer>();
 
 
         while (!stableCardDeck.isDeckEmpty()) {
@@ -82,6 +88,40 @@ public class Match {
             stables.get(i).setQuotation(numbers.remove(0));
         }
 
+        currentPLayer = 0;
+        currentTurn = 0;
+
+    }
+
+    public int getCurrentPLayer() {
+        return currentPLayer;
+    }
+
+    public void setCurrentPLayer(int currentPLayer) {
+        if (currentPLayer > (players.size() - 1))
+            this.currentPLayer = 0;
+        else if (currentPLayer < 0)
+            this.currentPLayer = players.size() - 1;
+        else
+            this.currentPLayer = currentPLayer;
+    }
+
+    public int getCurrentTurn() {
+        return currentTurn;
+    }
+
+    public void setCurrentTurn(int currentTurn) {
+        this.currentTurn = currentTurn;
+    }
+
+    public Map<StableColor, Integer> getBetMarkPool() {
+        return betMarkPool;
+    }
+
+    public void setUpMatch() {
+        numberOfTurns = getNumberOfTurnsAtStart();
+        currentTurn = 0;
+        setBetMarkPool();
     }
 
     public void setMatchPhase(MatchPhase phase) {
@@ -121,7 +161,11 @@ public class Match {
     }
 
     public int getNumberOfTurns() {
-        switch (players.size()) {
+        return numberOfTurns;
+    }
+
+    private int getNumberOfTurnsAtStart() {
+        switch (getNumberOfPlayers()) {
             case 2:
             case 3:
             case 6:
@@ -137,7 +181,7 @@ public class Match {
     }
 
     public int numberOfMarksPerColor() {
-        switch (players.size()) {
+        switch (getNumberOfPlayers()) {
             case 2:
                 return 1;
             case 3:
@@ -153,8 +197,6 @@ public class Match {
     }
 
     public Player getFirstPlayer() {
-
-
         Player player = null;
         for (Player temp : players) {
             if (temp.isFirstPlayer()) {
@@ -165,6 +207,12 @@ public class Match {
         }
         return player;
 
+    }
+
+    private void setBetMarkPool() {
+        for (Stable temp : stables) {
+            betMarkPool.put(temp.getColor(), numberOfMarksPerColor());
+        }
     }
 }
 

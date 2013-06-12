@@ -13,36 +13,35 @@ import java.util.Map;
 public class BetManager {
 
     private ArrayList<Bet> bets;
+    private Map<StableColor, Integer> betMarkPool;
 
     private static final int WINNING_BET_VICTORY_POINTS = 3;
     private static final int PLACED_BET_VICTORY_POINTS = 1;
     private static final int PLACED_BET_MONEY_MULTIPLIER = 2;
 
-    public BetManager() {
+    public BetManager(Map<StableColor, Integer> betMarkPool) {
         bets = new ArrayList<Bet>();
+        this.betMarkPool = betMarkPool;
     }
 
-    boolean insertBet(Bet bet) {
-        if (checkBetValidity(bet)) {
-            bets.add(bet);
-            return true;
-        }
-
-        return false;
+    void insertBet(Bet bet) throws InvalidBetException {
+        checkBetValidity(bet);
+        bets.add(bet);
+        betMarkPool.put(bet.getBettingStable().getColor(), betMarkPool.get(bet.getBettingStable().getColor()) - 1);
     }
 
     //validità scommessa nelle due bet phases, no doppia scommessa
-    boolean checkBetValidity(Bet bet) {
+    void checkBetValidity(Bet bet) throws InvalidBetException {
+        if (betMarkPool.get(bet.getBettingStable().getColor()) < 1)
+            throw new InvalidBetException(InvalidBetExceptionType.NOT_ENOUGH_BET_MARKS);
         for (Bet temp : bets) {
             if (bet.getBettingPlayer() == temp.getBettingPlayer()) {
                 if (bet.getBettingStable() == temp.getBettingStable()) {
                     if (bet.getType() == temp.getType())
-                        return false;
+                        throw new InvalidBetException(InvalidBetExceptionType.SAME_BET);
                 }
             }
         }
-
-        return true;
     }
 
     boolean checkWinningBet(Bet bet, int position) {

@@ -1,5 +1,7 @@
 package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni;
 
+import java.util.ArrayList;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Asus
@@ -9,10 +11,15 @@ package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.malt
  */
 public class HorseFever {
     //launches the game
-    public void main(String args[]) {
-        Match match;
+    public static void main(String[] args) {
 
-      /*  match = new Match();    */
+        MatchController newMatch = new MatchController();
+        ArrayList<String> nomi = new ArrayList<String>();
+        nomi.add("Prova");
+        nomi.add("Test");
+        nomi.add("Ancora");
+        newMatch.setPlayers(nomi);
+
 
     }
 
