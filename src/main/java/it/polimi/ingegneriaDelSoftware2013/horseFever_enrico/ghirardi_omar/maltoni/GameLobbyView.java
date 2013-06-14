@@ -121,4 +121,6 @@ public class GameLobbyView implements GameLobbyInterface {
         panel3.add(list1, gbc);
 
     }
+
+
 }
