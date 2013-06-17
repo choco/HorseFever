@@ -169,7 +169,7 @@ public class Match {
             case 2:
             case 3:
             case 6:
-                return 6;
+                return 2;
             case 4:
                 return 4;
             case 5:

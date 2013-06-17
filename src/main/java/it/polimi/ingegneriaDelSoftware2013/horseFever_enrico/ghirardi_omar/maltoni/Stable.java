@@ -62,11 +62,11 @@ public class Stable implements Comparable<Stable> {
 
     public int compareTo(Stable stable) {
         if (this.horse.getCurrentPosition() > stable.horse.getCurrentPosition())
-            return 1;
+            return -1;
         else if (this.horse.getCurrentPosition() == stable.horse.getCurrentPosition())
             return 0;
         else
-            return -1;
+            return 1;
     }
 
     public StableColor getColor() {
@@ -77,7 +77,6 @@ public class Stable implements Comparable<Stable> {
     @Override
 
     public String toString() {
-        return "Stable Info:\nColor=" + color + "\nStable Owner=" + stableOwner.getCharCard().getCharName() +
-                "\nHorse=" + horse + "\nQuotation=" + quotation + "\nStable card=" + stableCard.getStableName() + "\n";
+        return "Stable Info:\nColor=" + color + "\nHorse=" + horse + "\nQuotation=" + quotation + "\nStable card=" + stableCard.getStableName() + "\n";
     }
 }

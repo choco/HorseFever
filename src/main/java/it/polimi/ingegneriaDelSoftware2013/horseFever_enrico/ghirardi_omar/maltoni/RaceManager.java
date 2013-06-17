@@ -85,8 +85,9 @@ public class RaceManager {
 
         for (ActionCard card : playedActionCards) {
             actionCardsDeck.putBottom(card);
-            playedActionCards.remove(card);
         }
+        playedActionCards.clear();
+
         for (Horse horse : horsesList) {
             horse.resetVars();
         }
@@ -101,6 +102,15 @@ public class RaceManager {
 
         while (!allHorsesGotPlaced()) {
             raceTurn();
+            for (Horse horse : horsesList) {
+                System.out.println("Il cavallo color " + horse.getOwnerStable().getColor() + " ha fatto " + horse.getCurrentPosition() + "passi! Ed è arrivato: " + horse.hasFinishedRace() + " ed è stato piazzato: " + horse.gotPlaced());
+            }
+            System.out.println("\n");
+
+            for (Stable stable : standing.keySet()) {
+                System.out.println("Il cavallo color " + stable.getColor() + "è in posizione" + standing.get(stable));
+            }
+
         }
 
         racePhase = RacePhase.FINISH;
@@ -204,34 +214,36 @@ public class RaceManager {
     }
 
     private void applyMovementCardToHorse(MovementCard card, Horse horse) {
-        int baseMovement = card.getMovementForQuotation(horse.getOwnerStable().getQuotation());
+        if (!horse.gotPlaced()) {
+            int baseMovement = card.getMovementForQuotation(horse.getOwnerStable().getQuotation());
 
-        switch (racePhase) {
+            switch (racePhase) {
 
-            case START:
-                if (horse.didFixedStartStepsChange()) {
-                    if (horse.didAddStartStepsChange())
-                        horse.setCurrentPosition(horse.getFixedStartSteps() + horse.getAddStartSteps());
-                    else
-                        horse.setCurrentPosition(horse.getFixedStartSteps());
-                } else {
-                    if (horse.didAddStartStepsChange())
-                        horse.setCurrentPosition(baseMovement + horse.getAddStartSteps());
-                    else
-                        horse.setCurrentPosition(baseMovement);
-                }
-                break;
-            case MIDDLE:
-                if (horse.didIsFirstFixedStepsChange()) {
-                    if (isHorseFirst(horse))
-                        horse.setCurrentPosition(horse.getCurrentPosition() + horse.getFirstFixedSteps());
-                } else if (horse.didIsLastFixedStepsChange()) {
-                    if (isHorseLast(horse))
-                        horse.setCurrentPosition(horse.getCurrentPosition() + horse.getLastFixedSteps());
-                } else
-                    horse.setCurrentPosition(horse.getCurrentPosition() + baseMovement);
-                break;
+                case START:
+                    if (horse.didFixedStartStepsChange()) {
+                        if (horse.didAddStartStepsChange())
+                            horse.setCurrentPosition(horse.getFixedStartSteps() + horse.getAddStartSteps());
+                        else
+                            horse.setCurrentPosition(horse.getFixedStartSteps());
+                    } else {
+                        if (horse.didAddStartStepsChange())
+                            horse.setCurrentPosition(baseMovement + horse.getAddStartSteps());
+                        else
+                            horse.setCurrentPosition(baseMovement);
+                    }
+                    break;
+                case MIDDLE:
+                    if (horse.didIsFirstFixedStepsChange()) {
+                        if (isHorseFirst(horse))
+                            horse.setCurrentPosition(horse.getCurrentPosition() + horse.getFirstFixedSteps());
+                    } else if (horse.didIsLastFixedStepsChange()) {
+                        if (isHorseLast(horse))
+                            horse.setCurrentPosition(horse.getCurrentPosition() + horse.getLastFixedSteps());
+                    } else
+                        horse.setCurrentPosition(horse.getCurrentPosition() + baseMovement);
+                    break;
 
+            }
         }
 
     }
@@ -289,14 +301,24 @@ public class RaceManager {
     private void removeSameCharCards() {
 
         for (Horse horse : horsesList) {
+            ArrayList<ActionCard> temp = new ArrayList<ActionCard>();
             for (int i = 0; i < horse.getActionPile().size(); i++) {
                 for (int j = 0; j < horse.getActionPile().size(); j++) {
                     if (j != i && horse.getActionPile().get(j).getCardLetter() == horse.getActionPile().get(i).getCardLetter()) {
+                        ActionCard temp1 = horse.getActionPile().get(j);
+                        ActionCard temp2 = horse.getActionPile().get(j);
 
-                        playedActionCards.add(horse.getActionPile().remove(j));
-                        playedActionCards.add(horse.getActionPile().remove(i));
+                        playedActionCards.add(temp1);
+                        playedActionCards.add(temp2);
+
+                        temp.add(temp1);
+                        temp.add(temp2);
+
                     }
                 }
+            }
+            for (ActionCard card : temp) {
+                horse.getActionPile().remove(card);
             }
         }
     }
@@ -344,24 +366,34 @@ public class RaceManager {
     private void updateStanding() {
         ArrayList<Stable> temp = new ArrayList<Stable>(standing.keySet());
         Collections.sort(temp);
+        for (Stable stable : temp) {
+            System.out.println("Stable di colore " + stable.getColor() + " con cavallo in posizione " + stable.getHorse().getCurrentPosition());
+        }
         int rank, posFix;
-        rank = posFix = 0;
+        rank = 0;
+        posFix = 0;
 
         for (Stable stable : temp) {
             if ((stable.getHorse().gotPlaced()))
                 rank++;
         }
+        System.out.println("Si parte dal rank " + rank);
 
         int lastPosition = -1;
         for (Stable stable : temp) {
-            if (!stable.getHorse().gotPlaced()) {
-                if ((stable.getHorse()).getCurrentPosition() != lastPosition)
+            if (!(stable.getHorse().gotPlaced())) {
+                if ((stable.getHorse()).getCurrentPosition() != lastPosition) {
+                    System.out.println("Il cavallo color " + stable.getColor() + " ha posizione diversa dal precedente");
                     rank += posFix + 1;
-                else
+                } else {
+                    System.out.println("Il cavallo color " + stable.getColor() + " NON ha posizione diversa dal precedente");
+
                     posFix += 1;
+                }
                 standing.put(stable, rank);
-                if (stable.getHorse().hasFinishedRace())
+                if (stable.getHorse().hasFinishedRace()) {
                     stable.getHorse().setGotPlaced(true);
+                }
                 lastPosition = stable.getHorse().getCurrentPosition();
             }
         }

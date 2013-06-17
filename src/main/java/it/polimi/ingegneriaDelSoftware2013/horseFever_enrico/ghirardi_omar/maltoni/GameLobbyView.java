@@ -2,6 +2,9 @@ package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.malt
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,35 +13,30 @@ import java.awt.*;
  * Time: 15:29
  * To change this template use File | Settings | File Templates.
  */
-public class GameLobbyView implements GameLobbyInterface {
+public class GameLobbyView extends JPanel {
 
-    private JTextField textField1;
-    private JButton button1;
-    private JList list1;
-    private JButton button2;
-    private JButton button3;
-    private JPanel containingPanel;
+    private ArrayList<String> nicknamesList;
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Game Lobby");
+    private JTextField playerNicknameField;
+    private JButton addPlayerBtn;
+    private JList playersList;
+    private JButton backBtn;
+    private JButton startGameBtn;
+    private GameInterfaceView viewRef;
+    private DefaultListModel listModel;
 
-        Dimension size = new Dimension(200, 300);
-        frame.setMinimumSize(size);
-        frame.setMaximumSize(size);
-        frame.setPreferredSize(size);
-        frame.setContentPane(new GameLobbyView().containingPanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
-        frame.setLocationRelativeTo(null);
-    }
 
-    public GameLobbyView() {
-        containingPanel = new JPanel();
-        containingPanel.setLayout(new GridBagLayout());
-        containingPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8), null));
-        final JPanel panel1 = new JPanel();
-        panel1.setLayout(new GridBagLayout());
+    GameLobbyView(GameInterfaceView view) {
+        viewRef = view;
+        nicknamesList = new ArrayList<String>();
+
+        setSize(200, 300);
+
+        setLayout(new GridBagLayout());
+        setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8), null));
+
+        final JPanel topPanel = new JPanel();
+        topPanel.setLayout(new GridBagLayout());
         GridBagConstraints gbc;
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -46,8 +44,9 @@ public class GameLobbyView implements GameLobbyInterface {
         gbc.weightx = 1.0;
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        containingPanel.add(panel1, gbc);
-        textField1 = new JTextField();
+        add(topPanel, gbc);
+
+        playerNicknameField = new JTextField();
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -55,61 +54,66 @@ public class GameLobbyView implements GameLobbyInterface {
         gbc.weighty = 1.0;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(textField1, gbc);
-        button1 = new JButton();
-        button1.setText("Button");
+        topPanel.add(playerNicknameField, gbc);
+
+        addPlayerBtn = new JButton();
+        addPlayerBtn.setText("Add Player");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(button1, gbc);
-        final JPanel panel2 = new JPanel();
-        panel2.setLayout(new GridBagLayout());
+        topPanel.add(addPlayerBtn, gbc);
+
+        final JPanel bottomPanel = new JPanel();
+        bottomPanel.setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.weightx = 1.0;
         gbc.anchor = GridBagConstraints.SOUTH;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        containingPanel.add(panel2, gbc);
-        button3 = new JButton();
-        button3.setText("Button");
+        add(bottomPanel, gbc);
+
+        startGameBtn = new JButton();
+        startGameBtn.setText("Start Game!");
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 0;
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.BOTH;
-        panel2.add(button3, gbc);
-        button2 = new JButton();
-        button2.setText("Button");
+        bottomPanel.add(startGameBtn, gbc);
+        backBtn = new JButton();
+        backBtn.setText("Back");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weightx = 0.2;
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.BOTH;
-        panel2.add(button2, gbc);
+        bottomPanel.add(backBtn, gbc);
         final JPanel spacer1 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.weightx = 0.5;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel2.add(spacer1, gbc);
-        final JPanel panel3 = new JPanel();
-        panel3.setLayout(new GridBagLayout());
+        bottomPanel.add(spacer1, gbc);
+
+        final JPanel midPanel = new JPanel();
+        midPanel.setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.BOTH;
-        containingPanel.add(panel3, gbc);
-        list1 = new JList();
-        final DefaultListModel defaultListModel1 = new DefaultListModel();
-        list1.setModel(defaultListModel1);
+        add(midPanel, gbc);
+
+        playersList = new JList();
+        listModel = new DefaultListModel();
+        playersList.setModel(listModel);
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -118,8 +122,45 @@ public class GameLobbyView implements GameLobbyInterface {
         gbc.fill = GridBagConstraints.BOTH;
         gbc.ipadx = 5;
         gbc.ipady = 5;
-        panel3.add(list1, gbc);
+        midPanel.add(playersList, gbc);
 
+        GameLobbyHandler handler = new GameLobbyHandler();
+
+        addPlayerBtn.addActionListener(handler);
+        startGameBtn.addActionListener(handler);
+        backBtn.addActionListener(handler);
+
+        Dimension size = new Dimension(200, 300);
+        setPreferredSize(size);
+    }
+
+    void updateList() {
+        listModel.clear();
+
+        for (int i = 0; i < nicknamesList.size(); i++) {
+            listModel.add(i, nicknamesList.get(i));
+        }
+    }
+
+    private class GameLobbyHandler implements ActionListener {
+
+        public void actionPerformed(ActionEvent event) {
+            if (event.getSource() == addPlayerBtn) {
+                String tmp = playerNicknameField.getText();
+                if (!tmp.equals("")) {
+                    nicknamesList.add(tmp);
+                    updateList();
+                    playerNicknameField.setText("");
+                }
+
+            } else if (event.getSource() == startGameBtn) {
+                viewRef.startMatchWithPlayers(nicknamesList);
+            } else if (event.getSource() == backBtn) {
+
+            }
+
+
+        }
     }
 
 

@@ -1,36 +1,36 @@
 [
     {
-        "imagePath": "stablecard55",
+        "imagePath": "stablecard55.jpg",
         "stableName": "Virtus Alba",
         "color": "WHITE",
         "placementEarning": [600, 400, 200]
     },
     {
-        "imagePath": "stablecard56",
+        "imagePath": "stablecard56.jpg",
         "stableName": "The True Blood",
         "color": "BLUE",
         "placementEarning": [600, 400, 200]
     },
     {
-        "imagePath": "stablecard57",
+        "imagePath": "stablecard57.jpg",
         "stableName": "L'Ardor Giallo",
         "color": "YELLOW",
         "placementEarning": [600, 400, 200]
     },
     {
-        "imagePath": "stablecard58",
+        "imagePath": "stablecard58.jpg",
         "stableName": "Die Swarz Mond",
         "color": "BLACK",
         "placementEarning": [600, 400, 200]
     },
     {
-        "imagePath": "stablecard59",
+        "imagePath": "stablecard59.jpg",
         "stableName": "El Fragor Rojo",
         "color": "RED",
         "placementEarning": [600, 400, 200]
     },
     {
-        "imagePath": "stablecard60",
+        "imagePath": "stablecard60.jpg",
         "stableName": "La Gloire Vert",
         "color": "GREEN",
         "placementEarning": [600, 400, 200]

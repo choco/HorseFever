@@ -1,6 +1,6 @@
 [
     {
-        "imagePath": "actioncard01",
+        "imagePath": "actioncard01.jpg",
         "cardName": "Magna Velocitas",
         "action": "fixedStartSteps",
         "type": "POSITIVE",
@@ -8,7 +8,7 @@
         "cardLetter": "A"
     },
     {
-        "imagePath": "actioncard02",
+        "imagePath": "actioncard02.jpg",
         "cardName": "Fortuna Benevola",
         "action": "addStartSteps",
         "type": "POSITIVE",
@@ -16,7 +16,7 @@
         "cardLetter": "B"
     },
     {
-        "imagePath": "actioncard03",
+        "imagePath": "actioncard03.jpg",
         "cardName": "Flagellum Fulguris",
         "action": "addSprintSteps",
         "type": "POSITIVE",
@@ -24,7 +24,7 @@
         "cardLetter": "C"
     },
     {
-        "imagePath": "actioncard04",
+        "imagePath": "actioncard04.jpg",
         "cardName": "Herba Magica",
         "action": "fixedSprintSteps",
         "type": "POSITIVE",
@@ -32,7 +32,7 @@
         "cardLetter": "D"
     },
     {
-        "imagePath": "actioncard05",
+        "imagePath": "actioncard05.jpg",
         "cardName": "In Ignis Veritas",
         "action": "winsPhotofinish",
         "type": "POSITIVE",
@@ -40,7 +40,7 @@
         "cardLetter": "F"
     },
     {
-        "imagePath": "actioncard06",
+        "imagePath": "actioncard06.jpg",
         "cardName": "Fustis et Radix",
         "action": "addFinishSteps",
         "type": "POSITIVE",
@@ -48,7 +48,7 @@
         "cardLetter": "E"
     },
     {
-        "imagePath": "actioncard07",
+        "imagePath": "actioncard07.jpg",
         "cardName": "Vigor Ferreum",
         "action": "isLastFixedSteps",
         "type": "POSITIVE",
@@ -64,7 +64,7 @@
         "cardLetter": "A"
     },
     {
-        "imagePath": "actioncard09",
+        "imagePath": "actioncard09.jpg",
         "cardName": "Aqua Putrida",
         "action": "fixedStartSteps",
         "type": "NEGATIVE",
@@ -72,7 +72,7 @@
         "cardLetter": "B"
     },
     {
-        "imagePath": "actioncard10",
+        "imagePath": "actioncard10.jpg",
         "cardName": "Serum Maleficum",
         "action": "fixedSprintSteps",
         "type": "NEGATIVE",
@@ -80,7 +80,7 @@
         "cardLetter": "C"
     },
     {
-        "imagePath": "actioncard11",
+        "imagePath": "actioncard11.jpg",
         "cardName": "Venenum Veneficum",
         "action": "addSprintSteps",
         "type": "NEGATIVE",
@@ -88,7 +88,7 @@
         "cardLetter": "D"
     },
     {
-        "imagePath": "actioncard12",
+        "imagePath": "actioncard12.jpg",
         "cardName": "MalaTempora",
         "action": "winsPhotofinish",
         "type": "NEGATIVE",
@@ -96,7 +96,7 @@
         "cardLetter": "F"
     },
     {
-        "imagePath": "actioncard13",
+        "imagePath": "actioncard13.jpg",
         "cardName": "XIII",
         "action": "canMoveAfterFinishLine",
         "type": "NEGATIVE",
@@ -104,7 +104,7 @@
         "cardLetter": "E"
     },
     {
-        "imagePath": "actioncard14",
+        "imagePath": "actioncard14.jpg",
         "cardName": "Felix Infernalis",
         "action": "isFirstFixedSteps",
         "type": "NEGATIVE",
@@ -112,7 +112,7 @@
         "cardLetter": "G"
     },
     {
-        "imagePath": "actioncard15",
+        "imagePath": "actioncard15.jpg",
         "cardName": "Alfio Allibratore",
         "action": "addQuotation",
         "type": "NEUTRAL",
@@ -120,7 +120,7 @@
         "cardLetter": "N"
     },
     {
-        "imagePath": "actioncard16",
+        "imagePath": "actioncard16.jpg",
         "cardName": "Friz Finden",
         "action": "removeNegativeActioncards",
         "type": "NEUTRAL",
@@ -128,7 +128,7 @@
         "cardLetter": "N"
     },
     {
-        "imagePath": "actioncard19",
+        "imagePath": "actioncard19.jpg",
         "cardName": "Steven Sting",
         "action": "addQuotation",
         "type": "NEUTRAL",
@@ -136,7 +136,7 @@
         "cardLetter": "N"
     },
     {
-        "imagePath": "actioncard20",
+        "imagePath": "actioncard20.jpg",
         "cardName": "Rochelle Recherche",
         "action": "removePositiveActioncards",
         "type": "NEUTRAL",

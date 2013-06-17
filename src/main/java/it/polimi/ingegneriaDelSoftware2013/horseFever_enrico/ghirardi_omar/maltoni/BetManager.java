@@ -32,6 +32,7 @@ public class BetManager {
 
     //validità scommessa nelle due bet phases, no doppia scommessa
     void checkBetValidity(Bet bet) throws InvalidBetException {
+        System.out.println(bet);
         if (betMarkPool.get(bet.getBettingStable().getColor()) < 1)
             throw new InvalidBetException(InvalidBetExceptionType.NOT_ENOUGH_BET_MARKS);
         for (Bet temp : bets) {
@@ -80,19 +81,20 @@ public class BetManager {
             int earningMoney = 0;
             switch (standing.get(stable)) {
                 case 1:
-                    earningMoney = stable.getStableCard().getPlacementEarning().get(1);
+                    earningMoney = stable.getStableCard().getPlacementEarning().get(0);
                     break;
                 case 2:
-                    earningMoney = stable.getStableCard().getPlacementEarning().get(2);
+                    earningMoney = stable.getStableCard().getPlacementEarning().get(1);
                     break;
                 case 3:
-                    earningMoney = stable.getStableCard().getPlacementEarning().get(3);
+                    earningMoney = stable.getStableCard().getPlacementEarning().get(2);
                     break;
                 default:
                     break;
             }
-
-            stable.getStableOwner().setMoney(stable.getStableOwner().getMoney() + earningMoney);
+            if (stable.getStableOwner() != null) {
+                stable.getStableOwner().setMoney(stable.getStableOwner().getMoney() + earningMoney);
+            }
         }
 
     }

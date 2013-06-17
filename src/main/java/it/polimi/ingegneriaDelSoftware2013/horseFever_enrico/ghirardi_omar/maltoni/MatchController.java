@@ -15,7 +15,6 @@ public class MatchController {
     private Match match;
     private BetManager betManager;
     private RaceManager raceManager;
-    private GameLobbyInterface lobbyInterface;
     private GameInterface gameInterface;
     private BetPhaseInterface betPhaseInterface;
 
@@ -27,7 +26,7 @@ public class MatchController {
         match = new Match();
         betManager = new BetManager(match.getBetMarkPool());
         raceManager = new RaceManager(match.getStables(), match.getMovementCardDeck());
-        lobbyInterface = new GameLobbyView();
+        gameInterface = new GameInterfaceView(this);
 
         //mostra interfaccia
     }
@@ -36,12 +35,15 @@ public class MatchController {
         match.setUpMatch();
         giveCharacterCards();
         initializeFirstPlayer();
-        for (int i = 0; i < match.getNumberOfTurns(); i++) {
+
+        gameInterface.updatePlayersInfo(match.getPlayers());
+
+        for (int currentTurn = 0; currentTurn < match.getNumberOfTurns(); currentTurn++) {
             updatePlayersOrder();
             startTurn();
             wrapUpTurn();
             setNextFirstPlayer();
-            match.setCurrentTurn(i + 1);
+            match.setCurrentTurn(currentTurn + 1);
             match.getActionCardDeck().shuffle();
             match.getMovementCardDeck().shuffle();
         }
@@ -103,16 +105,29 @@ public class MatchController {
         giveActionCards(NUMBER_OF_ACTIONCARDS_AT_EACH_TURN);
 
         match.setMatchPhase(MatchPhase.FIRST_BET_PHASE);
+        gameInterface.updateUIForPhase(match.getMatchPhase());
         betPhase();
 
         match.setMatchPhase(MatchPhase.RIG_PHASE);
+        gameInterface.updateUIForPhase(match.getMatchPhase());
         rigPhase();
 
         match.setMatchPhase(MatchPhase.SECOND_BET_PHASE);
         betPhase();
 
         match.setMatchPhase(MatchPhase.RACE_PHASE);
-        raceManager.startRace();
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                raceManager.startRace();
+            }
+        });
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
     }
 
     public void wrapUpTurn() {
@@ -125,7 +140,7 @@ public class MatchController {
 
     /**
      * Riceve un ArrayList di stringhe che corrispondono ai "nickname" scelti per ogni giocatore
-     * e crea nel modello i giocatori corrispondenti, successivamente avvia la partita
+     * e crea nel modello i giocatori corrispondenti
      *
      * @param players ArrayList<String> nickname dei giocatori
      */
@@ -134,18 +149,23 @@ public class MatchController {
         for (String temp : players) {
             match.addPlayer(new Player(temp));
         }
-
-        startMatch();
     }
 
     private void rigPhase() {
         while (someoneStillHasActionCards()) {
             for (int i = 0; i < match.getPlayers().size(); i++) {
                 Player player = getNextPlayer();
+                gameInterface.setCurrentPlayer(player);
+
                 if (!player.isActionCardPileEmpty()) {
 
-                    ActionCard card = null;
-                    Horse horse = null;
+                    ArrayList<Horse> horses = new ArrayList<Horse>();
+                    for (Stable stable : match.getStables()) {
+                        horses.add(stable.getHorse());
+                    }
+
+                    Horse horse = gameInterface.getHorseToPlayActionCardOn(horses);
+                    ActionCard card = gameInterface.getActionCardToPlay(player.getActionCardPile());
 
                     //Prende la carta e il cavallo su cui giocarla dall'interfaccia!!!!
                     player.playActionCard(card, horse);
@@ -220,6 +240,7 @@ public class MatchController {
 
     private void playerHasLostGame(Player player) {
         // Segnala tramite interfaccia che il giocatore ha perso
+        gameInterface.playerHasLostTheGame(player);
 
         match.getPlayers().remove(player);
 
@@ -227,24 +248,20 @@ public class MatchController {
 
     private void betPhase() {
 
-        //variables which will be updated via user interface
-        int amount = 0;
-        Stable stable = null;
-        BetType type = null;
         //metodo checkLoss per determinare eventuali decurtazioni ai pv o estromissione del giocatore dalla partita
         for (int i = 0; i < match.getNumberOfPlayers(); i++) {
             Player player = getNextPlayer();
 
+
             boolean wantsToBet = true;
             if (match.getMatchPhase() == MatchPhase.SECOND_BET_PHASE) {
-                wantsToBet = false; //prende valore da interfaccia, voglio fare seconda socmmessa?
+                wantsToBet = gameInterface.userWantsToBet(); //prende valore da interfaccia, voglio fare seconda socmmessa?
             }
 
             boolean betCorrectlyMade = false;
             boolean canBet = true;
 
             while ((!betCorrectlyMade) && wantsToBet && canBet) {
-
                 while (!player.canMakeMinimumBet()) {
                     int victoryPoints = player.getVictoryPoints();
                     victoryPoints -= NUMBER_OF_VP_LOSE;
@@ -259,25 +276,31 @@ public class MatchController {
                     break;
 
                 //chiama interfaccia e chiede al giocatore i valori per la makeBet
-
-                Bet playerBet = null;
+                gameInterface.updateBetMarkPool(match.getBetMarkPool());
+                Bet playerBet = gameInterface.getPlayerBet(match.getStables());
 
                 try {
-                    playerBet = player.makeBet(amount, type, stable);
+                    playerBet = player.makeBet(playerBet);
                     betManager.insertBet(playerBet);
                     betCorrectlyMade = true;
+                    gameInterface.betWasRegisteredCorrectly();
                 } catch (InvalidBetException e) {
                     switch (e.getType()) {
 
                         case NOTENOUGHTMONEY:
+                            gameInterface.betRegistrationError("You don't have enought money!");
                             break;
                         case NOTAMINIMUMBET:
+                            gameInterface.betRegistrationError("That's not a minimum bet!");
                             break;
                         case NOMOREREMAINIGBETS:
+                            gameInterface.betRegistrationError("You have finished your bets!");
                             break;
                         case NOT_ENOUGH_BET_MARKS:
+                            gameInterface.betRegistrationError("There are no betmarks available for this horse");
                             break;
                         case SAME_BET:
+                            gameInterface.betRegistrationError("You already made this bet");
                             break;
                     }
                 }

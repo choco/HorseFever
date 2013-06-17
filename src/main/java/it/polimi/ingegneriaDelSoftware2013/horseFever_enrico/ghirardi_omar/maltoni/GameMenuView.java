@@ -18,9 +18,10 @@ public class GameMenuView extends JPanel {
     private GameInterfaceView viewRef;
 
     //TODO: lanciare da qui menu personalizza partita da cui inizializzare i giocatori;
-    GameMenuView(GameInterfaceView view) {
+    public GameMenuView(GameInterfaceView view) {
 
         viewRef = view;
+
         setLayout(new GridLayout(2, 1));
 
         offlineGame = new JButton("Offline Game");
@@ -31,18 +32,21 @@ public class GameMenuView extends JPanel {
         onlineGame.setToolTipText("Create or join an online game! (Yet to be implemented)");
         add(onlineGame);
 
-        LobbyHandler handler = new LobbyHandler();
+        MenuHandler handler = new MenuHandler();
         offlineGame.addActionListener(handler);
         onlineGame.addActionListener(handler);
+
+        Dimension size = new Dimension(200, 300);
+        setPreferredSize(size);
     }
 
-    private class LobbyHandler implements ActionListener {
+    private class MenuHandler implements ActionListener {
 
         public void actionPerformed(ActionEvent event) {
 
             if (event.getSource() == offlineGame) {
-
-                viewRef.setGamePanelAsPane();
+                //viewRef.setGamePanelAsMainPanel();
+                viewRef.setGameLobbyAsMainPanel();
 
             } else if (event.getSource() == onlineGame) {
                 System.out.println("comincia online");
