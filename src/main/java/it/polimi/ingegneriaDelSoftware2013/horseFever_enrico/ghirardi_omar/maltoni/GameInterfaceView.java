@@ -23,6 +23,11 @@ public class GameInterfaceView extends JFrame implements GameInterface {
     private GamePanelView gamePanel;
     private static final String imageDir = "rsc/";
 
+    /**
+     * Constructor of game interface view object which is the main frame of the gui
+     * @param matchController link to the controller
+     */
+
     public GameInterfaceView(MatchController matchController) {
         super("Horse Fever");
         this.matchController = matchController;
@@ -41,12 +46,21 @@ public class GameInterfaceView extends JFrame implements GameInterface {
         centerWindow();
     }
 
+    /**
+     * Sets the game panel as the main panel of the frame (this) by removing the older one
+     */
+
     void setGamePanelAsMainPanel() {
         this.setContentPane(gamePanel);
 
         pack();
         centerWindow();
     }
+
+    /**
+     * Assigns the id tags of the players to the matchcontroller which creates the players, sets game panel as the current screen of the gui and starts the gameflow thread
+     * @param playersNicknames array list of tags representing each player
+     */
 
     void startMatchWithPlayers(ArrayList<String> playersNicknames) {
         matchController.setPlayers(playersNicknames);
@@ -62,6 +76,10 @@ public class GameInterfaceView extends JFrame implements GameInterface {
         gameFlow.start();
     }
 
+    /**
+     * Temporarily stops the thread
+     */
+
     void pauseGameFlow() {
         try {
             synchronized (this) {
@@ -73,11 +91,19 @@ public class GameInterfaceView extends JFrame implements GameInterface {
         }
     }
 
+    /**
+     * Resumes the thread
+     */
+
     void resumeGameFlow() {
         synchronized (this) {
             notifyAll();
         }
     }
+
+    /**
+     * Sets the game lobby panel as the main panel of the frame (this) by removing the older one
+     */
 
     void setGameLobbyAsMainPanel() {
 
@@ -88,8 +114,11 @@ public class GameInterfaceView extends JFrame implements GameInterface {
         centerWindow();
     }
 
+    /**
+     * Puts the frame at the center of the screen
+     */
+
     private void centerWindow() {
-        //set the frame at the center of the screen
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
     }
@@ -98,18 +127,33 @@ public class GameInterfaceView extends JFrame implements GameInterface {
         return imageDir;
     }
 
+    /**
+     * Updates the bet mark pool after every choice of the players
+     * @param betMarkPool hash map representing the bet mark pool to update
+     */
+
     public void updateBetMarkPool(Map<StableColor, Integer> betMarkPool) {
         gamePanel.updateBetMarks(betMarkPool);
     }
+
+    /**
+     * Updates players info after every changing
+     * @param players array list representing the players taking part in the game
+     */
 
     public void updatePlayersInfo(ArrayList<Player> players) {
         gamePanel.setUpPlayersPanels(players);
     }
 
+    /**
+     * Checks if the current user wants to make the second bet
+     * @return a boolean value representing the choice of the current player
+     */
+
     public boolean userWantsToBet() {
         int result = JOptionPane.showConfirmDialog(this, "Second Bet", "Do you want to make a second bet?", JOptionPane.YES_NO_OPTION);
         if (result == JOptionPane.YES_OPTION) {
-            System.out.println("VVediamo se qui");
+            System.out.println("Vediamo se qui");
             return true;
         }
         System.out.println("Oppure qui");
@@ -117,19 +161,39 @@ public class GameInterfaceView extends JFrame implements GameInterface {
         return false;
     }
 
+    /**
+     * Get the bet from the player through the game panel gui
+     * @param stables array list of stable on which the player will bet
+     * @return the bet made by the player
+     */
+
     public Bet getPlayerBet(ArrayList<Stable> stables) {
         return gamePanel.getPlayerBet(stables);  //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    /**
+     * Informs the player if his bet has correctly been registered
+     */
+
     public void betWasRegisteredCorrectly() {
-        JOptionPane.showConfirmDialog(this, "FATTAAA!");
+        JOptionPane.showConfirmDialog(this, "Bet correctly made!");
         //To change body of implemented methods use File | Settings | File Templates.
     }
+
+    /**
+     * Informs the player if his bet isn't valid
+     * @param s the error message to show
+     */
 
     public void betRegistrationError(String s) {
         gamePanel.showBetRegistrationError(s);
 
     }
+
+    /**
+     * Updates the right end of the gui depending on the games phase
+     * @param matchPhase the phase of the match
+     */
 
     public void updateUIForPhase(MatchPhase matchPhase) {
         switch (matchPhase) {
@@ -154,6 +218,8 @@ public class GameInterfaceView extends JFrame implements GameInterface {
         }
         //To change body of implemented methods use File | Settings | File Templates.
     }
+
+    //TODO: javaDoc on this methods
 
     public void setCurrentPlayer(Player player) {
         //To change body of implemented methods use File | Settings | File Templates.

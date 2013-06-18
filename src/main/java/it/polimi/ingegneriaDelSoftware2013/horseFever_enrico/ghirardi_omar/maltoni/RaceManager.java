@@ -44,6 +44,11 @@ public class RaceManager {
     private static final String REMOVE_NEGATIVE_ACTIONCARDS = "removeNegativeActioncards";
     private static final String REMOVE_POSITIVE_ACTIONCARDS = "removePositiveActioncards";
 
+    /**
+     * Constructor of a race manager object
+     * @param stables          stable taking part in the game
+     * @param movementCardDeck the deck of movement cards
+     */
     public RaceManager(ArrayList<Stable> stables, Deck movementCardDeck) {
 
         horsesList = new ArrayList<Horse>();
@@ -57,6 +62,10 @@ public class RaceManager {
         this.movementCardDeck = movementCardDeck;
         playedActionCards = new ArrayList<ActionCard>();
     }
+
+    /**
+     * Updates the quotation of every stable at the end of a race
+     */
 
     public void updateStableQuotations() {
         for (Stable temp : standing.keySet()) {
@@ -94,6 +103,10 @@ public class RaceManager {
 
     }
 
+    /**
+     * Starts the race flow
+     */
+
 
     public void startRace() {      // handles the start
 
@@ -124,6 +137,10 @@ public class RaceManager {
         }
 
     }
+
+    /**
+     * Manages every turn of the race updating the position and steps of every horse
+     */
 
     private void raceTurn() {        // handles every race turn
 
@@ -168,6 +185,11 @@ public class RaceManager {
         racePhase = RacePhase.MIDDLE;
     }
 
+    /**
+     * Removes the selected type of cards from the action cards pile of the horse
+     * @param actionType type of action cards to remove
+     * @param horse      horse to act
+     */
 
     private void removeActionCardsOfTypeFromHorse(ActionType actionType, Horse horse) {
         for (ActionCard card : horse.getActionPile()) {
@@ -184,6 +206,11 @@ public class RaceManager {
         }
     }
 
+    /**
+     * Checks if all horses has finished the race
+     * @return true or false based on the condition above
+     */
+
     private boolean allHorsesFinishedRace() {
         for (Horse horse : horsesList) {
             if (!horse.hasFinishedRace())
@@ -193,6 +220,11 @@ public class RaceManager {
         return true;
     }
 
+    /**
+     * Checks if all the racing horses have been added to the final standing hence they're placed
+     * @return return true or false based on the condition above
+     */
+
     private boolean allHorsesGotPlaced() {
         for (Horse horse : horsesList) {
             if (!horse.gotPlaced())
@@ -201,6 +233,11 @@ public class RaceManager {
 
         return true;
     }
+
+    /**
+     * Checks if a particular horse has passes the finish line
+     * @param horse horse to check
+     */
 
     private void checkIfHorseArrived(Horse horse) {
         if (!horse.gotPlaced()) {
@@ -215,6 +252,12 @@ public class RaceManager {
             }
         }
     }
+
+    /**
+     * Makes the horse sprint
+     * It won't allow a horse to sprint twice in the same turn
+     * @param horse horse which is going to sprint
+     */
 
     private void makeHorseSprint(Horse horse) {
         int current = horse.getCurrentPosition();
@@ -236,6 +279,13 @@ public class RaceManager {
             }
         }
     }
+
+    /**
+     * Applies movement card to horse hence the horse moves of a number of steps equals to the number associated to his..
+     * Stable quotation on the movement card
+     * @param card  movement card to apply
+     * @param horse horse to move
+     */
 
     private void applyMovementCardToHorse(MovementCard card, Horse horse) {
         if (!horse.gotPlaced()) {
@@ -296,6 +346,10 @@ public class RaceManager {
 
     }
 
+    /**
+     * Applies neutral cards to the horse...a little tricky
+     */
+
     private void applyNeutralCards() {
         for (Horse horse : horsesList) {
             for (ActionCard card : horse.getActionPile()) {
@@ -327,6 +381,11 @@ public class RaceManager {
             }
         }
     }
+
+    /**
+     * Applies the action cards of the action cards pile which affects the movement of a horse
+     * @param horse horse to apply cards to
+     */
 
     private void applyMovementRelatedActionCardsToHorse(Horse horse) {
 
@@ -367,6 +426,10 @@ public class RaceManager {
 
     }
 
+    /**
+     * removes the cards with the same letter from teh action cards pile of a horse
+     */
+
     private void removeSameCharCards() {
 
         for (Horse horse : horsesList) {
@@ -388,6 +451,10 @@ public class RaceManager {
         }
     }
 
+    /**
+     * Thows sprint dice
+     * @return the color of the stable which owns the horse which is going to sprint
+     */
 
     private StableColor throwSprintDice() {
 
@@ -412,6 +479,11 @@ public class RaceManager {
         }
         return null;
     }
+
+    /**
+     * Checks the action cards pile of a horse before the race begins
+     * Applies and remove cards by calling several methods written above
+     */
 
     private void checkActionCardsAtStart() {
 
@@ -493,6 +565,11 @@ public class RaceManager {
         }
     }
 
+    /**
+     * Checks in the horse is first
+     * @param horse to check
+     * @return      true if it's first, false otw
+     */
 
     private boolean isHorseFirst(Horse horse) {
         if (standing.get(horse.getOwnerStable()) == 1)
@@ -500,6 +577,12 @@ public class RaceManager {
 
         return false;
     }
+
+    /**
+     * Checks in the horse is last
+     * @param horse to check
+     * @return      true if it's last, false otw
+     */
 
     private boolean isHorseLast(Horse horse) {
         for (Stable temp : standing.keySet()) {

@@ -26,6 +26,11 @@ public class Deck {
     private static final String CHARACTERCARDS_FILEPATH = "rsc/cards/charactercards/charactercards.json";
     private static final String STABLECARDS_FILEPATH = "rsc/cards/stablecards/stablecards.json";
 
+    /**
+     * Constructor of a deck object
+     * @param type         card type of the cards composing the deck
+     * @throws IOException throws the exception if the file can't be read
+     */
     public Deck(CardType type) throws IOException {
         String cardsFile = null;
         switch (type) {
@@ -63,19 +68,19 @@ public class Deck {
 
             switch (type) {
                 case ACTION:
-                    card = (ActionCard) (mapper.readValue(jp, ActionCard.class));
+                    card = (mapper.readValue(jp, ActionCard.class));
                     break;
 
                 case MOVEMENT:
-                    card = (MovementCard) (mapper.readValue(jp, MovementCard.class));
+                    card = (mapper.readValue(jp, MovementCard.class));
                     break;
 
                 case CHARACTER:
-                    card = (CharacterCard) (mapper.readValue(jp, CharacterCard.class));
+                    card = (mapper.readValue(jp, CharacterCard.class));
                     break;
 
                 case STABLE:
-                    card = (StableCard) (mapper.readValue(jp, StableCard.class));
+                    card = (mapper.readValue(jp, StableCard.class));
                     break;
 
                 case HORSE:
@@ -99,13 +104,27 @@ public class Deck {
         shuffle();
     }
 
+    /**
+     * Constructor of a deck object
+     * @param cards array list of cards which has to be assigned to deck's cards attribute
+     */
+
     public Deck(ArrayList<Card> cards) {
         this.cards = cards;
     }
 
+    /**
+     * Verifies if the selected deck is empty
+     * @return a boolean value depending on the emptiness of the deck (true => empty, false otw)
+     */
+
     public boolean isDeckEmpty() {
         return cards.isEmpty();
     }
+
+    /**
+     * Shuffles the deck randomizing the order of cards attribute
+     */
 
     public void shuffle() {
         Random generator = new Random();
@@ -121,9 +140,19 @@ public class Deck {
         }
     }
 
+    /**
+     * Draw a card by removing the first element of cards attibute
+     * @return removed card
+     */
+
     public Card draw() {
         return cards.remove(0);
     }
+
+    /**
+     * Put the drawn card at the bottom of the deck by adding it has the last element of cards
+     * @param card card to add
+     */
 
     public void putBottom(Card card) {
         cards.add(card);

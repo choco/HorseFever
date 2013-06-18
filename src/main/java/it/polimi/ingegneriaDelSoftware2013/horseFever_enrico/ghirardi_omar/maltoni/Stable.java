@@ -22,6 +22,10 @@ public class Stable implements Comparable<Stable> {
 
         /*temporary constructor for testing*/
 
+    /**
+     * Constructor of a stable object
+     * @param color of the stable to create
+     */
     public Stable(StableColor color) {
         this.color = color;
         horse = new Horse(this);
@@ -59,6 +63,13 @@ public class Stable implements Comparable<Stable> {
     public StableCard getStableCard() {
         return stableCard;
     }
+
+    /**
+     * Compares the position of the horse owned by the selected stable with the position of the other horses to infer
+     * The standing and if the horse is first or last (needed for some cards)
+     * @param stable which owns the horse
+     * @return       the current position
+     */
 
     public int compareTo(Stable stable) {
         if (this.horse.getCurrentPosition() > stable.horse.getCurrentPosition())

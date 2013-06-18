@@ -8,7 +8,10 @@ package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.malt
  * To change this template use File | Settings | File Templates.
  */
 public class HorseFever {
-    //launches the game
+    /**
+     * Main of the game
+     * @param args default
+     */
     public static void main(String[] args) {
 
         MatchController newMatch = new MatchController();

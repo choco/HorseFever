@@ -25,7 +25,10 @@ public class GameLobbyView extends JPanel {
     private GameInterfaceView viewRef;
     private DefaultListModel listModel;
 
-
+    /**
+     * Constructor of a game lobby view object
+     * @param view the reference to the main frame of the gui
+     */
     GameLobbyView(GameInterfaceView view) {
         viewRef = view;
         nicknamesList = new ArrayList<String>();
@@ -134,6 +137,10 @@ public class GameLobbyView extends JPanel {
         setPreferredSize(size);
     }
 
+    /**
+     * Updates the list of players in the lobby
+     */
+
     void updateList() {
         listModel.clear();
 
@@ -141,6 +148,10 @@ public class GameLobbyView extends JPanel {
             listModel.add(i, nicknamesList.get(i));
         }
     }
+
+    /**
+     * Action listener to perform actions in the game lobby screen
+     */
 
     private class GameLobbyHandler implements ActionListener {
 
@@ -156,7 +167,7 @@ public class GameLobbyView extends JPanel {
             } else if (event.getSource() == startGameBtn) {
                 viewRef.startMatchWithPlayers(nicknamesList);
             } else if (event.getSource() == backBtn) {
-
+                   //viewRef.setGameMenuAsMainPanel
             }
 
 

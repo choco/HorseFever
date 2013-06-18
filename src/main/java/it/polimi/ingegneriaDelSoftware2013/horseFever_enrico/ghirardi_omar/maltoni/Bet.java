@@ -29,6 +29,7 @@ class InvalidBetException extends Exception {
     }
 }
 
+
 public class Bet {
 
     private Player bettingPlayer;
@@ -36,7 +37,13 @@ public class Bet {
     private Stable bettingStable;
     private BetType type;
 
-
+    /**
+     * Constructor of a bet type object
+     * @param bettingPlayer current player who's making a bet
+     * @param amount        amount of money the player wants to bet
+     * @param bettingStable stable on which the player bets
+     * @param type          type of bet
+     */
     public Bet(Player bettingPlayer, int amount, Stable bettingStable, BetType type) {
         this.bettingPlayer = bettingPlayer;
         this.amount = amount;

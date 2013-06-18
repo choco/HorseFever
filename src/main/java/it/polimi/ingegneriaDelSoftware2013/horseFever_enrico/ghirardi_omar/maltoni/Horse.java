@@ -29,11 +29,20 @@ public class Horse {
 
     private static final int DID_NOT_CHANGE = -100;
 
+    /**
+     * Constructor of a horse object
+     * @param ownerStable reference to the stable related to the horse
+     */
     public Horse(Stable ownerStable) {
         resetVars();
         actionPile = new ArrayList<ActionCard>();
         this.ownerStable = ownerStable;
     }
+
+    /**
+     * If a card which changes the steps made by the horse in a fixed way (e.g horse has to move of exactly 2 steps every turn) is applied to the horse return true
+     * @return true or false based one the conditions above
+     */
 
     boolean didFixedStartStepsChange() {
         if (fixedStartSteps != DID_NOT_CHANGE)
@@ -41,11 +50,21 @@ public class Horse {
         return false;
     }
 
+    /**
+     * If a card which changes the steps made by the horse in an additive way (e.g horse has to move of 2 additional steps every turn) is applied to the horse return true
+     * @return true or false based one the conditions above
+     */
+
     boolean didAddStartStepsChange() {
         if (addStartSteps != DID_NOT_CHANGE)
             return true;
         return false;
     }
+
+    /**
+     * If a card which changes the sprint steps made by the horse in a fixed way (e.g horse has to move of exactly 2 steps at every sprint) is applied to the horse return true
+     * @return true or false based one the conditions above
+     */
 
     boolean didFixedSprintStepsChange() {
         if (fixedSprintSteps != DID_NOT_CHANGE)
@@ -53,11 +72,21 @@ public class Horse {
         return false;
     }
 
+    /**
+     * If a card which changes the sprint steps made by the horse in an additive way (e.g horse has to move of 2 additional steps at every sprint) is applied to the horse return true
+     * @return true or false based one the conditions above
+     */
+
     boolean didAddSprintStepsChange() {
         if (addSprintSteps != DID_NOT_CHANGE)
             return true;
         return false;
     }
+
+    /**
+     * If a card which makes the horse win or lose the photofinish is applied returns true, false otw
+     * @return true or false based on the condition above
+     */
 
     boolean didWinsPhotofinishChange() {
         if (winsPhotofinish != DID_NOT_CHANGE)
@@ -65,11 +94,21 @@ public class Horse {
         return false;
     }
 
+    /**
+     * If a card which affects the ability of the horse to move after the finish line is applied returns true, false otw
+     * @return true or false based on the condition above
+     */
+
     boolean didCanMoveAfterFinishLineChange() {
         if (canMoveAfterFinishLine != DID_NOT_CHANGE)
             return true;
         return false;
     }
+
+    /**
+     * If a card which changes the steps made by the horse after the finish line is applied to the horse return true
+     * @return true or false based one the conditions above
+     */
 
     boolean didAddFinishStepsChange() {
         if (addFinishSteps != DID_NOT_CHANGE)
@@ -77,11 +116,21 @@ public class Horse {
         return false;
     }
 
+    /**
+     * If a card which changes the steps made by the horse if it's in the last position is applied to the horse return true
+     * @return true or false based one the conditions above
+     */
+
     boolean didIsLastFixedStepsChange() {
         if (isLastFixedSteps != DID_NOT_CHANGE)
             return true;
         return false;
     }
+
+    /**
+     * If a card which changes the steps made by the horse if it's in the first position is applied to the horse return true
+     * @return true or false based one the conditions above
+     */
 
     boolean didIsFirstFixedStepsChange() {
         if (isFirstFixedSteps != DID_NOT_CHANGE)
@@ -177,6 +226,11 @@ public class Horse {
         this.finishedRace = finishedRace;
     }
 
+    /**
+     * Add a card to the pile of cards associated to the horse
+     * @param card card to add
+     */
+
     void addActionCard(ActionCard card) {
         actionPile.add(card);
     }
@@ -210,6 +264,10 @@ public class Horse {
     public boolean gotPlaced() {
         return gotPlaced;
     }
+
+    /**
+     * Resets all the attribute that can change every turn due to applied action cards
+     */
 
     public void resetVars() {
         fixedStartSteps =

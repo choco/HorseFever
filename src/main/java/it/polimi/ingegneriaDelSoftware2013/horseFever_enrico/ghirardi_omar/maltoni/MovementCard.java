@@ -12,9 +12,18 @@ import java.util.ArrayList;
 public class MovementCard extends Card {
     private ArrayList<Integer> movements;
 
+    /**
+     * Constructor of a movement card object
+     */
     public MovementCard() {
         movements = new ArrayList<Integer>();
     }
+
+    /**
+     * Gets the movement amount based on the quotation received
+     * @param quotation quotation to check the movement for
+     * @return          the corresponding amount of steps performed by the horse of the stable with the selected quotation
+     */
 
     public int getMovementForQuotation(int quotation) {
         switch (quotation) {

@@ -21,7 +21,9 @@ public class MatchController {
     private static final int NUMBER_OF_ACTIONCARDS_AT_EACH_TURN = 2;
     private static final int NUMBER_OF_VP_LOSE = 2;
 
-
+    /**
+     * Constructor of a match controller object
+     */
     public MatchController() {
         match = new Match();
         betManager = new BetManager(match.getBetMarkPool());
@@ -30,6 +32,10 @@ public class MatchController {
 
         //mostra interfaccia
     }
+
+    /**
+     * Starts the match with the information needed
+     */
 
     public void startMatch() {
         match.setUpMatch();
@@ -50,6 +56,10 @@ public class MatchController {
 
         endMatch();
     }
+
+    /**
+     * End game
+     */
 
     public void endMatch() {
         ArrayList<Player> winnersByVictoryPoints = new ArrayList<Player>();
@@ -90,6 +100,10 @@ public class MatchController {
 
     }
 
+    /**
+     * At every turn this method sets the new first player (the next in the array list)
+     */
+
     public void setNextFirstPlayer() {
         ArrayList<Player> players = match.getPlayers();
         int firstPlayerIndex = players.indexOf(match.getFirstPlayer());
@@ -100,6 +114,10 @@ public class MatchController {
         }
         players.get(firstPlayerIndex).setFirstPlayer(true);
     }
+
+    /**
+     * Starts current turn
+     */
 
     public void startTurn() {
         giveActionCards(NUMBER_OF_ACTIONCARDS_AT_EACH_TURN);
@@ -118,6 +136,10 @@ public class MatchController {
         match.setMatchPhase(MatchPhase.RACE_PHASE);
         raceManager.startRace();
     }
+
+    /**
+     * Ends the turn
+     */
 
     public void wrapUpTurn() {
 
@@ -143,6 +165,10 @@ public class MatchController {
         }
     }
 
+    /**
+     * Manages the rig phase in which every player adds his action cards to the action card pile of a certain horse
+     */
+
     private void rigPhase() {
         while (someoneStillHasActionCards()) {
             for (int i = 0; i < match.getPlayers().size(); i++) {
@@ -159,12 +185,17 @@ public class MatchController {
                     Horse horse = gameInterface.getHorseToPlayActionCardOn(horses);
                     ActionCard card = gameInterface.getActionCardToPlay(player.getActionCardPile());
 
-                    //Prende la carta e il cavallo su cui giocarla dall'interfaccia!!!!
+                    //take the card to play and the horse to play it on from the gui
                     player.playActionCard(card, horse);
                 }
             }
         }
     }
+
+    /**
+     * Checks if there's a player who still has action cards to play, just a check to be sure
+     * @return true if there's such a player, false otw
+     */
 
     private boolean someoneStillHasActionCards() {
         for (Player player : match.getPlayers()) {
@@ -174,10 +205,21 @@ public class MatchController {
         return false;
     }
 
+    /**
+     * Checks if there's a player who still has bets to make, just a check to be sure
+     * @return true if there's such a player, false otw
+     */
+
     private boolean someoneStillHasBetsToMake() {
-        //da implementare
-        return false;
+            //da implementare
+            return false;
     }
+
+    /**
+     * Get the next player to play in the turn flow, it changes the order of the choice based on the current game phase
+     * In particular, the choice is always clockwise and it's anti-clockwise in the second bet phase
+     * @return the next player
+     */
 
     public Player getNextPlayer() {
         int current = match.getCurrentPLayer();
@@ -214,6 +256,10 @@ public class MatchController {
         return null;
     }
 
+    /**
+     * Method which updates the first player to cycle from (it's the first player which change from a turn to one another)
+     */
+
     private void updatePlayersOrder() {
         ArrayList<Player> players = match.getPlayers();
         int firstPlayerIndex = 0;
@@ -237,6 +283,10 @@ public class MatchController {
         match.getPlayers().remove(player);
 
     }
+
+    /**
+     * Implements the bet phase flow
+     */
 
     private void betPhase() {
 
@@ -271,9 +321,7 @@ public class MatchController {
 
                 //chiama interfaccia e chiede al giocatore i valori per la makeBet
                 gameInterface.updateBetMarkPool(match.getBetMarkPool());
-                System.out.println("Stamapale");
                 Bet playerBet = gameInterface.getPlayerBet(match.getStables());
-                System.out.println("Porco dio");
 
                 try {
                     playerBet = player.makeBet(playerBet);
@@ -304,6 +352,11 @@ public class MatchController {
         }
     }
 
+    /**
+     * Give action cards to players (numCards per player) drawing the from the action cards deck
+     * @param numCards number of cards to give to each players (parametrized for future changes)
+     */
+
     private void giveActionCards(int numCards) {
         for (Player player : match.getPlayers()) {
             for (int i = 0; i < numCards; i++)
@@ -311,11 +364,19 @@ public class MatchController {
         }
     }
 
+    /**
+     * Randomized choice of the first player
+     */
+
     private void initializeFirstPlayer() {
         Random generator = new Random();
         int temp = generator.nextInt(match.getPlayers().size() - 1);
         match.getPlayers().get(temp).setFirstPlayer(true);
     }
+
+    /**
+     * Give character cards to players (1 per player) drawing the from the character cards deck
+     */
 
     private void giveCharacterCards() {
         for (Player player : match.getPlayers()) {

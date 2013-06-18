@@ -53,7 +53,10 @@ public class GamePanelView extends JPanel {
     private JRadioButton gialloRadioButton;
     private JRadioButton biancoRadioButton;
 
-    //TODO: implementare parte destra, corsa e interazione col modello (che risolvera anche qualche errore di implementazione per ora voluto);
+    /**
+     * Constructor of a game panel view object
+     * @param view reference to the main frame of the gui
+     */
     GamePanelView(GameInterfaceView view) {
 
 
@@ -150,7 +153,14 @@ public class GamePanelView extends JPanel {
 
     }
 
-    //resize immagini
+    /**
+     * Resizes the images received to the following dimension: width=w and height=i
+     * @param srcImg image to resize
+     * @param w      final width
+     * @param h      final height
+     * @return       resized image
+     */
+
     private Image getScaledImage(Image srcImg, int w, int h) {
         BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2 = resizedImg.createGraphics();
@@ -160,31 +170,54 @@ public class GamePanelView extends JPanel {
         return resizedImg;
     }
 
-    //metodo per scrivere sul gameLog
+    /**
+     * Initializes the game log with a default line
+     */
+
     public void initializeGameLog() {
         this.gameLog.append("Let the game begins!");
     }
 
-    //prende l'indirizzo della carta pg
+    /**
+     * Get the character cards path
+     * @return a string representing the path to the character cards directory
+     */
+
     String getCharDir() {
         return viewRef.getImagedir() + "cards/charactercards/";
 
     }
 
-    //prende l'indirizzo della carta scuderia
+    /**
+     * Get the stable cards path
+     * @return a string representing the path to the stable cards directory
+     */
     String getStableDir() {
         return viewRef.getImagedir() + "cards/stablecards/";
 
     }
+
+    /**
+     * Shows a message of error if the bet is invalid
+     * @param s the actual message shown
+     */
 
     public void showBetRegistrationError(String s) {
         betError.setText(s);
         betError.setForeground(Color.RED);
     }
 
+    /**
+     * Hides the right panels
+     */
+
     public void hideAllRightPanels() {
         hideBetPanels();
     }
+
+    /**
+     * Action listener of the register bet button
+     */
 
     private class ButtonHandler implements ActionListener {
         public void actionPerformed(ActionEvent event) {
@@ -194,15 +227,27 @@ public class GamePanelView extends JPanel {
         }
     }
 
+    /**
+     * Shows bet phase panels to the right of the gui
+     */
+
     public void showBetPanels() {
         betMarkPoolPanel.setVisible(true);
         betPanel.setVisible(true);
     }
 
+    /**
+     * Hides bet phase panels
+     */
+
     public void hideBetPanels() {
         betMarkPoolPanel.setVisible(false);
         betPanel.setVisible(false);
     }
+
+    /**
+     * Mouse listener which shows the character and stable card of a player when clicked
+     */
 
     private class MouseClickHandler extends MouseAdapter {
         public void mouseClicked(MouseEvent event) {
@@ -216,6 +261,11 @@ public class GamePanelView extends JPanel {
 
         }
     }
+
+    /**
+     * Builds the player panels
+     * @param players array list of players, every player has his own player panel
+     */
 
     void setUpPlayersPanels(ArrayList<Player> players) {
         for (Player player : players) {
@@ -252,7 +302,11 @@ public class GamePanelView extends JPanel {
                 });
         } while (!wait[0]);
         return true;
-    }         */
+    }  */
+
+    /**
+     * Registers a bet
+      */
 
     void registerBet() {
         gameLog.append("non");
@@ -261,6 +315,12 @@ public class GamePanelView extends JPanel {
         gameLog.append("sembra");
 
     }
+
+    /**
+     * Translates the choices of a player during the bet phase in a bet which can be read by the controller
+     * @param stables array list of stables on which the player bets
+     * @return the bet made
+     */
 
     Bet getPlayerBet(ArrayList<Stable> stables) {
         this.showBetPanels();
@@ -296,9 +356,12 @@ public class GamePanelView extends JPanel {
             type = BetType.WINNING;
         }
 
-        Bet playerBet = new Bet(null, amount, bettingStable, type);
-        return playerBet;
+        return new Bet(null, amount, bettingStable, type);
     }
+
+    /**
+     * Builds bet panel on the right of the gui
+     */
 
     void buildBetPanel() {
 
@@ -308,6 +371,7 @@ public class GamePanelView extends JPanel {
         final JPanel panel1 = new JPanel();
         panel1.setLayout(new GridBagLayout());
         panel1.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Make a bet"));
+
         GridBagConstraints gbc;
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -317,8 +381,9 @@ public class GamePanelView extends JPanel {
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         betPanel.add(panel1, gbc);
+
         final JLabel label1 = new JLabel();
-        label1.setText("Tipo Scommessa");
+        label1.setText("Bet Type");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 3;
@@ -326,6 +391,7 @@ public class GamePanelView extends JPanel {
         gbc.weightx = 0.2;
         gbc.anchor = GridBagConstraints.WEST;
         panel1.add(label1, gbc);
+
         final JPanel spacer1 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
@@ -333,6 +399,7 @@ public class GamePanelView extends JPanel {
         gbc.weightx = 0.3;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(spacer1, gbc);
+
         final JPanel panel2 = new JPanel();
         panel2.setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
@@ -341,8 +408,10 @@ public class GamePanelView extends JPanel {
         gbc.weightx = 0.3;
         gbc.fill = GridBagConstraints.BOTH;
         panel1.add(panel2, gbc);
+
+        //type of bet radio buttons
         piazzataRadioButton = new JRadioButton();
-        piazzataRadioButton.setText("Piazzata");
+        piazzataRadioButton.setText("Placed");
         piazzataRadioButton.setSelected(true);
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -350,14 +419,17 @@ public class GamePanelView extends JPanel {
         gbc.weightx = 0.5;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel2.add(piazzataRadioButton, gbc);
+
         vincenteRadioButton = new JRadioButton();
-        vincenteRadioButton.setText("Vincente");
+        vincenteRadioButton.setText("Winning");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.weightx = 0.5;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel2.add(vincenteRadioButton, gbc);
+
+        //bet amount field
         betAmountField = new JTextField();
         gbc = new GridBagConstraints();
         gbc.gridx = 4;
@@ -365,6 +437,7 @@ public class GamePanelView extends JPanel {
         gbc.weightx = 0.5;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(betAmountField, gbc);
+
         final JPanel spacer2 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
@@ -372,8 +445,9 @@ public class GamePanelView extends JPanel {
         gbc.weightx = 0.3;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(spacer2, gbc);
+
         final JLabel label2 = new JLabel();
-        label2.setText("Importo Scommessa");
+        label2.setText("Bet Amount");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -382,6 +456,7 @@ public class GamePanelView extends JPanel {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.VERTICAL;
         panel1.add(label2, gbc);
+
         final JPanel spacer3 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -389,6 +464,7 @@ public class GamePanelView extends JPanel {
         gbc.gridwidth = 3;
         gbc.fill = GridBagConstraints.VERTICAL;
         panel1.add(spacer3, gbc);
+
         final JPanel spacer4 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -396,6 +472,7 @@ public class GamePanelView extends JPanel {
         gbc.gridwidth = 3;
         gbc.fill = GridBagConstraints.VERTICAL;
         panel1.add(spacer4, gbc);
+
         final JPanel spacer5 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -403,6 +480,7 @@ public class GamePanelView extends JPanel {
         gbc.gridwidth = 3;
         gbc.fill = GridBagConstraints.VERTICAL;
         panel1.add(spacer5, gbc);
+
         final JPanel spacer6 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -410,13 +488,15 @@ public class GamePanelView extends JPanel {
         gbc.gridwidth = 3;
         gbc.fill = GridBagConstraints.VERTICAL;
         panel1.add(spacer6, gbc);
+
         final JLabel label3 = new JLabel();
-        label3.setText("Colore cavallo");
+        label3.setText("Horse Color");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 6;
         gbc.anchor = GridBagConstraints.WEST;
         panel1.add(label3, gbc);
+
         final JPanel panel3 = new JPanel();
         panel3.setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
@@ -424,61 +504,74 @@ public class GamePanelView extends JPanel {
         gbc.gridy = 6;
         gbc.fill = GridBagConstraints.BOTH;
         panel1.add(panel3, gbc);
+
+        //
+        //stable color radio button
         neroRadioButton = new JRadioButton();
-        neroRadioButton.setText("Nero");
+        neroRadioButton.setText("Black");
         neroRadioButton.setSelected(true);
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.WEST;
         panel3.add(neroRadioButton, gbc);
+
         bluRadioButton = new JRadioButton();
-        bluRadioButton.setText("Blu");
+        bluRadioButton.setText("Blue");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.WEST;
         panel3.add(bluRadioButton, gbc);
+
         verdeRadioButton = new JRadioButton();
-        verdeRadioButton.setText("Verde");
+        verdeRadioButton.setText("Green");
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.WEST;
         panel3.add(verdeRadioButton, gbc);
+
         rossoRadioButton = new JRadioButton();
-        rossoRadioButton.setText("Rosso");
+        rossoRadioButton.setText("Red");
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.WEST;
         panel3.add(rossoRadioButton, gbc);
+
         gialloRadioButton = new JRadioButton();
-        gialloRadioButton.setText("Giallo");
+        gialloRadioButton.setText("Yellow");
         gbc = new GridBagConstraints();
         gbc.gridx = 4;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.WEST;
         panel3.add(gialloRadioButton, gbc);
+
         biancoRadioButton = new JRadioButton();
-        biancoRadioButton.setText("Bianco");
+        biancoRadioButton.setText("White");
         gbc = new GridBagConstraints();
         gbc.gridx = 5;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.WEST;
         panel3.add(biancoRadioButton, gbc);
+        //end of stable color radio button
+        //
+
         final JPanel spacer7 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
         gbc.gridy = 6;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(spacer7, gbc);
+
         final JPanel spacer8 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 7;
         gbc.fill = GridBagConstraints.VERTICAL;
         panel1.add(spacer8, gbc);
+
         final JPanel spacer9 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -492,26 +585,30 @@ public class GamePanelView extends JPanel {
         gbc.gridy = 12;
         gbc.anchor = GridBagConstraints.WEST;
         panel1.add(betError, gbc);
+
         registraScommessaBtn = new JButton();
-        registraScommessaBtn.setText("Registra scommessa");
+        registraScommessaBtn.setText("Register Bet");
         registraScommessaBtn.addActionListener(sampleHandler);
         gbc = new GridBagConstraints();
         gbc.gridx = 4;
         gbc.gridy = 12;
         gbc.anchor = GridBagConstraints.EAST;
         panel1.add(registraScommessaBtn, gbc);
+
         final JPanel spacer10 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 9;
         gbc.fill = GridBagConstraints.VERTICAL;
         panel1.add(spacer10, gbc);
+
         final JPanel spacer11 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 10;
         gbc.fill = GridBagConstraints.VERTICAL;
         panel1.add(spacer11, gbc);
+
         final JPanel spacer12 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -532,19 +629,27 @@ public class GamePanelView extends JPanel {
         betTypeBtnGroup.add(vincenteRadioButton);
     }
 
+    /**
+     * Updates bet marks of the bet marks pool in the gui at each bet
+     * @param betMarkPool hash map representing the bet mark pool to update
+     */
     public void updateBetMarks(Map<StableColor, Integer> betMarkPool) {
         int i = 0;
         for (StableColor color : betMarkPool.keySet()) {
             betMarkValue[i].setText(betMarkPool.get(color).toString());
+            System.out.println(betMarkPool.get(color).toString());
             i++;
         }
     }
+
+    /**
+     * Builds the bet mark pool panel
+     */
 
     void buildBetMarkPoolPanel() {
         //bet mark pool panel
         betMarkPoolPanel = new JPanel(new GridBagLayout());
         betMarkPoolPanel.setBorder(new TitledBorder("Available Bet Marks"));
-        //crea per ora sei bottoni
         for (int i = 0; i < 6; i++) {
             //BetMark value
             GridBagConstraints c = new GridBagConstraints();
@@ -560,7 +665,7 @@ public class GamePanelView extends JPanel {
             c.anchor = GridBagConstraints.PAGE_END;
             betMarkPoolPanel.add(betMarkValue[i], c);
 
-            //BetMark Icon temporanea
+            //BetMark Icon
             JTextArea betMarkIcon = new JTextArea();
             betMarkIcon.setEditable(false);
             switch (i) {
@@ -593,11 +698,14 @@ public class GamePanelView extends JPanel {
             c.weightx = 0.5;
             c.anchor = GridBagConstraints.PAGE_START;
             betMarkPoolPanel.add(betMarkIcon, c);
-
-            /*JButton button = new JButton("Bet Mark Pool"+(i+1));
-            betMarkPoolPanel.add(button);   */
         }
     }
+
+    /**
+     * Create the information panel of every single player
+     * @param player owner of the panel
+     * @return       the created panel
+     */
 
     JPanel createInfoPanelForPlayer(Player player) {
         JPanel playerPanel = new JPanel(new GridBagLayout());
@@ -620,7 +728,7 @@ public class GamePanelView extends JPanel {
         c.anchor = GridBagConstraints.LINE_START;
         playerPanel.add(playerCard, c);
 
-        //soldi
+        //money
         JTextArea money = new JTextArea();
         money.setEditable(false);
         money.append("Gold: " + player.getMoney());

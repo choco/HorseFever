@@ -28,22 +28,24 @@ public class Match {
     private MatchPhase matchPhase;
     private ArrayList<Player> players;
     private ArrayList<Stable> stables;
-    private int currentPLayer; //giocatore in azione
+    private int currentPLayer;
     private int currentTurn;
-    private int numberOfTurns; //???
+    private int numberOfTurns;
 
     private Map<StableColor, Integer> betMarkPool;
     private Deck movementCardDeck;
     private Deck actionCardDeck;
-    // mazzi board game
 
     private Deck characterCardDeck;
     private Deck stableCardDeck;
     //private Deck horseCardDeck;
-    //private Deck employerCardDeck; //mazzo carte aiutanti
+    //private Deck employerCardDeck;
     //private Deck goalCardDeck;
-    //come implementare le carte debito?
     //...
+
+    /**
+     * Constructor of a match object
+     */
 
     public Match() {
 
@@ -118,6 +120,10 @@ public class Match {
         return betMarkPool;
     }
 
+    /**
+     * Setups the default attributes of the match
+     */
+
     public void setUpMatch() {
         numberOfTurns = getNumberOfTurnsAtStart();
         currentTurn = 0;
@@ -164,6 +170,11 @@ public class Match {
         return numberOfTurns;
     }
 
+    /**
+     * Sets the duration of the game based on the number of players
+     * @return the number of turns
+     */
+
     private int getNumberOfTurnsAtStart() {
         switch (getNumberOfPlayers()) {
             case 2:
@@ -180,6 +191,11 @@ public class Match {
 
     }
 
+    /**
+     * Sets the number of bet marks of every  color based on the number of players
+     * @return the number of turns
+     */
+
     public int numberOfMarksPerColor() {
         switch (getNumberOfPlayers()) {
             case 2:
@@ -195,6 +211,11 @@ public class Match {
                 return -1;
         }
     }
+
+    /**
+     * Gets the first player from the array list of players
+     * @return the first player selected
+     */
 
     public Player getFirstPlayer() {
         Player player = null;

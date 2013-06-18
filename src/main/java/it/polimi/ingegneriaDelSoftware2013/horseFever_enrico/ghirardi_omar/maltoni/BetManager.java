@@ -19,10 +19,21 @@ public class BetManager {
     private static final int PLACED_BET_VICTORY_POINTS = 1;
     private static final int PLACED_BET_MONEY_MULTIPLIER = 2;
 
+    /**
+     * Constructor of a bet manager object
+     * @param betMarkPool hash map representing the bet mark pool
+     */
+
     public BetManager(Map<StableColor, Integer> betMarkPool) {
         bets = new ArrayList<Bet>();
         this.betMarkPool = betMarkPool;
     }
+
+    /**
+     * Inserts bet class objects in the bets array list of bets, attribute of the class bet manager
+     * @param bet                  bet to add to bets
+     * @throws InvalidBetException exception thrown if the bet parameter isn't valid
+     */
 
     void insertBet(Bet bet) throws InvalidBetException {
         checkBetValidity(bet);
@@ -30,7 +41,12 @@ public class BetManager {
         betMarkPool.put(bet.getBettingStable().getColor(), betMarkPool.get(bet.getBettingStable().getColor()) - 1);
     }
 
-    //validità scommessa nelle due bet phases, no doppia scommessa
+    /**
+     * Check the validity of the bet
+     * @param bet                  bet to check
+     * @throws InvalidBetException exception thrown if the bet parameter isn't valid
+     */
+
     void checkBetValidity(Bet bet) throws InvalidBetException {
         System.out.println(bet);
         if (betMarkPool.get(bet.getBettingStable().getColor()) < 1)
@@ -45,6 +61,13 @@ public class BetManager {
         }
     }
 
+    /**
+     * Check all the bets in the bets array list for the winning ones
+     * @param bet      bet to check
+     * @param position final standing position of the stable referred by the bet
+     * @return         true if it's a winning bet, false otw
+     */
+
     boolean checkWinningBet(Bet bet, int position) {
         if (bet.getType() == BetType.WINNING) {
             if (position == 1)
@@ -57,6 +80,10 @@ public class BetManager {
         return false;
     }
 
+    /**
+     * Pays the player who's bet is a winning one by updating his money stack
+     * @param bet bet to pay
+     */
 
     void payBet(Bet bet) {
         Player winner = bet.getBettingPlayer();
@@ -68,6 +95,11 @@ public class BetManager {
             winner.setVictoryPoints(winner.getVictoryPoints() + PLACED_BET_VICTORY_POINTS);
         }
     }
+
+    /**
+     * Check the stable final position in the race with the one guessed by the player through the bet and pay those who win a bet
+     * @param standing hash map which contains the final position of every stable after the race
+     */
 
     void paymentTime(Map<Stable, Integer> standing) {
         for (Bet bet : bets) {

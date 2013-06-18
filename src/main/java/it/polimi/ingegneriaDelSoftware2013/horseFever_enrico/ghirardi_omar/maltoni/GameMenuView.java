@@ -17,7 +17,10 @@ public class GameMenuView extends JPanel {
     private JButton onlineGame;
     private GameInterfaceView viewRef;
 
-    //TODO: lanciare da qui menu personalizza partita da cui inizializzare i giocatori;
+    /**
+     * Constructor of a game menu view object which is the first screen of the application
+     * @param view reference to the main frame of the gui
+     */
     public GameMenuView(GameInterfaceView view) {
 
         viewRef = view;
@@ -40,12 +43,15 @@ public class GameMenuView extends JPanel {
         setPreferredSize(size);
     }
 
+    /**
+     * Action listener which reacts to player actions on the gui
+     */
+
     private class MenuHandler implements ActionListener {
 
         public void actionPerformed(ActionEvent event) {
 
             if (event.getSource() == offlineGame) {
-                //viewRef.setGamePanelAsMainPanel();
                 viewRef.setGameLobbyAsMainPanel();
 
             } else if (event.getSource() == onlineGame) {

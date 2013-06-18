@@ -14,9 +14,18 @@ public class BoardPanel extends JPanel {
 
     private Image img;
 
+    /**
+     * Constructor of a board panel object
+     * @param img image path of the board image to paint
+     */
     public BoardPanel(String img) {
         this(new ImageIcon(img).getImage());
     }
+
+    /**
+     * Constructor of a board panel object
+     * @param img image type variable to paint in the panel
+     */
 
     public BoardPanel(Image img) {
         this.img = img;
@@ -26,6 +35,11 @@ public class BoardPanel extends JPanel {
         setMinimumSize(size);
         setSize(size);
     }
+
+    /**
+     * Paint the image
+     * @param g graphics object needed to draw the image
+     */
 
     public void paintComponent(Graphics g) {
         Dimension size = getSize();
