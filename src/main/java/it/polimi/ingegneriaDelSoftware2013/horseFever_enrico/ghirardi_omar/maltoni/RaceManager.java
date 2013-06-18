@@ -46,6 +46,7 @@ public class RaceManager {
 
     /**
      * Constructor of a race manager object
+     *
      * @param stables          stable taking part in the game
      * @param movementCardDeck the deck of movement cards
      */
@@ -187,6 +188,7 @@ public class RaceManager {
 
     /**
      * Removes the selected type of cards from the action cards pile of the horse
+     *
      * @param actionType type of action cards to remove
      * @param horse      horse to act
      */
@@ -208,6 +210,7 @@ public class RaceManager {
 
     /**
      * Checks if all horses has finished the race
+     *
      * @return true or false based on the condition above
      */
 
@@ -222,6 +225,7 @@ public class RaceManager {
 
     /**
      * Checks if all the racing horses have been added to the final standing hence they're placed
+     *
      * @return return true or false based on the condition above
      */
 
@@ -236,6 +240,7 @@ public class RaceManager {
 
     /**
      * Checks if a particular horse has passes the finish line
+     *
      * @param horse horse to check
      */
 
@@ -256,6 +261,7 @@ public class RaceManager {
     /**
      * Makes the horse sprint
      * It won't allow a horse to sprint twice in the same turn
+     *
      * @param horse horse which is going to sprint
      */
 
@@ -283,6 +289,7 @@ public class RaceManager {
     /**
      * Applies movement card to horse hence the horse moves of a number of steps equals to the number associated to his..
      * Stable quotation on the movement card
+     *
      * @param card  movement card to apply
      * @param horse horse to move
      */
@@ -384,6 +391,7 @@ public class RaceManager {
 
     /**
      * Applies the action cards of the action cards pile which affects the movement of a horse
+     *
      * @param horse horse to apply cards to
      */
 
@@ -453,6 +461,7 @@ public class RaceManager {
 
     /**
      * Thows sprint dice
+     *
      * @return the color of the stable which owns the horse which is going to sprint
      */
 
@@ -511,7 +520,7 @@ public class RaceManager {
         }
         int rank, posFix;
         rank = 0;
-        posFix = 0;
+        posFix = 1;
 
         for (Stable stable : temp) {
             if ((stable.getHorse().gotPlaced()))
@@ -524,13 +533,16 @@ public class RaceManager {
             if (!(stable.getHorse().gotPlaced())) {
                 if ((stable.getHorse()).getCurrentPosition() != lastPosition) {
                     System.out.println("Il cavallo color " + stable.getColor() + " ha posizione diversa dal precedente");
-                    rank += posFix + 1;
+                    rank += posFix;
+                    posFix = 1;
                 } else {
                     System.out.println("Il cavallo color " + stable.getColor() + " NON ha posizione diversa dal precedente");
 
                     posFix += 1;
                 }
+
                 standing.put(stable, rank);
+
                 if (stable.getHorse().hasFinishedRace()) {
                     stable.getHorse().setGotPlaced(true);
                 }
@@ -567,8 +579,9 @@ public class RaceManager {
 
     /**
      * Checks in the horse is first
+     *
      * @param horse to check
-     * @return      true if it's first, false otw
+     * @return true if it's first, false otw
      */
 
     private boolean isHorseFirst(Horse horse) {
@@ -580,8 +593,9 @@ public class RaceManager {
 
     /**
      * Checks in the horse is last
+     *
      * @param horse to check
-     * @return      true if it's last, false otw
+     * @return true if it's last, false otw
      */
 
     private boolean isHorseLast(Horse horse) {

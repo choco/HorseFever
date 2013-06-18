@@ -55,6 +55,7 @@ public class GamePanelView extends JPanel {
 
     /**
      * Constructor of a game panel view object
+     *
      * @param view reference to the main frame of the gui
      */
     GamePanelView(GameInterfaceView view) {
@@ -155,10 +156,11 @@ public class GamePanelView extends JPanel {
 
     /**
      * Resizes the images received to the following dimension: width=w and height=i
+     *
      * @param srcImg image to resize
      * @param w      final width
      * @param h      final height
-     * @return       resized image
+     * @return resized image
      */
 
     private Image getScaledImage(Image srcImg, int w, int h) {
@@ -180,6 +182,7 @@ public class GamePanelView extends JPanel {
 
     /**
      * Get the character cards path
+     *
      * @return a string representing the path to the character cards directory
      */
 
@@ -190,6 +193,7 @@ public class GamePanelView extends JPanel {
 
     /**
      * Get the stable cards path
+     *
      * @return a string representing the path to the stable cards directory
      */
     String getStableDir() {
@@ -199,6 +203,7 @@ public class GamePanelView extends JPanel {
 
     /**
      * Shows a message of error if the bet is invalid
+     *
      * @param s the actual message shown
      */
 
@@ -213,6 +218,13 @@ public class GamePanelView extends JPanel {
 
     public void hideAllRightPanels() {
         hideBetPanels();
+    }
+
+    public void clearBetFields() {
+        betAmountField.setText("");
+        betError.setText("");
+        neroRadioButton.setSelected(true);
+        piazzataRadioButton.setSelected(true);
     }
 
     /**
@@ -264,10 +276,12 @@ public class GamePanelView extends JPanel {
 
     /**
      * Builds the player panels
+     *
      * @param players array list of players, every player has his own player panel
      */
 
     void setUpPlayersPanels(ArrayList<Player> players) {
+        playersBox.removeAll();
         for (Player player : players) {
             playersBox.add(createInfoPanelForPlayer(player));
         }
@@ -306,18 +320,15 @@ public class GamePanelView extends JPanel {
 
     /**
      * Registers a bet
-      */
+     */
 
     void registerBet() {
-        gameLog.append("non");
-
         viewRef.resumeGameFlow();
-        gameLog.append("sembra");
-
     }
 
     /**
      * Translates the choices of a player during the bet phase in a bet which can be read by the controller
+     *
      * @param stables array list of stables on which the player bets
      * @return the bet made
      */
@@ -329,7 +340,6 @@ public class GamePanelView extends JPanel {
 
         int amount = Integer.parseInt(betAmountField.getText());
         StableColor color = null;
-        JOptionPane.showConfirmDialog(viewRef, horseColorBtnGroup.getSelection());
         if (neroRadioButton.isSelected()) {
             color = StableColor.BLACK;
         } else if (bluRadioButton.isSelected()) {
@@ -631,6 +641,7 @@ public class GamePanelView extends JPanel {
 
     /**
      * Updates bet marks of the bet marks pool in the gui at each bet
+     *
      * @param betMarkPool hash map representing the bet mark pool to update
      */
     public void updateBetMarks(Map<StableColor, Integer> betMarkPool) {
@@ -703,8 +714,9 @@ public class GamePanelView extends JPanel {
 
     /**
      * Create the information panel of every single player
+     *
      * @param player owner of the panel
-     * @return       the created panel
+     * @return the created panel
      */
 
     JPanel createInfoPanelForPlayer(Player player) {

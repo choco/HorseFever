@@ -2,9 +2,6 @@ package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.malt
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -25,6 +22,7 @@ public class GameInterfaceView extends JFrame implements GameInterface {
 
     /**
      * Constructor of game interface view object which is the main frame of the gui
+     *
      * @param matchController link to the controller
      */
 
@@ -59,6 +57,7 @@ public class GameInterfaceView extends JFrame implements GameInterface {
 
     /**
      * Assigns the id tags of the players to the matchcontroller which creates the players, sets game panel as the current screen of the gui and starts the gameflow thread
+     *
      * @param playersNicknames array list of tags representing each player
      */
 
@@ -129,6 +128,7 @@ public class GameInterfaceView extends JFrame implements GameInterface {
 
     /**
      * Updates the bet mark pool after every choice of the players
+     *
      * @param betMarkPool hash map representing the bet mark pool to update
      */
 
@@ -138,6 +138,7 @@ public class GameInterfaceView extends JFrame implements GameInterface {
 
     /**
      * Updates players info after every changing
+     *
      * @param players array list representing the players taking part in the game
      */
 
@@ -147,22 +148,21 @@ public class GameInterfaceView extends JFrame implements GameInterface {
 
     /**
      * Checks if the current user wants to make the second bet
+     *
      * @return a boolean value representing the choice of the current player
      */
 
-    public boolean userWantsToBet() {
-        int result = JOptionPane.showConfirmDialog(this, "Second Bet", "Do you want to make a second bet?", JOptionPane.YES_NO_OPTION);
+    public boolean userWantsToBet(Player player) {
+        int result = JOptionPane.showConfirmDialog(this, "E' il tuo turno " + player.getIdTag() + ", vuoi effettuare la seconda scommessa?", "Seconda scommessa", JOptionPane.YES_NO_OPTION);
         if (result == JOptionPane.YES_OPTION) {
-            System.out.println("Vediamo se qui");
             return true;
         }
-        System.out.println("Oppure qui");
-
         return false;
     }
 
     /**
      * Get the bet from the player through the game panel gui
+     *
      * @param stables array list of stable on which the player will bet
      * @return the bet made by the player
      */
@@ -176,12 +176,14 @@ public class GameInterfaceView extends JFrame implements GameInterface {
      */
 
     public void betWasRegisteredCorrectly() {
-        JOptionPane.showConfirmDialog(this, "Bet correctly made!");
+        JOptionPane.showMessageDialog(this, "La scommessa è stata registrata correttamente!", "Scommessa corretta", JOptionPane.INFORMATION_MESSAGE);
+        gamePanel.clearBetFields();
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
     /**
      * Informs the player if his bet isn't valid
+     *
      * @param s the error message to show
      */
 
@@ -192,6 +194,7 @@ public class GameInterfaceView extends JFrame implements GameInterface {
 
     /**
      * Updates the right end of the gui depending on the games phase
+     *
      * @param matchPhase the phase of the match
      */
 
@@ -222,7 +225,7 @@ public class GameInterfaceView extends JFrame implements GameInterface {
     //TODO: javaDoc on this methods
 
     public void setCurrentPlayer(Player player) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        JOptionPane.showMessageDialog(this, "Ora è il turno di " + player.getIdTag() + ". Lasciagli il computer e non sbirciare :)", "E' il turno di " + player.getIdTag(), JOptionPane.INFORMATION_MESSAGE);
     }
 
     public ActionCard getActionCardToPlay(ArrayList<ActionCard> cards) {
@@ -231,14 +234,6 @@ public class GameInterfaceView extends JFrame implements GameInterface {
     }
 
     public Horse getHorseToPlayActionCardOn(ArrayList<Horse> horses) {
-        System.out.println("Cavallo: " + horses.get(0).getOwnerStable().getColor());
-        BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
-        String s = null;
-        try {
-            s = r.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
         return horses.get(0);  //To change body of implemented methods use File | Settings | File Templates.
     }
 

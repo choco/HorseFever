@@ -194,6 +194,7 @@ public class MatchController {
 
     /**
      * Checks if there's a player who still has action cards to play, just a check to be sure
+     *
      * @return true if there's such a player, false otw
      */
 
@@ -207,17 +208,19 @@ public class MatchController {
 
     /**
      * Checks if there's a player who still has bets to make, just a check to be sure
+     *
      * @return true if there's such a player, false otw
      */
 
     private boolean someoneStillHasBetsToMake() {
-            //da implementare
-            return false;
+        //da implementare
+        return false;
     }
 
     /**
      * Get the next player to play in the turn flow, it changes the order of the choice based on the current game phase
      * In particular, the choice is always clockwise and it's anti-clockwise in the second bet phase
+     *
      * @return the next player
      */
 
@@ -294,10 +297,14 @@ public class MatchController {
         for (int i = 0; i < match.getNumberOfPlayers(); i++) {
             Player player = getNextPlayer();
 
+            if (match.getMatchPhase() == MatchPhase.FIRST_BET_PHASE) {
+                gameInterface.setCurrentPlayer(player);
+            }
 
             boolean wantsToBet = true;
+
             if (match.getMatchPhase() == MatchPhase.SECOND_BET_PHASE) {
-                wantsToBet = gameInterface.userWantsToBet(); //prende valore da interfaccia, voglio fare seconda socmmessa?
+                wantsToBet = gameInterface.userWantsToBet(player); //prende valore da interfaccia, voglio fare seconda socmmessa?
             }
 
             System.out.println("L'utente vuole scommettere: " + wantsToBet);
@@ -328,6 +335,7 @@ public class MatchController {
                     betManager.insertBet(playerBet);
                     betCorrectlyMade = true;
                     gameInterface.betWasRegisteredCorrectly();
+                    gameInterface.updatePlayersInfo(match.getPlayers());
                 } catch (InvalidBetException e) {
                     switch (e.getType()) {
 
@@ -354,6 +362,7 @@ public class MatchController {
 
     /**
      * Give action cards to players (numCards per player) drawing the from the action cards deck
+     *
      * @param numCards number of cards to give to each players (parametrized for future changes)
      */
 

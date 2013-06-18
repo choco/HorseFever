@@ -16,7 +16,7 @@ public interface GameInterface {
 
     void updatePlayersInfo(ArrayList<Player> players);
 
-    boolean userWantsToBet();
+    boolean userWantsToBet(Player player);
 
     Bet getPlayerBet(ArrayList<Stable> stables);
 
