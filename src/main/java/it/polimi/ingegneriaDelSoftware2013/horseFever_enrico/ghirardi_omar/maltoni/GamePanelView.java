@@ -263,8 +263,8 @@ public class GamePanelView extends JPanel {
     }
 
     Bet getPlayerBet(ArrayList<Stable> stables) {
+        this.showBetPanels();
         viewRef.pauseGameFlow();
-        gameLog.append("andare");
 
 
         int amount = Integer.parseInt(betAmountField.getText());

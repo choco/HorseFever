@@ -169,7 +169,7 @@ public class Match {
             case 2:
             case 3:
             case 6:
-                return 2;
+                return 6;
             case 4:
                 return 4;
             case 5:
@@ -209,7 +209,7 @@ public class Match {
 
     }
 
-    private void setBetMarkPool() {
+    public void setBetMarkPool() {
         for (Stable temp : stables) {
             betMarkPool.put(temp.getColor(), numberOfMarksPerColor());
         }

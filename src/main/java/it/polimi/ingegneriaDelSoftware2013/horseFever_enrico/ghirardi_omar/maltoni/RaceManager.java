@@ -98,6 +98,9 @@ public class RaceManager {
     public void startRace() {      // handles the start
 
         racePhase = RacePhase.START;
+        for (Horse horse : horsesList) {
+            System.out.println("Carte assegnate: " + horse.getActionPile());
+        }
         checkActionCardsAtStart();
 
         while (!allHorsesGotPlaced()) {
@@ -108,7 +111,7 @@ public class RaceManager {
             System.out.println("\n");
 
             for (Stable stable : standing.keySet()) {
-                System.out.println("Il cavallo color " + stable.getColor() + "è in posizione" + standing.get(stable));
+                System.out.println("Il cavallo color " + stable.getColor() + " è in posizione" + standing.get(stable));
             }
 
         }
@@ -116,6 +119,9 @@ public class RaceManager {
         racePhase = RacePhase.FINISH;
 
         fixStandingBasedOnQuotation();
+        for (Stable stable : standing.keySet()) {
+            System.out.println("Il cavallo color " + stable.getColor() + " è in posizione" + standing.get(stable));
+        }
 
     }
 
@@ -125,6 +131,7 @@ public class RaceManager {
         movementCardDeck.putBottom(movementCard);
 
         for (Horse horse : horsesList) {
+            System.out.println("Carte assegnate: " + horse.getActionPile());
             applyMovementCardToHorse(movementCard, horse);
         }
 
@@ -145,8 +152,10 @@ public class RaceManager {
 
         for (StableColor color : sprintingColors) {
             for (Stable stable : standing.keySet()) {
-                if (stable.getColor() == color)
+                if (stable.getColor() == color) {
+                    System.out.println("Sprinterà il cavallo: " + color);
                     makeHorseSprint(stable.getHorse());
+                }
             }
         }
 
@@ -164,6 +173,12 @@ public class RaceManager {
         for (ActionCard card : horse.getActionPile()) {
             if (card.getType() == actionType) {
                 playedActionCards.add(card);
+            }
+        }
+
+        for (ActionCard card : playedActionCards) {
+            if (horse.getActionPile().contains(card)) {
+                System.out.print("Sto per rimuovere: " + card);
                 horse.getActionPile().remove(card);
             }
         }
@@ -188,28 +203,37 @@ public class RaceManager {
     }
 
     private void checkIfHorseArrived(Horse horse) {
-        if (horse.getCurrentPosition() >= FINISH_LINE) {
-            if (horse.didAddFinishStepsChange())
-                horse.setCurrentPosition(horse.getCurrentPosition() + horse.getAddFinishSteps());
-            else if (horse.didCanMoveAfterFinishLineChange())
-                horse.setCurrentPosition(FINISH_LINE);
+        if (!horse.gotPlaced()) {
+            if (horse.getCurrentPosition() >= FINISH_LINE) {
+                if (horse.didAddFinishStepsChange()) {
+                    horse.setCurrentPosition(horse.getCurrentPosition() + horse.getAddFinishSteps());
+                } else if (horse.didCanMoveAfterFinishLineChange()) {
+                    horse.setCurrentPosition(FINISH_LINE);
+                }
 
-            horse.setFinishedRace(true);
+                horse.setFinishedRace(true);
+            }
         }
     }
 
     private void makeHorseSprint(Horse horse) {
         int current = horse.getCurrentPosition();
         if (horse.didFixedSprintStepsChange()) {
-            if (horse.didAddSprintStepsChange())
+            if (horse.didAddSprintStepsChange()) {
+                System.out.print("Sprinti qui 1: eri a " + current + " sprinti in modo fissato di " + horse.getFixedSprintSteps() + "ci aggiungi " + horse.getAddSprintSteps());
                 horse.setCurrentPosition(current + horse.getFixedSprintSteps() + horse.getAddSprintSteps());
-            else
+            } else {
+                System.out.print("Sprinti qui 1: eri a " + current + " sprinti in modo fissato di " + horse.getFixedSprintSteps());
                 horse.setCurrentPosition(current + horse.getFixedSprintSteps());
+            }
         } else {
-            if (horse.didAddSprintStepsChange())
+            if (horse.didAddSprintStepsChange()) {
+                System.out.print("Sprinti qui 1: eri a " + current + " ci aggiungi " + horse.getAddSprintSteps());
+
                 horse.setCurrentPosition(current + horse.getAddSprintSteps() + STANDARD_SPRINT_STEPS);
-            else
+            } else {
                 horse.setCurrentPosition(current + STANDARD_SPRINT_STEPS);
+            }
         }
     }
 
@@ -221,26 +245,50 @@ public class RaceManager {
 
                 case START:
                     if (horse.didFixedStartStepsChange()) {
-                        if (horse.didAddStartStepsChange())
+                        if (horse.didAddStartStepsChange()) {
+                            System.out.println("Qui 1");
+                            System.out.println("Il cavallo parte con " + horse.getFixedStartSteps() + " e ci aggiunge " + horse.getAddStartSteps());
+
                             horse.setCurrentPosition(horse.getFixedStartSteps() + horse.getAddStartSteps());
-                        else
+                        } else {
+                            System.out.println("Qui 2");
+
                             horse.setCurrentPosition(horse.getFixedStartSteps());
+                        }
                     } else {
-                        if (horse.didAddStartStepsChange())
+                        if (horse.didAddStartStepsChange()) {
+                            System.out.println("Qui 3");
+
                             horse.setCurrentPosition(baseMovement + horse.getAddStartSteps());
-                        else
+                        } else {
+                            System.out.println("Qui 4");
+
                             horse.setCurrentPosition(baseMovement);
+                        }
                     }
                     break;
                 case MIDDLE:
                     if (horse.didIsFirstFixedStepsChange()) {
-                        if (isHorseFirst(horse))
+                        if (isHorseFirst(horse)) {
+                            System.out.println("Qui 5");
+
                             horse.setCurrentPosition(horse.getCurrentPosition() + horse.getFirstFixedSteps());
+                        } else {
+                            horse.setCurrentPosition(horse.getCurrentPosition() + baseMovement);
+                        }
                     } else if (horse.didIsLastFixedStepsChange()) {
-                        if (isHorseLast(horse))
+                        if (isHorseLast(horse)) {
+                            System.out.println("Qui 6");
+
                             horse.setCurrentPosition(horse.getCurrentPosition() + horse.getLastFixedSteps());
-                    } else
+                        } else {
+                            horse.setCurrentPosition(horse.getCurrentPosition() + baseMovement);
+                        }
+                    } else {
+                        System.out.println("Qui 7");
+
                         horse.setCurrentPosition(horse.getCurrentPosition() + baseMovement);
+                    }
                     break;
 
             }
@@ -252,12 +300,29 @@ public class RaceManager {
         for (Horse horse : horsesList) {
             for (ActionCard card : horse.getActionPile()) {
                 if (card.getType() == ActionType.NEUTRAL) {
-                    if (card.getAction().equals(ADD_QUOTATION))
-                        horse.getOwnerStable().setQuotation(horse.getOwnerStable().getQuotation() + card.getActionValue());
-                    else if (card.getAction().equals(REMOVE_NEGATIVE_ACTIONCARDS))
+                    if (card.getAction().equals(REMOVE_NEGATIVE_ACTIONCARDS)) {
+                        System.out.println("Rimuoverò le carte negative");
                         removeActionCardsOfTypeFromHorse(ActionType.NEGATIVE, horse);
-                    else if (card.getAction().equals(REMOVE_POSITIVE_ACTIONCARDS))
+                        break;
+                    }
+                }
+            }
+
+            for (ActionCard card : horse.getActionPile()) {
+                if (card.getType() == ActionType.NEUTRAL) {
+                    if (card.getAction().equals(REMOVE_POSITIVE_ACTIONCARDS)) {
+                        System.out.println("Rimuoverò le carte positive");
+
                         removeActionCardsOfTypeFromHorse(ActionType.POSITIVE, horse);
+                        break;
+                    }
+                }
+            }
+            for (ActionCard card : horse.getActionPile()) {
+                if (card.getType() == ActionType.NEUTRAL) {
+                    if (card.getAction().equals(ADD_QUOTATION)) {
+                        horse.getOwnerStable().setQuotation(horse.getOwnerStable().getQuotation() + card.getActionValue());
+                    }
                 }
             }
         }
@@ -267,33 +332,37 @@ public class RaceManager {
 
         for (ActionCard card : horse.getActionPile()) {
 
-            if (card.getAction().equals(FIXED_START_STEPS))
+            if (card.getAction().equals(FIXED_START_STEPS)) {
                 horse.setFixedStartSteps(card.getActionValue());
-
-            else if (card.getAction().equals(ADD_START_STEPS))
-                horse.setAddStartSteps(horse.getAddStartSteps() + card.getActionValue());
-
-            else if (card.getAction().equals(FIXED_SPRINT_STEPS))
+            } else if (card.getAction().equals(ADD_START_STEPS)) {
+                if (horse.didAddStartStepsChange()) {
+                    horse.setAddStartSteps(horse.getAddStartSteps() + card.getActionValue());
+                } else {
+                    horse.setAddStartSteps(card.getActionValue());
+                }
+            } else if (card.getAction().equals(FIXED_SPRINT_STEPS)) {
                 horse.setFixedSprintSteps(card.getActionValue());
-
-            else if (card.getAction().equals(ADD_SPRINT_STEPS))
-                horse.setAddSprintSteps(horse.getAddSprintSteps() + card.getActionValue());
-
-            else if (card.getAction().equals(WINS_PHOTOFINISH))
+            } else if (card.getAction().equals(ADD_SPRINT_STEPS)) {
+                if (horse.didAddSprintStepsChange()) {
+                    horse.setAddSprintSteps(horse.getAddSprintSteps() + card.getActionValue());
+                } else {
+                    horse.setAddSprintSteps(card.getActionValue());
+                }
+            } else if (card.getAction().equals(WINS_PHOTOFINISH)) {
                 horse.setWinsPhotofinish(card.getActionValue());
-
-            else if (card.getAction().equals(ADD_FINISH_STEPS))
-                horse.setAddFinishSteps(horse.getAddFinishSteps() + card.getActionValue());
-
-            else if (card.getAction().equals(IS_LAST_FIXED_STEPS))
+            } else if (card.getAction().equals(ADD_FINISH_STEPS)) {
+                if (horse.didAddFinishStepsChange()) {
+                    horse.setAddFinishSteps(horse.getAddFinishSteps() + card.getActionValue());
+                } else {
+                    horse.setAddFinishSteps(card.getActionValue());
+                }
+            } else if (card.getAction().equals(IS_LAST_FIXED_STEPS)) {
                 horse.setLastFixedSteps(card.getActionValue());
-
-            else if (card.getAction().equals(IS_FIRST_FIXED_STEPS))
+            } else if (card.getAction().equals(IS_FIRST_FIXED_STEPS)) {
                 horse.setFirstFixedSteps(card.getActionValue());
-
-            else if (card.getAction().equals(CAN_MOVE_AFTER_FINISH_LINE))
+            } else if (card.getAction().equals(CAN_MOVE_AFTER_FINISH_LINE)) {
                 horse.setCanMoveAfterFinishLine(card.getActionValue());
-
+            }
         }
 
     }
@@ -301,24 +370,20 @@ public class RaceManager {
     private void removeSameCharCards() {
 
         for (Horse horse : horsesList) {
-            ArrayList<ActionCard> temp = new ArrayList<ActionCard>();
             for (int i = 0; i < horse.getActionPile().size(); i++) {
                 for (int j = 0; j < horse.getActionPile().size(); j++) {
-                    if (j != i && horse.getActionPile().get(j).getCardLetter() == horse.getActionPile().get(i).getCardLetter()) {
-                        ActionCard temp1 = horse.getActionPile().get(j);
-                        ActionCard temp2 = horse.getActionPile().get(j);
+                    if ((j != i) && (horse.getActionPile().get(j).getCardLetter() == horse.getActionPile().get(i).getCardLetter()) && horse.getActionPile().get(j).getCardLetter() != 'N') {
 
-                        playedActionCards.add(temp1);
-                        playedActionCards.add(temp2);
-
-                        temp.add(temp1);
-                        temp.add(temp2);
+                        playedActionCards.add(horse.getActionPile().get(j));
+                        playedActionCards.add(horse.getActionPile().get(i));
 
                     }
                 }
             }
-            for (ActionCard card : temp) {
-                horse.getActionPile().remove(card);
+            for (ActionCard card : playedActionCards) {
+                if (horse.getActionPile().contains(card)) {
+                    horse.getActionPile().remove(card);
+                }
             }
         }
     }
@@ -350,13 +415,16 @@ public class RaceManager {
 
     private void checkActionCardsAtStart() {
 
-        removeSameCharCards();
         applyNeutralCards();
 
         for (Horse horse : horsesList) {
+            removeActionCardsOfTypeFromHorse(ActionType.NEUTRAL, horse);
+        }
 
+        removeSameCharCards();
+
+        for (Horse horse : horsesList) {
             applyMovementRelatedActionCardsToHorse(horse);
-
         }
 
 

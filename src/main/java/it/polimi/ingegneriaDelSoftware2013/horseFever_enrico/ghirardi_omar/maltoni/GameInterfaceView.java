@@ -2,6 +2,9 @@ package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.malt
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -162,6 +165,14 @@ public class GameInterfaceView extends JFrame implements GameInterface {
     }
 
     public Horse getHorseToPlayActionCardOn(ArrayList<Horse> horses) {
+        System.out.println("Cavallo: " + horses.get(0).getOwnerStable().getColor());
+        BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
+        String s = null;
+        try {
+            s = r.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
         return horses.get(0);  //To change body of implemented methods use File | Settings | File Templates.
     }
 

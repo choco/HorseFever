@@ -116,18 +116,7 @@ public class MatchController {
         betPhase();
 
         match.setMatchPhase(MatchPhase.RACE_PHASE);
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                raceManager.startRace();
-            }
-        });
-        thread.start();
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
+        raceManager.startRace();
     }
 
     public void wrapUpTurn() {
@@ -135,6 +124,9 @@ public class MatchController {
         betManager.paymentTime(raceManager.getStanding());
         raceManager.updateStableQuotations();
         raceManager.resetRace(match.getActionCardDeck());
+        System.out.println(match.getActionCardDeck());
+
+        match.setBetMarkPool();
 
     }
 
@@ -258,6 +250,8 @@ public class MatchController {
                 wantsToBet = gameInterface.userWantsToBet(); //prende valore da interfaccia, voglio fare seconda socmmessa?
             }
 
+            System.out.println("L'utente vuole scommettere: " + wantsToBet);
+
             boolean betCorrectlyMade = false;
             boolean canBet = true;
 
@@ -277,7 +271,9 @@ public class MatchController {
 
                 //chiama interfaccia e chiede al giocatore i valori per la makeBet
                 gameInterface.updateBetMarkPool(match.getBetMarkPool());
+                System.out.println("Stamapale");
                 Bet playerBet = gameInterface.getPlayerBet(match.getStables());
+                System.out.println("Porco dio");
 
                 try {
                     playerBet = player.makeBet(playerBet);
