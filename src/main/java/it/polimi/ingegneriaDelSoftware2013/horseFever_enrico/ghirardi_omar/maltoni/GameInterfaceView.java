@@ -155,6 +155,7 @@ public class GameInterfaceView extends JFrame implements GameInterface {
     public boolean userWantsToBet(Player player) {
         int result = JOptionPane.showConfirmDialog(this, "It's " + player.getIdTag() + "'s turn.\nDo you want to make a second bet?", "Second bet", JOptionPane.YES_NO_OPTION);
         if (result == JOptionPane.YES_OPTION) {
+            gamePanel.updateGameLog("\n" + player.getIdTag() + "wants to make a second bet. Keep an eye on this smart fellow!");
             return true;
         }
         return false;
@@ -177,6 +178,7 @@ public class GameInterfaceView extends JFrame implements GameInterface {
 
     public void betWasRegisteredCorrectly() {
         JOptionPane.showMessageDialog(this, "Your bet has been taken!", "Correct Bet", JOptionPane.INFORMATION_MESSAGE);
+        gamePanel.updateGameLog("Bet registered!");
         gamePanel.clearBetFields();
         //To change body of implemented methods use File | Settings | File Templates.
     }
@@ -223,6 +225,7 @@ public class GameInterfaceView extends JFrame implements GameInterface {
 
     public void setCurrentPlayer(Player player) {
         JOptionPane.showMessageDialog(this, "It's " + player.getIdTag() + "'s turn! \nLeave the computer and don't peek!\n Or do it...you're a felon after all", "It's " + player.getIdTag() + "'s turn", JOptionPane.INFORMATION_MESSAGE);
+        gamePanel.updateGameLog("It's " + player.getIdTag() + "'s turn!");
     }
 
     /**
@@ -253,6 +256,8 @@ public class GameInterfaceView extends JFrame implements GameInterface {
     }
 
     public void playerHasWonTheGame(Player winner) {
+        gamePanel.updateGameLog(winner.getIdTag() + "has WON!!!\n In the end he has" + winner.getVictoryPoints()
+                + " Victory Points and" + winner.getMoney() + " golds");
         JOptionPane.showMessageDialog(this, winner.getIdTag() + "has WON!!!\n In the end he has" + winner.getVictoryPoints()
                 + " Victory Points and" + winner.getMoney() + " golds", "Congratulations " + winner.getIdTag(), JOptionPane.INFORMATION_MESSAGE);
     }

@@ -68,16 +68,16 @@ public class GamePanelView extends JPanel {
         sampleHandler = new ButtonHandler();
 
 
-        //parte sx della gui
+        //left part of the gui
         leftPanel = new JPanel(new BorderLayout());
 
-        //pannello giocatori
-        playersBox = Box.createVerticalBox();               //uso Box temporaneamente (grid?)
+        //players panel
+        playersBox = Box.createVerticalBox();
 
         leftPanel.add(playersBox, BorderLayout.NORTH);
-        //giocatori aggiunti
+        //players added
 
-        //pannello gameLog
+        //gameLog panel
         gameLog = new JTextArea(0, 40);
         gameLog.setBorder(new TitledBorder("Game Log"));
         gameLog.setLineWrap(true);
@@ -85,21 +85,17 @@ public class GamePanelView extends JPanel {
         leftPanel.add(gameLog, BorderLayout.CENTER);
         leftPanel.add(new JScrollPane(gameLog), BorderLayout.CENTER);
         initializeGameLog();
-        //gameLog aggiunto
+        //gameLog added
 
         //aggiunge leftPanel al frame
         add(leftPanel, BorderLayout.WEST);
 
-        //crea pannello board...per ora aggiunge solo l'immagine
+        //creates board panel
         midPanel = new BoardPanel(viewRef.getImagedir() + "other/board.jpg");
-        /*Icon board = new ImageIcon();
-        JLabel imageArea = new JLabel(board);
-        //imageArea.setSize(426, 719);
-        midPanel.add(imageArea);             */
-        //aggiunge midPanel al frame
+        //adds midPanel to frame
         add(midPanel, BorderLayout.CENTER);
 
-        //crea rightPanel
+        //creates rightPanel
         rightPanel = new JPanel();
         Box rightBox = Box.createVerticalBox(); //ordina i componenti del panel;
         rightBox.setPreferredSize(new Dimension(500, 600));
@@ -109,7 +105,7 @@ public class GamePanelView extends JPanel {
         buildBetMarkPoolPanel();
         betMarkPoolPanel.setVisible(false);
         rightBox.add(betMarkPoolPanel);
-        //aggiunti i bet marks;
+        //bet marks added
 
         buildBetPanel();
         betPanel.setVisible(false);
@@ -128,20 +124,18 @@ public class GamePanelView extends JPanel {
 
         rightBox.add(actionPanel);
 
-        //aggiunti i pulsanti azione
+        //aggiunti i pulsanti azione    */
 
-        //lista action card, da pensare, per ora non si aggiunge      */
-
-        //textArea per le descrizioni delle actionCard
+        //textArea actionCard description
         JTextArea actionDescription = new JTextArea(15, 32);
         actionDescription.setLineWrap(true);
         actionDescription.setBorder(new TitledBorder("Action Card Description"));
         rightBox.add(actionDescription);
-        //aggiunto ultimo elemento al rightBox
+        //added last element to default rightBox
 
-        //aggiungo rightBox a rightPanel
+        //adds rightBox to rightPanel
         rightPanel.add(rightBox);
-        //infine aggiunge l'ultimo panel
+        //adds last panel
         add(rightPanel, BorderLayout.EAST);
 
         //creo e aggiungi handler
@@ -156,7 +150,6 @@ public class GamePanelView extends JPanel {
 
     /**
      * Resizes the images received to the following dimension: width=w and height=i
-     *
      * @param srcImg image to resize
      * @param w      final width
      * @param h      final height
@@ -166,7 +159,6 @@ public class GamePanelView extends JPanel {
     private Image getScaledImage(Image srcImg, int w, int h) {
         BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2 = resizedImg.createGraphics();
-        //g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         g2.drawImage(srcImg, 0, 0, w, h, null);
         g2.dispose();
         return resizedImg;
@@ -178,6 +170,14 @@ public class GamePanelView extends JPanel {
 
     public void initializeGameLog() {
         this.gameLog.append("Let the game begin!");
+    }
+
+    /**
+     * Updates the gameLog
+     */
+
+    public void updateGameLog(String update){
+        gameLog.append("\n" + update);
     }
 
     /**
@@ -193,7 +193,6 @@ public class GamePanelView extends JPanel {
 
     /**
      * Get the stable cards path
-     *
      * @return a string representing the path to the stable cards directory
      */
     String getStableDir() {
@@ -202,8 +201,16 @@ public class GamePanelView extends JPanel {
     }
 
     /**
+     * Get the action cards path
+     * @return a string representing the path to the stable cards directory
+     */
+    String getActionDir() {
+        return viewRef.getImagedir() + "cards/actioncards/";
+
+    }
+
+    /**
      * Shows a message of error if the bet is invalid
-     *
      * @param s the actual message shown
      */
 
@@ -276,7 +283,6 @@ public class GamePanelView extends JPanel {
 
     /**
      * Builds the player panels
-     *
      * @param players array list of players, every player has his own player panel
      */
 
@@ -328,7 +334,6 @@ public class GamePanelView extends JPanel {
 
     /**
      * Translates the choices of a player during the bet phase in a bet which can be read by the controller
-     *
      * @param stables array list of stables on which the player bets
      * @return the bet made
      */
@@ -655,7 +660,6 @@ public class GamePanelView extends JPanel {
 
     /**
      * Updates bet marks of the bet marks pool in the gui at each bet
-     *
      * @param betMarkPool hash map representing the bet mark pool to update
      */
     public void updateBetMarks(Map<StableColor, Integer> betMarkPool) {
