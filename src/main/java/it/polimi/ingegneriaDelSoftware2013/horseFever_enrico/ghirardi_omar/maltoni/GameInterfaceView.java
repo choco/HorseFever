@@ -241,4 +241,9 @@ public class GameInterfaceView extends JFrame implements GameInterface {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    public void playerHasWonTheGame(Player winner) {
+        JOptionPane.showMessageDialog(this, "Il giocatore " + winner.getIdTag() + "ha vinto la partita! Con ben " + winner.getVictoryPoints()
+                + " punti vittoria e " + winner.getMoney() + " denari", "Congratulazioni " + winner.getIdTag(), JOptionPane.INFORMATION_MESSAGE);
+    }
+
 }

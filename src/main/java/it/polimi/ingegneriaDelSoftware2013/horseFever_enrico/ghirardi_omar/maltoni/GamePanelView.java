@@ -92,7 +92,6 @@ public class GamePanelView extends JPanel {
 
         //crea pannello board...per ora aggiunge solo l'immagine
         midPanel = new BoardPanel(viewRef.getImagedir() + "other/board.jpg");
-        midPanel.setMinimumSize(midPanel.getSize());
         /*Icon board = new ImageIcon();
         JLabel imageArea = new JLabel(board);
         //imageArea.setSize(426, 719);
@@ -103,6 +102,7 @@ public class GamePanelView extends JPanel {
         //crea rightPanel
         rightPanel = new JPanel();
         Box rightBox = Box.createVerticalBox(); //ordina i componenti del panel;
+        rightBox.setPreferredSize(new Dimension(500, 600));
 
         //bet mark pool panel
         betMarkValue = new JTextArea[6];
@@ -149,7 +149,7 @@ public class GamePanelView extends JPanel {
         //action1.addActionListener(sampleHandler);
         //nextTurn.addActionListener(sampleHandler);
 
-        Dimension size = new Dimension(1500, 980);
+        Dimension size = new Dimension(1600, 980);
         setPreferredSize(size);
 
     }
@@ -233,7 +233,7 @@ public class GamePanelView extends JPanel {
 
     private class ButtonHandler implements ActionListener {
         public void actionPerformed(ActionEvent event) {
-            if (event.getSource() == registraScommessaBtn) {
+            if (event.getSource() == registraScommessaBtn || event.getSource() == betAmountField) {
                 registerBet();
             }
         }
@@ -334,11 +334,21 @@ public class GamePanelView extends JPanel {
      */
 
     Bet getPlayerBet(ArrayList<Stable> stables) {
-        this.showBetPanels();
-        viewRef.pauseGameFlow();
+        boolean correctInputFalse = false;
+        int amount = 0;
 
+        while (!correctInputFalse) {
 
-        int amount = Integer.parseInt(betAmountField.getText());
+            this.showBetPanels();
+            betAmountField.requestFocus();
+            viewRef.pauseGameFlow();
+            try {
+                amount = Integer.parseInt(betAmountField.getText());
+                correctInputFalse = true;
+            } catch (NumberFormatException e) {
+                showBetRegistrationError("Inserisci un importo valido!");
+            }
+        }
         StableColor color = null;
         if (neroRadioButton.isSelected()) {
             color = StableColor.BLACK;
@@ -408,7 +418,7 @@ public class GamePanelView extends JPanel {
         gbc.gridy = 3;
         gbc.weightx = 0.3;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(spacer1, gbc);
+        //panel1.add(spacer1, gbc);
 
         final JPanel panel2 = new JPanel();
         panel2.setLayout(new GridBagLayout());
@@ -441,6 +451,7 @@ public class GamePanelView extends JPanel {
 
         //bet amount field
         betAmountField = new JTextField();
+        betAmountField.addActionListener(sampleHandler);
         gbc = new GridBagConstraints();
         gbc.gridx = 4;
         gbc.gridy = 0;
@@ -454,7 +465,7 @@ public class GamePanelView extends JPanel {
         gbc.gridy = 0;
         gbc.weightx = 0.3;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(spacer2, gbc);
+        //panel1.add(spacer2, gbc);
 
         final JLabel label2 = new JLabel();
         label2.setText("Bet Amount");
@@ -573,7 +584,7 @@ public class GamePanelView extends JPanel {
         gbc.gridx = 3;
         gbc.gridy = 6;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(spacer7, gbc);
+        //panel1.add(spacer7, gbc);
 
         final JPanel spacer8 = new JPanel();
         gbc = new GridBagConstraints();
@@ -593,6 +604,9 @@ public class GamePanelView extends JPanel {
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 12;
+        gbc.weightx = 0.5;
+        gbc.gridwidth = 5;
+        gbc.fill = GridBagConstraints.WEST;
         gbc.anchor = GridBagConstraints.WEST;
         panel1.add(betError, gbc);
 

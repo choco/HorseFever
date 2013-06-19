@@ -33,4 +33,6 @@ public interface GameInterface {
     Horse getHorseToPlayActionCardOn(ArrayList<Horse> horses);
 
     void playerHasLostTheGame(Player player);
+
+    void playerHasWonTheGame(Player winner);
 }

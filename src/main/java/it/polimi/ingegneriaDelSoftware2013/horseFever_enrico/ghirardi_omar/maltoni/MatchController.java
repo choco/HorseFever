@@ -65,6 +65,7 @@ public class MatchController {
         ArrayList<Player> winnersByVictoryPoints = new ArrayList<Player>();
         ArrayList<Player> winnersByMoney = new ArrayList<Player>();
         Player winner = null;
+        boolean weHaveAWinner = false;
 
         int maxVictoryPoints = 0;
         for (Player player : match.getPlayers()) {
@@ -86,15 +87,18 @@ public class MatchController {
             }
         } else {
             winner = winnersByVictoryPoints.get(0);
+            weHaveAWinner = true;
         }
 
-        if (winnersByMoney.size() != 1) {
+        if (winnersByMoney.size() != 1 && weHaveAWinner == false) {
             // Mostra interfaccia tabella spareggi e offri opzione per indicare chi vince tra i giocatori rimasti
 
             winner = winnersByMoney.get(0); //da sostituire con chiamata a interfaccia!
-        } else {
+        } else if (winnersByMoney.size() == 1 && weHaveAWinner == false) {
             winner = winnersByMoney.get(0);
         }
+
+        gameInterface.playerHasWonTheGame(winner);
 
         //chiamo interfaccia e mostro il winner :D
 
@@ -146,7 +150,6 @@ public class MatchController {
         betManager.paymentTime(raceManager.getStanding());
         raceManager.updateStableQuotations();
         raceManager.resetRace(match.getActionCardDeck());
-        System.out.println(match.getActionCardDeck());
 
         match.setBetMarkPool();
 

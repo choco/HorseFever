@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.HierarchyEvent;
+import java.awt.event.HierarchyListener;
 import java.util.ArrayList;
 
 /**
@@ -27,6 +29,7 @@ public class GameLobbyView extends JPanel {
 
     /**
      * Constructor of a game lobby view object
+     *
      * @param view the reference to the main frame of the gui
      */
     GameLobbyView(GameInterfaceView view) {
@@ -50,6 +53,15 @@ public class GameLobbyView extends JPanel {
         add(topPanel, gbc);
 
         playerNicknameField = new JTextField();
+
+
+        this.addHierarchyListener(new HierarchyListener() {
+            @Override
+            public void hierarchyChanged(HierarchyEvent hierarchyEvent) {
+                playerNicknameField.requestFocus();
+            }
+        });
+        playerNicknameField.requestFocus(true);
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -61,6 +73,7 @@ public class GameLobbyView extends JPanel {
 
         addPlayerBtn = new JButton();
         addPlayerBtn.setText("Add Player");
+
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 0;
@@ -132,6 +145,8 @@ public class GameLobbyView extends JPanel {
         addPlayerBtn.addActionListener(handler);
         startGameBtn.addActionListener(handler);
         backBtn.addActionListener(handler);
+        playerNicknameField.addActionListener(handler);
+
 
         Dimension size = new Dimension(200, 300);
         setPreferredSize(size);
@@ -156,7 +171,7 @@ public class GameLobbyView extends JPanel {
     private class GameLobbyHandler implements ActionListener {
 
         public void actionPerformed(ActionEvent event) {
-            if (event.getSource() == addPlayerBtn) {
+            if (event.getSource() == addPlayerBtn || event.getSource() == playerNicknameField) {
                 String tmp = playerNicknameField.getText();
                 if (!tmp.equals("")) {
                     nicknamesList.add(tmp);
@@ -167,7 +182,7 @@ public class GameLobbyView extends JPanel {
             } else if (event.getSource() == startGameBtn) {
                 viewRef.startMatchWithPlayers(nicknamesList);
             } else if (event.getSource() == backBtn) {
-                   //viewRef.setGameMenuAsMainPanel
+                //viewRef.setGameMenuAsMainPanel
             }
 
 
