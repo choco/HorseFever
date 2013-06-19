@@ -153,7 +153,7 @@ public class GameInterfaceView extends JFrame implements GameInterface {
      */
 
     public boolean userWantsToBet(Player player) {
-        int result = JOptionPane.showConfirmDialog(this, "E' il tuo turno " + player.getIdTag() + ", vuoi effettuare la seconda scommessa?", "Seconda scommessa", JOptionPane.YES_NO_OPTION);
+        int result = JOptionPane.showConfirmDialog(this, "It's " + player.getIdTag() + "'s turn.\nDo you want to make a second bet?", "Second bet", JOptionPane.YES_NO_OPTION);
         if (result == JOptionPane.YES_OPTION) {
             return true;
         }
@@ -176,14 +176,13 @@ public class GameInterfaceView extends JFrame implements GameInterface {
      */
 
     public void betWasRegisteredCorrectly() {
-        JOptionPane.showMessageDialog(this, "La scommessa è stata registrata correttamente!", "Scommessa corretta", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Your bet has been taken!", "Correct Bet", JOptionPane.INFORMATION_MESSAGE);
         gamePanel.clearBetFields();
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
     /**
      * Informs the player if his bet isn't valid
-     *
      * @param s the error message to show
      */
 
@@ -194,7 +193,6 @@ public class GameInterfaceView extends JFrame implements GameInterface {
 
     /**
      * Updates the right end of the gui depending on the games phase
-     *
      * @param matchPhase the phase of the match
      */
 
@@ -222,28 +220,41 @@ public class GameInterfaceView extends JFrame implements GameInterface {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    //TODO: javaDoc on this methods
 
     public void setCurrentPlayer(Player player) {
-        JOptionPane.showMessageDialog(this, "Ora è il turno di " + player.getIdTag() + ". Lasciagli il computer e non sbirciare :)", "E' il turno di " + player.getIdTag(), JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "It's " + player.getIdTag() + "'s turn! \nLeave the computer and don't peek!\n Or do it...you're a felon after all", "It's " + player.getIdTag() + "'s turn", JOptionPane.INFORMATION_MESSAGE);
     }
+
+    /**
+     * Gets the action card to play from an array list of cards
+     * @param cards array list of cards from which it will take the card
+     * @return the chosen card
+     */
 
     public ActionCard getActionCardToPlay(ArrayList<ActionCard> cards) {
 
         return cards.get(0);  //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    /**
+     * The player chooses a horse to play a selected action card on
+     * @param horses array list of horses from which the player will choose
+     * @return       chosen horse
+     */
+
     public Horse getHorseToPlayActionCardOn(ArrayList<Horse> horses) {
         return horses.get(0);  //To change body of implemented methods use File | Settings | File Templates.
     }
+
+
 
     public void playerHasLostTheGame(Player player) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
     public void playerHasWonTheGame(Player winner) {
-        JOptionPane.showMessageDialog(this, "Il giocatore " + winner.getIdTag() + "ha vinto la partita! Con ben " + winner.getVictoryPoints()
-                + " punti vittoria e " + winner.getMoney() + " denari", "Congratulazioni " + winner.getIdTag(), JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, winner.getIdTag() + "has WON!!!\n In the end he has" + winner.getVictoryPoints()
+                + " Victory Points and" + winner.getMoney() + " golds", "Congratulations " + winner.getIdTag(), JOptionPane.INFORMATION_MESSAGE);
     }
 
 }

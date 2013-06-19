@@ -177,7 +177,7 @@ public class GamePanelView extends JPanel {
      */
 
     public void initializeGameLog() {
-        this.gameLog.append("Let the game begins!");
+        this.gameLog.append("Let the game begin!");
     }
 
     /**
@@ -346,7 +346,7 @@ public class GamePanelView extends JPanel {
                 amount = Integer.parseInt(betAmountField.getText());
                 correctInputFalse = true;
             } catch (NumberFormatException e) {
-                showBetRegistrationError("Inserisci un importo valido!");
+                showBetRegistrationError("Insert a valid amount!");
             }
         }
         StableColor color = null;
