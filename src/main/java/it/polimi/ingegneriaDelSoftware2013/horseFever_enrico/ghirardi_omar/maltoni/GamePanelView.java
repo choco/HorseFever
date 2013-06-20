@@ -23,6 +23,7 @@ public class GamePanelView extends JPanel {
     MouseClickHandler mouseListener;
     private JPanel leftPanel;
     private JPanel midPanel;
+    private StableQuotationsPanel quotationsPanel;
     private JPanel rightPanel;
     private Box playersBox;
     ButtonHandler sampleHandler;
@@ -34,6 +35,15 @@ public class GamePanelView extends JPanel {
     //private JButton action1;
     //private JButton nextTurn;
     private GameInterfaceView viewRef;
+
+
+    private JPanel racePanel;
+    private JButton prossimoTurnoDiCorsaButton;
+    private JButton faiSprintareICavalliButton;
+    private JPanel movementCardPanel;
+    private JLabel cardLabel;
+    private JPanel firstSpriningHorse;
+    private JPanel secondSprintingHorse;
 
 
     private JPanel betMarkPoolPanel;
@@ -58,7 +68,7 @@ public class GamePanelView extends JPanel {
      *
      * @param view reference to the main frame of the gui
      */
-    GamePanelView(GameInterfaceView view) {
+    GamePanelView(GameInterfaceView view, RaceManager manager) {
 
 
         viewRef = view;
@@ -91,7 +101,10 @@ public class GamePanelView extends JPanel {
         add(leftPanel, BorderLayout.WEST);
 
         //creates board panel
-        midPanel = new BoardPanel(viewRef.getImagedir() + "other/board.jpg");
+        midPanel = new BoardPanel(viewRef.getImagedir() + "other/board.jpg", manager);
+        quotationsPanel = new StableQuotationsPanel(viewRef.getImagedir() + "other/stableQuotationsBoard.png");
+        quotationsPanel.setPreferredSize(new Dimension(420, 200));
+        midPanel.add(quotationsPanel);
         //adds midPanel to frame
         add(midPanel, BorderLayout.CENTER);
 
@@ -110,6 +123,11 @@ public class GamePanelView extends JPanel {
         buildBetPanel();
         betPanel.setVisible(false);
         rightBox.add(betPanel);
+
+
+        buildRacePanel();
+        racePanel.setVisible(false);
+        rightBox.add(racePanel);
         /*
         //pulsanti azione
         JPanel actionPanel = new JPanel(new FlowLayout());
@@ -148,8 +166,128 @@ public class GamePanelView extends JPanel {
 
     }
 
+    private void buildRacePanel() {
+        racePanel = new JPanel();
+        racePanel.setLayout(new GridBagLayout());
+        racePanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Race"));
+
+        movementCardPanel = new JPanel();
+        movementCardPanel.setLayout(new GridBagLayout());
+        cardLabel = new JLabel(new ImageIcon("rsc/cards/movementcards/back.png"));
+        movementCardPanel.add(cardLabel);
+        GridBagConstraints gbc;
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridheight = 2;
+        gbc.weightx = 2.0;
+        gbc.weighty = 1.0;
+        gbc.fill = GridBagConstraints.BOTH;
+        racePanel.add(movementCardPanel, gbc);
+        final JPanel panel2 = new JPanel();
+        panel2.setLayout(new GridBagLayout());
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.weightx = 0.5;
+        gbc.weighty = 1.0;
+        gbc.fill = GridBagConstraints.BOTH;
+        racePanel.add(panel2, gbc);
+        final JPanel panel3 = new JPanel();
+        panel3.setLayout(new GridBagLayout());
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 0.5;
+        gbc.weighty = 0.5;
+        gbc.fill = GridBagConstraints.BOTH;
+        panel2.add(panel3, gbc);
+        faiSprintareICavalliButton = new JButton();
+        faiSprintareICavalliButton.setText("Fai sprintare i cavalli");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel3.add(faiSprintareICavalliButton, gbc);
+        final JPanel panel4 = new JPanel();
+        panel4.setLayout(new GridBagLayout());
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.fill = GridBagConstraints.BOTH;
+        panel3.add(panel4, gbc);
+        firstSpriningHorse = new JPanel();
+        firstSpriningHorse.setLayout(new BorderLayout(0, 0));
+        firstSpriningHorse.setPreferredSize(new Dimension(50, 50));
+        firstSpriningHorse.setBackground(Color.white);
+        firstSpriningHorse.setBorder(BorderFactory.createLoweredBevelBorder());
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.BOTH;
+        panel4.add(firstSpriningHorse, gbc);
+        secondSprintingHorse = new JPanel();
+        secondSprintingHorse.setLayout(new BorderLayout(0, 0));
+        secondSprintingHorse.setPreferredSize(new Dimension(50, 50));
+        secondSprintingHorse.setBackground(Color.white);
+        secondSprintingHorse.setBorder(BorderFactory.createLoweredBevelBorder());
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.BOTH;
+        panel4.add(secondSprintingHorse, gbc);
+        final JPanel spacer1 = new JPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.VERTICAL;
+        panel3.add(spacer1, gbc);
+        final JPanel spacer2 = new JPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.fill = GridBagConstraints.VERTICAL;
+        panel3.add(spacer2, gbc);
+        final JPanel panel5 = new JPanel();
+        panel5.setLayout(new GridBagLayout());
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.weightx = 0.3;
+        gbc.weighty = 0.5;
+        gbc.fill = GridBagConstraints.BOTH;
+        racePanel.add(panel5, gbc);
+        final JPanel spacer3 = new JPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel5.add(spacer3, gbc);
+        final JPanel spacer4 = new JPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel5.add(spacer4, gbc);
+        prossimoTurnoDiCorsaButton = new JButton();
+        prossimoTurnoDiCorsaButton.setText("Prossimo turno di corsa");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.weightx = 0.3;
+        gbc.fill = GridBagConstraints.VERTICAL;
+        panel5.add(prossimoTurnoDiCorsaButton, gbc);
+
+        faiSprintareICavalliButton.addActionListener(sampleHandler);
+        prossimoTurnoDiCorsaButton.addActionListener(sampleHandler);
+
+    }
+
     /**
      * Resizes the images received to the following dimension: width=w and height=i
+     *
      * @param srcImg image to resize
      * @param w      final width
      * @param h      final height
@@ -176,7 +314,7 @@ public class GamePanelView extends JPanel {
      * Updates the gameLog
      */
 
-    public void updateGameLog(String update){
+    public void updateGameLog(String update) {
         gameLog.append("\n" + update);
     }
 
@@ -193,6 +331,7 @@ public class GamePanelView extends JPanel {
 
     /**
      * Get the stable cards path
+     *
      * @return a string representing the path to the stable cards directory
      */
     String getStableDir() {
@@ -202,6 +341,7 @@ public class GamePanelView extends JPanel {
 
     /**
      * Get the action cards path
+     *
      * @return a string representing the path to the stable cards directory
      */
     String getActionDir() {
@@ -211,6 +351,7 @@ public class GamePanelView extends JPanel {
 
     /**
      * Shows a message of error if the bet is invalid
+     *
      * @param s the actual message shown
      */
 
@@ -224,6 +365,7 @@ public class GamePanelView extends JPanel {
      */
 
     public void hideAllRightPanels() {
+        hideRacePanel();
         hideBetPanels();
     }
 
@@ -234,6 +376,79 @@ public class GamePanelView extends JPanel {
         piazzataRadioButton.setSelected(true);
     }
 
+    public void updateRacePhase(RacePhase racePhase) {
+
+        switch (racePhase) {
+
+            case START:
+                prossimoTurnoDiCorsaButton.setText("Inizia la corsa");
+                prossimoTurnoDiCorsaButton.setEnabled(true);
+                faiSprintareICavalliButton.setEnabled(false);
+                revalidate();
+                repaint();
+                break;
+            case MIDDLE:
+                prossimoTurnoDiCorsaButton.setText("Inizia prossimo turno di corsa");
+                prossimoTurnoDiCorsaButton.setEnabled(true);
+                faiSprintareICavalliButton.setEnabled(false);
+                break;
+            case SPRINT:
+                prossimoTurnoDiCorsaButton.setEnabled(false);
+                faiSprintareICavalliButton.setEnabled(true);
+                break;
+            case FINISH:
+                prossimoTurnoDiCorsaButton.setEnabled(false);
+                faiSprintareICavalliButton.setEnabled(false);
+                break;
+        }
+    }
+
+    public void showSprintingHorses(ArrayList<StableColor> sprintingColors) {
+        ArrayList<Color> colors = new ArrayList<Color>();
+        for (StableColor color : sprintingColors) {
+            switch (color) {
+
+                case BLACK:
+                    colors.add(Color.BLACK);
+                    break;
+                case BLUE:
+                    colors.add(Color.BLUE);
+                    break;
+                case GREEN:
+                    colors.add(Color.GREEN);
+                    break;
+                case RED:
+                    colors.add(Color.RED);
+                    break;
+                case YELLOW:
+                    colors.add(Color.YELLOW);
+                    break;
+                case WHITE:
+                    colors.add(Color.WHITE);
+                    break;
+            }
+        }
+
+        if (colors.size() == 1) {
+            firstSpriningHorse.setBackground(colors.get(0));
+            secondSprintingHorse.setBackground(colors.get(0));
+        } else {
+            firstSpriningHorse.setBackground(colors.get(0));
+            secondSprintingHorse.setBackground(colors.get(1));
+        }
+        //To change body of created methods use File | Settings | File Templates.
+    }
+
+    public void updateCurrentMovementCard(MovementCard movementCard) {
+        cardLabel.setIcon(new ImageIcon("rsc/cards/movementcards/" + movementCard.getImagePath()));
+        revalidate();
+        repaint();
+    }
+
+    public void updateStableQuotations(ArrayList<Stable> stables) {
+        quotationsPanel.updateStableQuotations(stables);
+    }
+
     /**
      * Action listener of the register bet button
      */
@@ -242,7 +457,10 @@ public class GamePanelView extends JPanel {
         public void actionPerformed(ActionEvent event) {
             if (event.getSource() == registraScommessaBtn || event.getSource() == betAmountField) {
                 registerBet();
+            } else if (event.getSource() == faiSprintareICavalliButton || event.getSource() == prossimoTurnoDiCorsaButton) {
+                viewRef.resumeGameFlow();
             }
+
         }
     }
 
@@ -253,6 +471,14 @@ public class GamePanelView extends JPanel {
     public void showBetPanels() {
         betMarkPoolPanel.setVisible(true);
         betPanel.setVisible(true);
+    }
+
+    public void showRacePanel() {
+        racePanel.setVisible(true);
+    }
+
+    public void hideRacePanel() {
+        racePanel.setVisible(false);
     }
 
     /**
@@ -283,6 +509,7 @@ public class GamePanelView extends JPanel {
 
     /**
      * Builds the player panels
+     *
      * @param players array list of players, every player has his own player panel
      */
 
@@ -334,6 +561,7 @@ public class GamePanelView extends JPanel {
 
     /**
      * Translates the choices of a player during the bet phase in a bet which can be read by the controller
+     *
      * @param stables array list of stables on which the player bets
      * @return the bet made
      */
@@ -343,8 +571,6 @@ public class GamePanelView extends JPanel {
         int amount = 0;
 
         while (!correctInputFalse) {
-
-            this.showBetPanels();
             betAmountField.requestFocus();
             viewRef.pauseGameFlow();
             try {
@@ -660,14 +886,37 @@ public class GamePanelView extends JPanel {
 
     /**
      * Updates bet marks of the bet marks pool in the gui at each bet
+     *
      * @param betMarkPool hash map representing the bet mark pool to update
      */
     public void updateBetMarks(Map<StableColor, Integer> betMarkPool) {
-        int i = 0;
         for (StableColor color : betMarkPool.keySet()) {
-            betMarkValue[i].setText(betMarkPool.get(color).toString());
-            System.out.println(betMarkPool.get(color).toString());
-            i++;
+            switch (color) {
+
+                case BLACK:
+                    betMarkValue[0].setText(betMarkPool.get(color).toString());
+                    break;
+                case BLUE:
+                    betMarkValue[1].setText(betMarkPool.get(color).toString());
+
+                    break;
+                case GREEN:
+                    betMarkValue[2].setText(betMarkPool.get(color).toString());
+
+                    break;
+                case RED:
+                    betMarkValue[3].setText(betMarkPool.get(color).toString());
+
+                    break;
+                case YELLOW:
+                    betMarkValue[4].setText(betMarkPool.get(color).toString());
+
+                    break;
+                case WHITE:
+                    betMarkValue[5].setText(betMarkPool.get(color).toString());
+
+                    break;
+            }
         }
     }
 

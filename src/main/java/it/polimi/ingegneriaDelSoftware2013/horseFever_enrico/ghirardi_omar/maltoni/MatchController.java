@@ -29,7 +29,7 @@ public class MatchController {
         betManager = new BetManager(match.getBetMarkPool());
         raceManager = new RaceManager(match.getStables(), match.getMovementCardDeck());
         gameInterface = new GameInterfaceView(this);
-
+        raceManager.setGameInterface(gameInterface);
         //mostra interfaccia
     }
 
@@ -43,6 +43,7 @@ public class MatchController {
         initializeFirstPlayer();
 
         gameInterface.updatePlayersInfo(match.getPlayers());
+        gameInterface.updateStableQuotations(match.getStables());
 
         for (int currentTurn = 0; currentTurn < match.getNumberOfTurns(); currentTurn++) {
             updatePlayersOrder();
@@ -135,9 +136,12 @@ public class MatchController {
         rigPhase();
 
         match.setMatchPhase(MatchPhase.SECOND_BET_PHASE);
+        gameInterface.updateUIForPhase(match.getMatchPhase());
         betPhase();
 
         match.setMatchPhase(MatchPhase.RACE_PHASE);
+        gameInterface.updateUIForPhase(match.getMatchPhase());
+
         raceManager.startRace();
     }
 
@@ -149,6 +153,7 @@ public class MatchController {
 
         betManager.paymentTime(raceManager.getStanding());
         raceManager.updateStableQuotations();
+        gameInterface.updateStableQuotations(match.getStables());
         raceManager.resetRace(match.getActionCardDeck());
 
         match.setBetMarkPool();
@@ -304,6 +309,8 @@ public class MatchController {
                 gameInterface.setCurrentPlayer(player);
             }
 
+            gameInterface.updateBetMarkPool(match.getBetMarkPool());
+
             boolean wantsToBet = true;
 
             if (match.getMatchPhase() == MatchPhase.SECOND_BET_PHASE) {
@@ -330,7 +337,6 @@ public class MatchController {
                     break;
 
                 //chiama interfaccia e chiede al giocatore i valori per la makeBet
-                gameInterface.updateBetMarkPool(match.getBetMarkPool());
                 Bet playerBet = gameInterface.getPlayerBet(match.getStables());
 
                 try {
@@ -417,4 +423,7 @@ public class MatchController {
         }
     }
 
+    public RaceManager getRaceManager() {
+        return raceManager;
+    }
 }

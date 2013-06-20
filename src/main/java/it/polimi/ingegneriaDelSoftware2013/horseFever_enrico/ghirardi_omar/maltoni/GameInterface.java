@@ -14,6 +14,7 @@ public interface GameInterface {
 
     /**
      * Updates the bet mark pool after every choice of the players
+     *
      * @param betMarkPool hash map representing the bet mark pool to update
      */
 
@@ -21,6 +22,7 @@ public interface GameInterface {
 
     /**
      * Updates players info after every changing
+     *
      * @param players array list representing the players taking part in the game
      */
 
@@ -28,14 +30,16 @@ public interface GameInterface {
 
     /**
      * Checks if the current user wants to make the second bet
-     * @param  player that wants to bet
-     * @return        a boolean value representing the choice of the current player
+     *
+     * @param player that wants to bet
+     * @return a boolean value representing the choice of the current player
      */
-    
+
     boolean userWantsToBet(Player player);
 
     /**
      * Get the bet from the player through the gui
+     *
      * @param stables array list of stable on which the player will bet
      * @return the bet made by the player
      */
@@ -50,6 +54,7 @@ public interface GameInterface {
 
     /**
      * Informs the player if his bet isn't valid
+     *
      * @param s the error message to show
      */
 
@@ -57,6 +62,7 @@ public interface GameInterface {
 
     /**
      * Updates the gui depending on the games phase
+     *
      * @param matchPhase the phase of the match
      */
 
@@ -64,6 +70,7 @@ public interface GameInterface {
 
     /**
      * Informs the user of the next active player
+     *
      * @param player the next player who's going to play
      */
 
@@ -71,6 +78,7 @@ public interface GameInterface {
 
     /**
      * Gets the action card to play from an array list of cards
+     *
      * @param cards array list of cards from which it will take the card
      * @return the chosen card
      */
@@ -82,4 +90,16 @@ public interface GameInterface {
     void playerHasLostTheGame(Player player);
 
     void playerHasWonTheGame(Player winner);
+
+    void userShouldStartRaceTurn();
+
+    void updateRacePhase(RacePhase racePhase);
+
+    void userShouldThrowSprintDices();
+
+    void showSprintingHorses(ArrayList<StableColor> sprintingColors);
+
+    void updateCurrentMovementCard(MovementCard movementCard);
+
+    void updateStableQuotations(ArrayList<Stable> stables);
 }

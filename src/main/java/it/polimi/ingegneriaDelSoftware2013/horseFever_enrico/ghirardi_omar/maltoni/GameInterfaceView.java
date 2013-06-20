@@ -34,7 +34,7 @@ public class GameInterfaceView extends JFrame implements GameInterface {
 
         gameMenu = new GameMenuView(this);
         gameLobby = new GameLobbyView(this);
-        gamePanel = new GamePanelView(this);
+        gamePanel = new GamePanelView(this, matchController.getRaceManager());
 
         this.setContentPane(gameMenu);
         this.setResizable(false);
@@ -185,6 +185,7 @@ public class GameInterfaceView extends JFrame implements GameInterface {
 
     /**
      * Informs the player if his bet isn't valid
+     *
      * @param s the error message to show
      */
 
@@ -195,6 +196,7 @@ public class GameInterfaceView extends JFrame implements GameInterface {
 
     /**
      * Updates the right end of the gui depending on the games phase
+     *
      * @param matchPhase the phase of the match
      */
 
@@ -215,6 +217,8 @@ public class GameInterfaceView extends JFrame implements GameInterface {
                 gamePanel.hideAllRightPanels();
                 break;
             case RACE_PHASE:
+                gamePanel.hideAllRightPanels();
+                gamePanel.showRacePanel();
                 break;
             case END_GAME:
                 break;
@@ -230,6 +234,7 @@ public class GameInterfaceView extends JFrame implements GameInterface {
 
     /**
      * Gets the action card to play from an array list of cards
+     *
      * @param cards array list of cards from which it will take the card
      * @return the chosen card
      */
@@ -241,14 +246,14 @@ public class GameInterfaceView extends JFrame implements GameInterface {
 
     /**
      * The player chooses a horse to play a selected action card on
+     *
      * @param horses array list of horses from which the player will choose
-     * @return       chosen horse
+     * @return chosen horse
      */
 
     public Horse getHorseToPlayActionCardOn(ArrayList<Horse> horses) {
         return horses.get(0);  //To change body of implemented methods use File | Settings | File Templates.
     }
-
 
 
     public void playerHasLostTheGame(Player player) {
@@ -260,6 +265,31 @@ public class GameInterfaceView extends JFrame implements GameInterface {
                 + " Victory Points and" + winner.getMoney() + " golds");
         JOptionPane.showMessageDialog(this, winner.getIdTag() + "has WON!!!\n In the end he has" + winner.getVictoryPoints()
                 + " Victory Points and" + winner.getMoney() + " golds", "Congratulations " + winner.getIdTag(), JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void userShouldStartRaceTurn() {
+        pauseGameFlow();
+    }
+
+    public void updateRacePhase(RacePhase racePhase) {
+        gamePanel.updateRacePhase(racePhase);
+    }
+
+    public void userShouldThrowSprintDices() {
+        pauseGameFlow();
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public void showSprintingHorses(ArrayList<StableColor> sprintingColors) {
+        gamePanel.showSprintingHorses(sprintingColors);
+    }
+
+    public void updateCurrentMovementCard(MovementCard movementCard) {
+        gamePanel.updateCurrentMovementCard(movementCard);
+    }
+
+    public void updateStableQuotations(ArrayList<Stable> stables) {
+        gamePanel.updateStableQuotations(stables);
     }
 
 }

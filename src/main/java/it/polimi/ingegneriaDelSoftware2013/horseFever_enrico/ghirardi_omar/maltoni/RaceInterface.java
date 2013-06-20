@@ -1,5 +1,7 @@
 package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni;
 
+import java.util.ArrayList;
+
 /**
  * Created with IntelliJ IDEA.
  * User: cHoco
@@ -8,4 +10,5 @@ package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.malt
  * To change this template use File | Settings | File Templates.
  */
 public interface RaceInterface {
+    void updateHorsesPositions(ArrayList<Horse> horsesList);
 }

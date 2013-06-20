@@ -20,6 +20,7 @@ enum RacePhase {
 public class RaceManager {
 
     private RaceInterface raceInterface;
+    private GameInterface gameInterface;
     private ArrayList<Horse> horsesList;
     private Deck movementCardDeck;
     private Map<Stable, Integer> standing;
@@ -62,6 +63,14 @@ public class RaceManager {
 
         this.movementCardDeck = movementCardDeck;
         playedActionCards = new ArrayList<ActionCard>();
+    }
+
+    public void setGameInterface(GameInterface gameInterface) {
+        this.gameInterface = gameInterface;
+    }
+
+    public void setRaceInterface(RaceInterface raceInterface) {
+        this.raceInterface = raceInterface;
     }
 
     /**
@@ -112,10 +121,15 @@ public class RaceManager {
     public void startRace() {      // handles the start
 
         racePhase = RacePhase.START;
+
+        gameInterface.updateRacePhase(racePhase);
+
         for (Horse horse : horsesList) {
             System.out.println("Carte assegnate: " + horse.getActionPile());
         }
         checkActionCardsAtStart();
+
+        gameInterface.updateStableQuotations(new ArrayList<Stable>(standing.keySet()));
 
         while (!allHorsesGotPlaced()) {
             raceTurn();
@@ -148,6 +162,10 @@ public class RaceManager {
         MovementCard movementCard = (MovementCard) movementCardDeck.draw();
         movementCardDeck.putBottom(movementCard);
 
+        gameInterface.userShouldStartRaceTurn();
+
+        gameInterface.updateCurrentMovementCard(movementCard);
+
         for (Horse horse : horsesList) {
             System.out.println("Carte assegnate: " + horse.getActionPile());
             applyMovementCardToHorse(movementCard, horse);
@@ -155,11 +173,18 @@ public class RaceManager {
 
         racePhase = RacePhase.MIDDLE;
 
+
         for (Horse horse : horsesList) {
             checkIfHorseArrived(horse);
         }
 
+        System.out.println(horsesList);
+        raceInterface.updateHorsesPositions(horsesList);
+
         racePhase = RacePhase.SPRINT;
+
+        gameInterface.updateRacePhase(racePhase);
+        gameInterface.userShouldThrowSprintDices();
 
         ArrayList<StableColor> sprintingColors = new ArrayList<StableColor>();
         for (int i = 0; i < NUMBER_OF_DICE; i++) {
@@ -167,6 +192,8 @@ public class RaceManager {
             if (!sprintingColors.contains(temp))
                 sprintingColors.add(temp);
         }
+
+        gameInterface.showSprintingHorses(sprintingColors);
 
         for (StableColor color : sprintingColors) {
             for (Stable stable : standing.keySet()) {
@@ -177,13 +204,19 @@ public class RaceManager {
             }
         }
 
+        raceInterface.updateHorsesPositions(horsesList);
+
         for (Horse horse : horsesList) {
             checkIfHorseArrived(horse);
         }
 
+        raceInterface.updateHorsesPositions(horsesList);
+
         updateStanding();
 
         racePhase = RacePhase.MIDDLE;
+        gameInterface.updateRacePhase(racePhase);
+
     }
 
     /**
@@ -266,22 +299,24 @@ public class RaceManager {
      */
 
     private void makeHorseSprint(Horse horse) {
-        int current = horse.getCurrentPosition();
-        if (horse.didFixedSprintStepsChange()) {
-            if (horse.didAddSprintStepsChange()) {
-                System.out.print("Sprinti qui 1: eri a " + current + " sprinti in modo fissato di " + horse.getFixedSprintSteps() + "ci aggiungi " + horse.getAddSprintSteps());
-                horse.setCurrentPosition(current + horse.getFixedSprintSteps() + horse.getAddSprintSteps());
+        if (!horse.gotPlaced()) {
+            int current = horse.getCurrentPosition();
+            if (horse.didFixedSprintStepsChange()) {
+                if (horse.didAddSprintStepsChange()) {
+                    System.out.print("Sprinti qui 1: eri a " + current + " sprinti in modo fissato di " + horse.getFixedSprintSteps() + "ci aggiungi " + horse.getAddSprintSteps());
+                    horse.setCurrentPosition(current + horse.getFixedSprintSteps() + horse.getAddSprintSteps());
+                } else {
+                    System.out.print("Sprinti qui 1: eri a " + current + " sprinti in modo fissato di " + horse.getFixedSprintSteps());
+                    horse.setCurrentPosition(current + horse.getFixedSprintSteps());
+                }
             } else {
-                System.out.print("Sprinti qui 1: eri a " + current + " sprinti in modo fissato di " + horse.getFixedSprintSteps());
-                horse.setCurrentPosition(current + horse.getFixedSprintSteps());
-            }
-        } else {
-            if (horse.didAddSprintStepsChange()) {
-                System.out.print("Sprinti qui 1: eri a " + current + " ci aggiungi " + horse.getAddSprintSteps());
+                if (horse.didAddSprintStepsChange()) {
+                    System.out.print("Sprinti qui 1: eri a " + current + " ci aggiungi " + horse.getAddSprintSteps());
 
-                horse.setCurrentPosition(current + horse.getAddSprintSteps() + STANDARD_SPRINT_STEPS);
-            } else {
-                horse.setCurrentPosition(current + STANDARD_SPRINT_STEPS);
+                    horse.setCurrentPosition(current + horse.getAddSprintSteps() + STANDARD_SPRINT_STEPS);
+                } else {
+                    horse.setCurrentPosition(current + STANDARD_SPRINT_STEPS);
+                }
             }
         }
     }
