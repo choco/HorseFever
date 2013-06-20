@@ -190,9 +190,10 @@ public class MatchController {
                         horses.add(stable.getHorse());
                     }
 
-                    Horse horse = gameInterface.getHorseToPlayActionCardOn(horses);
-                    ActionCard card = gameInterface.getActionCardToPlay(player.getActionCardPile());
+                    ArrayList horseAndCard = gameInterface.getActionCardToPlayOnHorse(horses, player.getActionCardPile());
 
+                    ActionCard card = (ActionCard) horseAndCard.get(0);
+                    Horse horse = (Horse) horseAndCard.get(1);
                     //take the card to play and the horse to play it on from the gui
                     player.playActionCard(card, horse);
                 }

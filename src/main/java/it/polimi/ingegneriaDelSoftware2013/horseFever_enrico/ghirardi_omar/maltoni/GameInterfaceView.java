@@ -215,6 +215,7 @@ public class GameInterfaceView extends JFrame implements GameInterface {
                 break;
             case RIG_PHASE:
                 gamePanel.hideAllRightPanels();
+                gamePanel.showRigPanel();
                 break;
             case RACE_PHASE:
                 gamePanel.hideAllRightPanels();
@@ -231,30 +232,6 @@ public class GameInterfaceView extends JFrame implements GameInterface {
         JOptionPane.showMessageDialog(this, "It's " + player.getIdTag() + "'s turn! \nLeave the computer and don't peek!\n Or do it...you're a felon after all", "It's " + player.getIdTag() + "'s turn", JOptionPane.INFORMATION_MESSAGE);
         gamePanel.updateGameLog("It's " + player.getIdTag() + "'s turn!");
     }
-
-    /**
-     * Gets the action card to play from an array list of cards
-     *
-     * @param cards array list of cards from which it will take the card
-     * @return the chosen card
-     */
-
-    public ActionCard getActionCardToPlay(ArrayList<ActionCard> cards) {
-
-        return cards.get(0);  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    /**
-     * The player chooses a horse to play a selected action card on
-     *
-     * @param horses array list of horses from which the player will choose
-     * @return chosen horse
-     */
-
-    public Horse getHorseToPlayActionCardOn(ArrayList<Horse> horses) {
-        return horses.get(0);  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
 
     public void playerHasLostTheGame(Player player) {
         //To change body of implemented methods use File | Settings | File Templates.
@@ -290,6 +267,10 @@ public class GameInterfaceView extends JFrame implements GameInterface {
 
     public void updateStableQuotations(ArrayList<Stable> stables) {
         gamePanel.updateStableQuotations(stables);
+    }
+
+    public ArrayList getActionCardToPlayOnHorse(ArrayList<Horse> horses, ArrayList<ActionCard> actionCardPile) {
+        return gamePanel.getActionCardToPlayOnHorse(horses, actionCardPile);
     }
 
 }

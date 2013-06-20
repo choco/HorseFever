@@ -83,9 +83,6 @@ public interface GameInterface {
      * @return the chosen card
      */
 
-    ActionCard getActionCardToPlay(ArrayList<ActionCard> cards);
-
-    Horse getHorseToPlayActionCardOn(ArrayList<Horse> horses);
 
     void playerHasLostTheGame(Player player);
 
@@ -102,4 +99,6 @@ public interface GameInterface {
     void updateCurrentMovementCard(MovementCard movementCard);
 
     void updateStableQuotations(ArrayList<Stable> stables);
+
+    ArrayList getActionCardToPlayOnHorse(ArrayList<Horse> horses, ArrayList<ActionCard> actionCardPile);
 }

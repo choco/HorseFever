@@ -27,6 +27,7 @@ public class GamePanelView extends JPanel {
     private JPanel rightPanel;
     private Box playersBox;
     ButtonHandler sampleHandler;
+    RigButtonHandler rigButtonHandler;
 
     private JLabel playerCard;
     private JLabel stableCard;
@@ -45,6 +46,20 @@ public class GamePanelView extends JPanel {
     private JPanel firstSpriningHorse;
     private JPanel secondSprintingHorse;
 
+    private JPanel rigPanel;
+    private JRadioButton blackHorseButton;
+    private JRadioButton blueHorseButton;
+    private JRadioButton greenHorseButton;
+    private JRadioButton redHorseButton;
+    private JRadioButton whiteHorseButton;
+    private JRadioButton yellowHorseButton;
+    private JLabel firstCard;
+    private JLabel secondCard;
+    private JRadioButton firstCardName;
+    private JRadioButton secondCardName;
+    private JPanel leftCardPanel;
+    private JPanel rightCardPanel;
+    private JButton playActionCardButton;
 
     private JPanel betMarkPoolPanel;
     private JTextArea[] betMarkValue;
@@ -76,6 +91,7 @@ public class GamePanelView extends JPanel {
 
         mouseListener = new MouseClickHandler();
         sampleHandler = new ButtonHandler();
+        rigButtonHandler = new RigButtonHandler();
 
 
         //left part of the gui
@@ -123,6 +139,13 @@ public class GamePanelView extends JPanel {
         buildBetPanel();
         betPanel.setVisible(false);
         rightBox.add(betPanel);
+
+        buildRigPanel();
+        rigPanel.setVisible(true);
+        firstCard.setIcon(new ImageIcon(getScaledImage(new ImageIcon("rsc/cards/movementcards/back.png").getImage(), 150, 250)));
+        secondCard.setIcon(new ImageIcon(getScaledImage(new ImageIcon("rsc/cards/movementcards/back.png").getImage(), 150, 250)));
+
+        rightBox.add(rigPanel);
 
 
         buildRacePanel();
@@ -367,6 +390,15 @@ public class GamePanelView extends JPanel {
     public void hideAllRightPanels() {
         hideRacePanel();
         hideBetPanels();
+        hideRigPanel();
+    }
+
+    private void hideRigPanel() {
+        rigPanel.setVisible(false);
+    }
+
+    public void showRigPanel() {
+        rigPanel.setVisible(true);
     }
 
     public void clearBetFields() {
@@ -449,6 +481,70 @@ public class GamePanelView extends JPanel {
         quotationsPanel.updateStableQuotations(stables);
     }
 
+    public ArrayList getActionCardToPlayOnHorse(ArrayList<Horse> horses, ArrayList<ActionCard> actionCardPile) {
+        updateActionCards(actionCardPile);
+        viewRef.pauseGameFlow();
+
+        StableColor color = null;
+        if (blackHorseButton.isSelected()) {
+            color = StableColor.BLACK;
+        } else if (blueHorseButton.isSelected()) {
+            color = StableColor.BLUE;
+        } else if (greenHorseButton.isSelected()) {
+            color = StableColor.GREEN;
+        } else if (redHorseButton.isSelected()) {
+            color = StableColor.RED;
+        } else if (yellowHorseButton.isSelected()) {
+            color = StableColor.YELLOW;
+        } else if (whiteHorseButton.isSelected()) {
+            color = StableColor.WHITE;
+        }
+        Horse riggedHorse = null;
+
+        for (Horse horse : horses) {
+            if (horse.getOwnerStable().getColor() == color)
+                riggedHorse = horse;
+        }
+
+        ActionCard playCard = null;
+
+        if (firstCardName.isSelected()) {
+            playCard = actionCardPile.get(0);
+        } else if (secondCardName.isSelected()) {
+            playCard = actionCardPile.get(1);
+        }
+
+        ArrayList result = new ArrayList();
+        result.add(playCard);
+        result.add(riggedHorse);
+
+        return result;
+    }
+
+    private void updateActionCards(ArrayList<ActionCard> actionCardPile) {
+        if (actionCardPile.size() == 1) {
+            rightCardPanel.setVisible(false);
+            String firstCardPath = getActionDir() + actionCardPile.get(0).getImagePath();
+
+            firstCard.setIcon(new ImageIcon(getScaledImage(new ImageIcon(firstCardPath).getImage(), 150, 250)));
+            firstCardName.setText(actionCardPile.get(0).getCardName());
+
+        } else {
+            rightCardPanel.setVisible(true);
+
+            String firstCardPath = getActionDir() + actionCardPile.get(0).getImagePath();
+            String secondCardPath = getActionDir() + actionCardPile.get(1).getImagePath();
+
+            firstCard.setIcon(new ImageIcon(getScaledImage(new ImageIcon(firstCardPath).getImage(), 150, 250)));
+            secondCard.setIcon(new ImageIcon(getScaledImage(new ImageIcon(secondCardPath).getImage(), 150, 250)));
+
+            firstCardName.setText(actionCardPile.get(0).getCardName());
+            secondCardName.setText(actionCardPile.get(1).getCardName());
+
+        }
+    }
+
+
     /**
      * Action listener of the register bet button
      */
@@ -457,9 +553,19 @@ public class GamePanelView extends JPanel {
         public void actionPerformed(ActionEvent event) {
             if (event.getSource() == registraScommessaBtn || event.getSource() == betAmountField) {
                 registerBet();
-            } else if (event.getSource() == faiSprintareICavalliButton || event.getSource() == prossimoTurnoDiCorsaButton) {
+            } else if (event.getSource() == faiSprintareICavalliButton || event.getSource() == prossimoTurnoDiCorsaButton || event.getSource() == playActionCardButton) {
                 viewRef.resumeGameFlow();
             }
+
+        }
+    }
+
+    /**
+     * Action listener of the radiobutton for rigPhase
+     */
+
+    private class RigButtonHandler implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
 
         }
     }
@@ -609,6 +715,221 @@ public class GamePanelView extends JPanel {
 
         return new Bet(null, amount, bettingStable, type);
     }
+
+
+    void buildRigPanel() {
+        rigPanel = new JPanel();
+        rigPanel.setLayout(new GridBagLayout());
+        rigPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Rig the race"));
+        final JPanel panel1 = new JPanel();
+        panel1.setLayout(new GridBagLayout());
+        GridBagConstraints gbc;
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        gbc.weighty = 0.1;
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        rigPanel.add(panel1, gbc);
+        final JLabel label1 = new JLabel();
+        label1.setText("Seleziona il cavallo su cui giocare la carta azione:");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 6;
+        gbc.weightx = 1.0;
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel1.add(label1, gbc);
+        blackHorseButton = new JRadioButton();
+        blackHorseButton.setText("Nero");
+        blackHorseButton.setSelected(true);
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel1.add(blackHorseButton, gbc);
+        blueHorseButton = new JRadioButton();
+        blueHorseButton.setText("Blu");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel1.add(blueHorseButton, gbc);
+        greenHorseButton = new JRadioButton();
+        greenHorseButton.setText("Verde");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2;
+        gbc.gridy = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel1.add(greenHorseButton, gbc);
+        redHorseButton = new JRadioButton();
+        redHorseButton.setText("Rosso");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 3;
+        gbc.gridy = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel1.add(redHorseButton, gbc);
+        whiteHorseButton = new JRadioButton();
+        whiteHorseButton.setText("Bianco");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 5;
+        gbc.gridy = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel1.add(whiteHorseButton, gbc);
+        final JPanel spacer1 = new JPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.fill = GridBagConstraints.VERTICAL;
+        panel1.add(spacer1, gbc);
+        yellowHorseButton = new JRadioButton();
+        yellowHorseButton.setText("Giallo");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 4;
+        gbc.gridy = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel1.add(yellowHorseButton, gbc);
+        final JPanel panel2 = new JPanel();
+        panel2.setLayout(new GridBagLayout());
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.fill = GridBagConstraints.BOTH;
+        rigPanel.add(panel2, gbc);
+        leftCardPanel = new JPanel();
+        leftCardPanel.setLayout(new GridBagLayout());
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 0.5;
+        gbc.weighty = 1.0;
+        gbc.fill = GridBagConstraints.BOTH;
+        panel2.add(leftCardPanel, gbc);
+        firstCard = new JLabel();
+        firstCard.setText("");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        //gbc.anchor = GridBagConstraints.WEST;
+        leftCardPanel.add(firstCard, gbc);
+        firstCardName = new JRadioButton();
+        firstCardName.setSelected(true);
+        firstCardName.setText("RadioButton");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        leftCardPanel.add(firstCardName, gbc);
+        final JPanel spacer2 = new JPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel2.add(spacer2, gbc);
+        rightCardPanel = new JPanel();
+        rightCardPanel.setLayout(new GridBagLayout());
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2;
+        gbc.gridy = 0;
+        gbc.weightx = 0.5;
+        gbc.weighty = 1.0;
+        gbc.fill = GridBagConstraints.BOTH;
+        panel2.add(rightCardPanel, gbc);
+        secondCard = new JLabel();
+        secondCard.setText("");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        //gbc.anchor = GridBagConstraints.WEST;
+        rightCardPanel.add(secondCard, gbc);
+        secondCardName = new JRadioButton();
+        secondCardName.setText("RadioButton");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        rightCardPanel.add(secondCardName, gbc);
+        playActionCardButton = new JButton();
+        playActionCardButton.setText("Play action card");
+        playActionCardButton.addActionListener(sampleHandler);
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.anchor = GridBagConstraints.EAST;
+        rigPanel.add(playActionCardButton, gbc);
+        final JPanel spacer3 = new JPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.fill = GridBagConstraints.VERTICAL;
+        rigPanel.add(spacer3, gbc);
+        ButtonGroup buttonGroup;
+        buttonGroup = new ButtonGroup();
+        buttonGroup.add(blackHorseButton);
+        buttonGroup.add(blueHorseButton);
+        buttonGroup.add(greenHorseButton);
+        buttonGroup.add(redHorseButton);
+        buttonGroup.add(yellowHorseButton);
+        buttonGroup.add(whiteHorseButton);
+        buttonGroup = new ButtonGroup();
+        buttonGroup.add(firstCardName);
+        buttonGroup.add(secondCardName);
+
+
+        blackHorseButton.setActionCommand("black");
+        blueHorseButton.setActionCommand("blue");
+        greenHorseButton.setActionCommand("green");
+        redHorseButton.setActionCommand("red");
+        yellowHorseButton.setActionCommand("yellow");
+        whiteHorseButton.setActionCommand("white");
+
+        blackHorseButton.addActionListener(rigButtonHandler);
+        blueHorseButton.addActionListener(rigButtonHandler);
+        greenHorseButton.addActionListener(rigButtonHandler);
+        redHorseButton.addActionListener(rigButtonHandler);
+        yellowHorseButton.addActionListener(rigButtonHandler);
+        whiteHorseButton.addActionListener(rigButtonHandler);
+
+
+    }
+     /*
+    private class RadioButtonHandler implements ItemListener{
+
+        private int rHorse;
+
+        public RadioButtonHandler(int i){
+            rHorse = i;
+        }
+
+        public void itemStateChanged(ItemEvent event){
+            riggedHorse=rHorse;
+            gameLog.append("\nHorse number" + riggedHorse + "is the selected horse to rig. Let's do it!");
+            riggedHorseChoosen=true;
+        }
+
+    }
+
+    private class MouseClickACHandler extends MouseAdapter{
+            public void mouseClicked(MouseEvent event){ /*
+                if(event.getSource() == actionCard1){
+                    aCChoosen = 0;
+                    actionCardChoosen = true;
+                    actionDescription.append("AC1");
+                } else if(event.getSource() == playerCard){
+                    aCChoosen = 1;
+                    actionCardChoosen = true;
+                    actionDescription.append("AC2");
+                }
+
+            }
+    }  */
+
 
     /**
      * Builds bet panel on the right of the gui
