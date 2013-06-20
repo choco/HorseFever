@@ -90,6 +90,11 @@ public class RaceManager {
         return standing;
     }
 
+    public void setStanding (Map<Stable, Integer> st){
+        this.standing=st;
+
+    }
+
     /**
      * Standing is reset, played actioncards are put back
      * in the respective deck.
@@ -293,7 +298,6 @@ public class RaceManager {
 
     /**
      * Makes the horse sprint
-     * It won't allow a horse to sprint twice in the same turn
      *
      * @param horse horse which is going to sprint
      */
@@ -470,7 +474,7 @@ public class RaceManager {
     }
 
     /**
-     * removes the cards with the same letter from teh action cards pile of a horse
+     * Removes the cards with the same letter from teh action cards pile of a horse
      */
 
     private void removeSameCharCards() {
@@ -495,7 +499,7 @@ public class RaceManager {
     }
 
     /**
-     * Thows sprint dice
+     * Throws sprint dice
      *
      * @return the color of the stable which owns the horse which is going to sprint
      */
@@ -545,8 +549,13 @@ public class RaceManager {
 
 
     }
+        //TODO: commentare i seguenti due metodi
 
     /* currently untested!!!!! */
+
+    /**
+     * Updates the standing
+     */
     private void updateStanding() {
         ArrayList<Stable> temp = new ArrayList<Stable>(standing.keySet());
         Collections.sort(temp);
@@ -585,6 +594,10 @@ public class RaceManager {
             }
         }
     }
+
+    /**
+     * Adds horses to standing in case of draw depending on the quotation of each horse
+     */
 
     private void fixStandingBasedOnQuotation() {
         ArrayList<Stable> temp = new ArrayList<Stable>(standing.keySet());

@@ -51,9 +51,6 @@ public class Match {
 
         matchPhase = MatchPhase.START_GAME;
 
-        //inizializzi i mazzi
-        //inizializzi stable
-
         try {
             movementCardDeck = new Deck(CardType.MOVEMENT);
             actionCardDeck = new Deck(CardType.ACTION);

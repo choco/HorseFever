@@ -11,7 +11,7 @@ import java.util.Random;
  * To change this template use File | Settings | File Templates.
  */
 public class MatchController {
-
+    //TODO: tests on this class
     private Match match;
     private BetManager betManager;
     private RaceManager raceManager;
@@ -350,7 +350,7 @@ public class MatchController {
                     switch (e.getType()) {
 
                         case NOTENOUGHTMONEY:
-                            gameInterface.betRegistrationError("You don't have enought money!");
+                            gameInterface.betRegistrationError("You don't have enough money!");
                             break;
                         case NOTAMINIMUMBET:
                             gameInterface.betRegistrationError("That's not a minimum bet!");
@@ -359,7 +359,7 @@ public class MatchController {
                             gameInterface.betRegistrationError("You have finished your bets!");
                             break;
                         case NOT_ENOUGH_BET_MARKS:
-                            gameInterface.betRegistrationError("There are no betmarks available for this horse");
+                            gameInterface.betRegistrationError("There are no bet marks available for this horse");
                             break;
                         case SAME_BET:
                             gameInterface.betRegistrationError("You already made this bet");

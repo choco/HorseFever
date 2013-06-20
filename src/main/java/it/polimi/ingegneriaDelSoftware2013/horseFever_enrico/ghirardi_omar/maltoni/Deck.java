@@ -141,7 +141,7 @@ public class Deck {
     }
 
     /**
-     * Draw a card by removing the first element of cards attibute
+     * Draw a card by removing the first element of cards attribute
      * @return removed card
      */
 

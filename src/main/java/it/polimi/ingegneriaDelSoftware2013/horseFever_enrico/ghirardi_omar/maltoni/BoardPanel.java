@@ -23,8 +23,8 @@ public class BoardPanel extends JPanel implements RaceInterface {
     private Image whiteHorse;
     private Image yellowHorse;
 
-    private int xCordinate[];
-    private int yCordinate[];
+    private int xCoordinate[];
+    private int yCoordinate[];
 
     private static final int yMovement[] = {200, 250, 295, 340, 375, 420, 460, 495, 525, 555, 585, 620, 650, 675, 705, 730, 760, 780};
     private static final int xMovement[] = {35, 45, 55, 65, 75, 75, 89, 93, 97, 101, 105, 109, 114, 120, 124, 128, 132, 136};
@@ -49,13 +49,13 @@ public class BoardPanel extends JPanel implements RaceInterface {
         this.manager = manager;
 
         manager.setRaceInterface(this);
-        xCordinate = new int[6];
+        xCoordinate = new int[6];
         for (int i = 0; i < 6; i++) {
-            xCordinate[i] = xMovement[0];
+            xCoordinate[i] = xMovement[0];
         }
-        yCordinate = new int[6];
+        yCoordinate = new int[6];
         for (int i = 0; i < 6; i++) {
-            yCordinate[i] = yMovement[0];
+            yCoordinate[i] = yMovement[0];
         }
 
 
@@ -90,33 +90,33 @@ public class BoardPanel extends JPanel implements RaceInterface {
             switch (horse.getOwnerStable().getColor()) {
 
                 case BLACK:
-                    xCordinate[0] = xMovement[position];
-                    yCordinate[0] = yMovement[position];
+                    xCoordinate[0] = xMovement[position];
+                    yCoordinate[0] = yMovement[position];
                     break;
 
                 case BLUE:
-                    xCordinate[1] = xMovement[position];
-                    yCordinate[1] = yMovement[position];
+                    xCoordinate[1] = xMovement[position];
+                    yCoordinate[1] = yMovement[position];
                     break;
 
                 case GREEN:
-                    xCordinate[2] = xMovement[position];
-                    yCordinate[2] = yMovement[position];
+                    xCoordinate[2] = xMovement[position];
+                    yCoordinate[2] = yMovement[position];
                     break;
 
                 case RED:
-                    xCordinate[3] = xMovement[position];
-                    yCordinate[3] = yMovement[position];
+                    xCoordinate[3] = xMovement[position];
+                    yCoordinate[3] = yMovement[position];
                     break;
 
                 case YELLOW:
-                    xCordinate[4] = xMovement[position];
-                    yCordinate[4] = yMovement[position];
+                    xCoordinate[4] = xMovement[position];
+                    yCoordinate[4] = yMovement[position];
                     break;
 
                 case WHITE:
-                    xCordinate[5] = xMovement[position];
-                    yCordinate[5] = yMovement[position];
+                    xCoordinate[5] = xMovement[position];
+                    yCoordinate[5] = yMovement[position];
                     break;
             }
         }
@@ -130,17 +130,17 @@ public class BoardPanel extends JPanel implements RaceInterface {
         Dimension size = getSize();
         g.drawImage(img, 0, 0, size.width, size.height, null);
 
-        g.drawImage(blackHorse, xCordinate[0], size.height - yCordinate[0], 25, 25, null);
+        g.drawImage(blackHorse, xCoordinate[0], size.height - yCoordinate[0], 25, 25, null);
 
-        g.drawImage(blueHorse, xCordinate[1] + 80, size.height - yCordinate[1], 25, 25, null);
+        g.drawImage(blueHorse, xCoordinate[1] + 80, size.height - yCoordinate[1], 25, 25, null);
 
-        g.drawImage(greenHorse, 250, size.height - yCordinate[2], 25, 25, null);
+        g.drawImage(greenHorse, 250, size.height - yCoordinate[2], 25, 25, null);
 
-        g.drawImage(redHorse, 320, size.height - yCordinate[3], 25, 25, null);
+        g.drawImage(redHorse, 320, size.height - yCoordinate[3], 25, 25, null);
 
-        g.drawImage(yellowHorse, size.width - (xCordinate[4] + 80 + 30), size.height - yCordinate[4], 25, 25, null);
+        g.drawImage(yellowHorse, size.width - (xCoordinate[4] + 80 + 30), size.height - yCoordinate[4], 25, 25, null);
 
-        g.drawImage(whiteHorse, size.width - (xCordinate[5] + 30), size.height - yCordinate[5], 25, 25, null);
+        g.drawImage(whiteHorse, size.width - (xCoordinate[5] + 30), size.height - yCoordinate[5], 25, 25, null);
 
 
     }

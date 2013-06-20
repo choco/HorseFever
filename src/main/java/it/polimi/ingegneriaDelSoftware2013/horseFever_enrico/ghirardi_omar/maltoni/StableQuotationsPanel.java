@@ -25,8 +25,8 @@ public class StableQuotationsPanel extends JPanel {
     private static final int xQuotation[] = {260, 220, 180, 140, 100, 60};
     private static final int yQuotation[] = {17, 46, 75, 104, 133, 162};
 
-    private int xCordinate[];
-    private int yCordinate[];
+    private int xCoordinate[];
+    private int yCoordinate[];
 
     public StableQuotationsPanel(String img) {
         this(new ImageIcon(img).getImage());
@@ -53,15 +53,15 @@ public class StableQuotationsPanel extends JPanel {
         whiteHorse = new ImageIcon("rsc/horses/whiteHorse.jpg").getImage();
         yellowHorse = new ImageIcon("rsc/horses/yellowHorse.jpg").getImage();
 
-        xCordinate = new int[6];
-        yCordinate = new int[6];
+        xCoordinate = new int[6];
+        yCoordinate = new int[6];
 
         for (int i = 0; i < 6; i++) {
-            xCordinate[i] = xQuotation[0];
+            xCoordinate[i] = xQuotation[0];
         }
 
         for (int i = 0; i < 6; i++) {
-            yCordinate[i] = yQuotation[i];
+            yCoordinate[i] = yQuotation[i];
         }
 
 
@@ -84,28 +84,28 @@ public class StableQuotationsPanel extends JPanel {
             switch (stable.getColor()) {
 
                 case BLACK:
-                    yCordinate[0] = yQuotation[quotation];
-                    xCordinate[0] = xQuotation[numberOfStablesPerQuotation[quotation]];
+                    yCoordinate[0] = yQuotation[quotation];
+                    xCoordinate[0] = xQuotation[numberOfStablesPerQuotation[quotation]];
                     break;
                 case BLUE:
-                    yCordinate[1] = yQuotation[quotation];
-                    xCordinate[1] = xQuotation[numberOfStablesPerQuotation[quotation]];
+                    yCoordinate[1] = yQuotation[quotation];
+                    xCoordinate[1] = xQuotation[numberOfStablesPerQuotation[quotation]];
                     break;
                 case GREEN:
-                    yCordinate[2] = yQuotation[quotation];
-                    xCordinate[2] = xQuotation[numberOfStablesPerQuotation[quotation]];
+                    yCoordinate[2] = yQuotation[quotation];
+                    xCoordinate[2] = xQuotation[numberOfStablesPerQuotation[quotation]];
                     break;
                 case RED:
-                    yCordinate[3] = yQuotation[quotation];
-                    xCordinate[3] = xQuotation[numberOfStablesPerQuotation[quotation]];
+                    yCoordinate[3] = yQuotation[quotation];
+                    xCoordinate[3] = xQuotation[numberOfStablesPerQuotation[quotation]];
                     break;
                 case YELLOW:
-                    yCordinate[4] = yQuotation[quotation];
-                    xCordinate[4] = xQuotation[numberOfStablesPerQuotation[quotation]];
+                    yCoordinate[4] = yQuotation[quotation];
+                    xCoordinate[4] = xQuotation[numberOfStablesPerQuotation[quotation]];
                     break;
                 case WHITE:
-                    yCordinate[5] = yQuotation[quotation];
-                    xCordinate[5] = xQuotation[numberOfStablesPerQuotation[quotation]];
+                    yCoordinate[5] = yQuotation[quotation];
+                    xCoordinate[5] = xQuotation[numberOfStablesPerQuotation[quotation]];
                     break;
             }
             (numberOfStablesPerQuotation[quotation])++;
@@ -120,16 +120,16 @@ public class StableQuotationsPanel extends JPanel {
         Dimension size = getSize();
         g.drawImage(img, 0, 0, size.width, size.height, null);
 
-        g.drawImage(blackHorse, xCordinate[0], yCordinate[0], 25, 25, null);
+        g.drawImage(blackHorse, xCoordinate[0], yCoordinate[0], 25, 25, null);
 
-        g.drawImage(blueHorse, xCordinate[1], yCordinate[1], 25, 25, null);
+        g.drawImage(blueHorse, xCoordinate[1], yCoordinate[1], 25, 25, null);
 
-        g.drawImage(greenHorse, xCordinate[2], yCordinate[2], 25, 25, null);
+        g.drawImage(greenHorse, xCoordinate[2], yCoordinate[2], 25, 25, null);
 
-        g.drawImage(redHorse, xCordinate[3], yCordinate[3], 25, 25, null);
+        g.drawImage(redHorse, xCoordinate[3], yCoordinate[3], 25, 25, null);
 
-        g.drawImage(yellowHorse, xCordinate[4], yCordinate[4], 25, 25, null);
+        g.drawImage(yellowHorse, xCoordinate[4], yCoordinate[4], 25, 25, null);
 
-        g.drawImage(whiteHorse, xCordinate[5], yCordinate[5], 25, 25, null);
+        g.drawImage(whiteHorse, xCoordinate[5], yCoordinate[5], 25, 25, null);
     }
 }
