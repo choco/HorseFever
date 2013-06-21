@@ -480,7 +480,7 @@ public class GamePanelView extends JPanel {
                 repaint();
                 break;
             case MIDDLE:
-                prossimoTurnoDiCorsaButton.setText("To the next Race turn");
+                prossimoTurnoDiCorsaButton.setText("Next race turn");
                 prossimoTurnoDiCorsaButton.setEnabled(true);
                 faiSprintareICavalliButton.setEnabled(false);
                 break;
