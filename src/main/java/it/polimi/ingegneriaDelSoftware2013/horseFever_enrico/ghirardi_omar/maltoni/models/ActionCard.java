@@ -1,4 +1,4 @@
-package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni;
+package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.models;
 
 /**
  * Created with IntelliJ IDEA.
@@ -8,24 +8,20 @@ package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.malt
  * To change this template use File | Settings | File Templates.
  */
 
-enum ActionType {
-    POSITIVE, NEGATIVE, NEUTRAL
-}
-
 public class ActionCard extends Card {
     private String cardName;
     private String action;
+    private String cardDescription;
     private ActionType type;
     private int actionValue;
     private Character cardLetter;
-    private String cardDescription;
 
     public String getCardDescription() {
         return cardDescription;
     }
 
-    public void setCardDescription(String actionDescription) {
-        this.cardDescription = actionDescription;
+    public void setCardDescription(String cardDescription) {
+        this.cardDescription = cardDescription;
     }
 
     public String getCardName() {
@@ -69,9 +65,8 @@ public class ActionCard extends Card {
     }
 
 
-
     @Override
     public String toString() {
-        return "ActionCard [name=" + cardName + ", cardLetter=" + cardLetter + ", actionType=" + type + ", action=" + action + ", actionValue=" + actionValue + ", imagePath=" + imagePath +", cardDescription=" + cardDescription + "]\n";
+        return "ActionCard [name=" + cardName + ", cardLetter=" + cardLetter + ", actionType=" + type + ", action=" + action + ", actionValue=" + actionValue + ", imagePath=" + imagePath + ", cardDescription=" + cardDescription + "]\n";
     }
 }
