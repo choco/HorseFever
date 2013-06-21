@@ -5,7 +5,8 @@
         "action": "fixedStartSteps",
         "type": "POSITIVE",
         "actionValue": 4,
-        "cardLetter": "A"
+        "cardLetter": "A",
+        "cardDescription": "At the Start of the Race, this Horse moves forward four spaces instead of the number shown on the Movement card."
     },
     {
         "imagePath": "actioncard02.jpg",
@@ -13,7 +14,8 @@
         "action": "addStartSteps",
         "type": "POSITIVE",
         "actionValue": 1,
-        "cardLetter": "B"
+        "cardLetter": "B",
+        "cardDescription": "At the Start of the Race, this Horse moves forward ones pace more than the number on the Movement card."
     },
     {
         "imagePath": "actioncard03.jpg",
@@ -21,7 +23,8 @@
         "action": "addSprintSteps",
         "type": "POSITIVE",
         "actionValue": 1,
-        "cardLetter": "C"
+        "cardLetter": "C",
+        "cardDescription": "When this Horse Sprints, it moves forward one extra space."
     },
     {
         "imagePath": "actioncard04.jpg",
@@ -29,7 +32,8 @@
         "action": "fixedSprintSteps",
         "type": "POSITIVE",
         "actionValue": 2,
-        "cardLetter": "D"
+        "cardLetter": "D",
+        "cardDescription": "When this Horse Sprints, it moves forward two spaces instead of one"
     },
     {
         "imagePath": "actioncard05.jpg",
@@ -37,7 +41,8 @@
         "action": "winsPhotofinish",
         "type": "POSITIVE",
         "actionValue": 1,
-        "cardLetter": "F"
+        "cardLetter": "F",
+        "cardDescription": "If this Horse is part of a Photo Finish (tied for position after crossing the Finish Line), it wins the tie even when its odds are lower."
     },
     {
         "imagePath": "actioncard06.jpg",
@@ -45,7 +50,8 @@
         "action": "addFinishSteps",
         "type": "POSITIVE",
         "actionValue": 2,
-        "cardLetter": "E"
+        "cardLetter": "E",
+        "cardDescription": "When this Horse crosses the Finish Line, it moves forward two additional spaces (before rolling the Sprint Dice)."
     },
     {
         "imagePath": "actioncard07.jpg",
@@ -53,7 +59,8 @@
         "action": "isLastFixedSteps",
         "type": "POSITIVE",
         "actionValue": 4,
-        "cardLetter": "G"
+        "cardLetter": "G",
+        "cardDescription": "If this Horse is in last place when a Movement card is turned over (or it is tied for last), it moves forward four spaces instead of the number shown on the Movement card.\nThis ability does not apply at the Start of the Race"
     },
     {
         "imagePath": "actioncard08",
@@ -61,7 +68,8 @@
         "action": "fixedStartSteps",
         "type": "NEGATIVE",
         "actionValue": 0,
-        "cardLetter": "A"
+        "cardLetter": "A",
+        "cardDescription": "At the Start of the Race, the Horse stays still instead of moving forward the number of spaces shown on the Movement card."
     },
     {
         "imagePath": "actioncard09.jpg",
@@ -69,7 +77,8 @@
         "action": "addStartSteps",
         "type": "NEGATIVE",
         "actionValue": -1,
-        "cardLetter": "B"
+        "cardLetter": "B",
+        "cardDescription": "At the Start of the Race, this Horse moves forward one space less than the number indicated on the Movement card.\nImportant: a Horse can never move backwards."
     },
     {
         "imagePath": "actioncard10.jpg",
@@ -77,7 +86,8 @@
         "action": "fixedSprintSteps",
         "type": "NEGATIVE",
         "actionValue": 0,
-        "cardLetter": "C"
+        "cardLetter": "C",
+        "cardDescription": "If this Horse is rolled on the Sprint Dice it does not move forward any squares and instead stays still (the Horse is not allowed to Sprint)."
     },
     {
         "imagePath": "actioncard11.jpg",
@@ -85,7 +95,8 @@
         "action": "addSprintSteps",
         "type": "NEGATIVE",
         "actionValue": -1,
-        "cardLetter": "D"
+        "cardLetter": "D",
+        "cardDescription": "When this Horse Sprints, it moves forward one space less than normal."
     },
     {
         "imagePath": "actioncard12.jpg",
@@ -93,7 +104,8 @@
         "action": "winsPhotofinish",
         "type": "NEGATIVE",
         "actionValue": 0,
-        "cardLetter": "F"
+        "cardLetter": "F",
+        "cardDescription": "If this Horse is part of a Photo Finish (tied for position after crossing the Finish Line), it loses the tie even when its odds are higher."
     },
     {
         "imagePath": "actioncard13.jpg",
@@ -101,7 +113,8 @@
         "action": "canMoveAfterFinishLine",
         "type": "NEGATIVE",
         "actionValue": 0,
-        "cardLetter": "E"
+        "cardLetter": "E",
+        "cardDescription": "When this Horse reaches the Finish Line, it stops immediately (any other movement is lost) but does not ignore any Sprint Dice results."
     },
     {
         "imagePath": "actioncard14.jpg",
@@ -109,7 +122,8 @@
         "action": "isFirstFixedSteps",
         "type": "NEGATIVE",
         "actionValue": 0,
-        "cardLetter": "G"
+        "cardLetter": "G",
+        "cardDescription": "If this Horse is in first place when a Movement card is turned over (or it is tied for first), it stays still instead of moving forward the number of spaces shown on the Movement card.\nThis ability does not apply at the Start of the Race."
     },
     {
         "imagePath": "actioncard15.jpg",
@@ -117,7 +131,8 @@
         "action": "addQuotation",
         "type": "NEUTRAL",
         "actionValue": 2,
-        "cardLetter": "N"
+        "cardLetter": "N",
+        "cardDescription": "When this card is revealed, the odds for the Stable go up two levels (e.g., if it was rated 1:4, it increases to 1:2)."
     },
     {
         "imagePath": "actioncard16.jpg",
@@ -125,7 +140,8 @@
         "action": "removeNegativeActioncards",
         "type": "NEUTRAL",
         "actionValue": 1,
-        "cardLetter": "N"
+        "cardLetter": "N",
+        "cardDescription": "All negative Action cards played on this Horse are discarded.\nThey have no effect on this Race."
     },
     {
         "imagePath": "actioncard19.jpg",
@@ -133,7 +149,8 @@
         "action": "addQuotation",
         "type": "NEUTRAL",
         "actionValue": -2,
-        "cardLetter": "N"
+        "cardLetter": "N",
+        "cardDescription": "When this card is revealed, the odds for the Stable go down by two levels (e.g., if it was rated 1:2, it goes down to 1:4)."
     },
     {
         "imagePath": "actioncard20.jpg",
@@ -141,6 +158,7 @@
         "action": "removePositiveActioncards",
         "type": "NEUTRAL",
         "actionValue": 1,
-        "cardLetter": "N"
+        "cardLetter": "N",
+        "cardDescription": "All positive Action cards played on this Horse are discarded.\nThey have no effect on this Race."
     }
 ]

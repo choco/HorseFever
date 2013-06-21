@@ -18,6 +18,15 @@ public class ActionCard extends Card {
     private ActionType type;
     private int actionValue;
     private Character cardLetter;
+    private String cardDescription;
+
+    public String getCardDescription() {
+        return cardDescription;
+    }
+
+    public void setCardDescription(String actionDescription) {
+        this.cardDescription = actionDescription;
+    }
 
     public String getCardName() {
         return cardName;
@@ -59,8 +68,10 @@ public class ActionCard extends Card {
         this.cardLetter = cardLetter;
     }
 
+
+
     @Override
     public String toString() {
-        return "ActionCard [name=" + cardName + ", cardLetter=" + cardLetter + ", actionType=" + type + ", action=" + action + ", actionValue=" + actionValue + ", imagePath=" + imagePath + "]\n";
+        return "ActionCard [name=" + cardName + ", cardLetter=" + cardLetter + ", actionType=" + type + ", action=" + action + ", actionValue=" + actionValue + ", imagePath=" + imagePath +", cardDescription=" + cardDescription + "]\n";
     }
 }
