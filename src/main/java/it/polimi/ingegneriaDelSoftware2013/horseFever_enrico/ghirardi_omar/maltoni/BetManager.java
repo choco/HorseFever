@@ -1,5 +1,6 @@
 package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni;
 
+import it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.interfaces.GameInterface;
 import it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.models.*;
 
 import java.util.ArrayList;
@@ -129,11 +130,12 @@ public class BetManager {
      * @param standing hash map which contains the final position of every stable after the race
      */
 
-    void paymentTime(Map<Stable, Integer> standing) {
+    void paymentTime(Map<Stable, Integer> standing, GameInterface gameInterface) {
         for (Bet bet : bets) {
             int position = standing.get(bet.getBettingStable());
             if (checkWinningBet(bet, position)) {
                 payBet(bet);
+                gameInterface.showBetPayment(bet);
             }
         }
 

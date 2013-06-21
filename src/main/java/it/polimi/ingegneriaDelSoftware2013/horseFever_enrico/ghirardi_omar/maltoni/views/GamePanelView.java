@@ -580,7 +580,7 @@ public class GamePanelView extends JPanel {
         result.add(playCard);
         result.add(riggedHorse);
 
-        gameLog.append("\nA card is played on " + riggedHorse.getOwnerStable().getColor() + " horse!");
+        updateGameLog("An action card was played on the " + riggedHorse.getOwnerStable().getColor() + " horse!");
 
         resetRigPanel();
 

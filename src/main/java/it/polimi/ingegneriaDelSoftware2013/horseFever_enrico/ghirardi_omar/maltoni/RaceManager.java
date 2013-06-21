@@ -129,7 +129,7 @@ public class RaceManager {
         gameInterface.updateRacePhase(racePhase);
 
         for (Horse horse : horsesList) {
-            System.out.println("Carte assegnate: " + horse.getActionPile());
+            gameInterface.updateGameLog("On the " + horse.getOwnerStable().getColor() + " were assigned the following action cards : " + horse.getActionPile());
         }
         checkActionCardsAtStart();
 
@@ -167,7 +167,6 @@ public class RaceManager {
         gameInterface.updateCurrentMovementCard(movementCard);
 
         for (Horse horse : horsesList) {
-            System.out.println("Carte assegnate: " + horse.getActionPile());
             applyMovementCardToHorse(movementCard, horse);
         }
 
@@ -387,6 +386,8 @@ public class RaceManager {
                 if (card.getType() == ActionType.NEUTRAL) {
                     if (card.getAction().equals(REMOVE_NEGATIVE_ACTIONCARDS)) {
                         System.out.println("Rimuoverò le carte negative");
+                        gameInterface.updateGameLog("All negative action cards will be removed from the " + horse.getOwnerStable().getColor() +
+                                " due to the effect of a neutral card.");
                         removeActionCardsOfTypeFromHorse(ActionType.NEGATIVE, horse);
                         break;
                     }
@@ -397,6 +398,8 @@ public class RaceManager {
                 if (card.getType() == ActionType.NEUTRAL) {
                     if (card.getAction().equals(REMOVE_POSITIVE_ACTIONCARDS)) {
                         System.out.println("Rimuoverò le carte positive");
+                        gameInterface.updateGameLog("All positive action cards will be removed from the " + horse.getOwnerStable().getColor() +
+                                " due to the effect of a neutral card.");
 
                         removeActionCardsOfTypeFromHorse(ActionType.POSITIVE, horse);
                         break;
@@ -407,6 +410,11 @@ public class RaceManager {
                 if (card.getType() == ActionType.NEUTRAL) {
                     if (card.getAction().equals(ADD_QUOTATION)) {
                         horse.getOwnerStable().setQuotation(horse.getOwnerStable().getQuotation() + card.getActionValue());
+                        if (card.getActionValue() > 0) {
+                            gameInterface.updateGameLog("The quotation of the " + horse.getOwnerStable().getColor() + " stable is increased by " + card.getActionValue());
+                        } else {
+                            gameInterface.updateGameLog("The quotation of the " + horse.getOwnerStable().getColor() + " stable is decreased by " + card.getActionValue());
+                        }
                     }
                 }
             }
@@ -471,6 +479,8 @@ public class RaceManager {
 
                         playedActionCards.add(horse.getActionPile().get(j));
                         playedActionCards.add(horse.getActionPile().get(i));
+                        gameInterface.updateGameLog(horse.getActionPile().get(j) + " card and " + horse.getActionPile().get(i) + " card were removed from the " + horse.getOwnerStable().getColor() + " horse" +
+                                " because they have the same card letter.");
 
                     }
                 }

@@ -67,6 +67,6 @@ public class ActionCard extends Card {
 
     @Override
     public String toString() {
-        return "ActionCard [name=" + cardName + ", cardLetter=" + cardLetter + ", actionType=" + type + ", action=" + action + ", actionValue=" + actionValue + ", imagePath=" + imagePath + ", cardDescription=" + cardDescription + "]\n";
+        return cardName;
     }
 }

@@ -52,7 +52,7 @@ public interface GameInterface {
      * Informs the player if his bet has correctly been registered
      */
 
-    void betWasRegisteredCorrectly();
+    void betWasRegisteredCorrectly(Bet bet);
 
     /**
      * Informs the player if his bet isn't valid
@@ -105,4 +105,8 @@ public interface GameInterface {
     ArrayList getActionCardToPlayOnHorse(ArrayList<Horse> horses, ArrayList<ActionCard> actionCardPile);
 
     void updateRaceStandings(Map<Stable, Integer> standing);
+
+    void showBetPayment(Bet bet);
+
+    void updateGameLog(String s);
 }

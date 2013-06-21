@@ -162,7 +162,8 @@ public class MatchController {
 
     public void wrapUpTurn() {
 
-        betManager.paymentTime(raceManager.getStanding());
+        betManager.paymentTime(raceManager.getStanding(), gameInterface);
+        gameInterface.updatePlayersInfo(match.getPlayers());
         raceManager.updateStableQuotations();
         gameInterface.updateStableQuotations(match.getStables());
         raceManager.resetRace(match.getActionCardDeck());
@@ -373,7 +374,7 @@ public class MatchController {
                     playerBet = player.makeBet(playerBet);
                     betManager.insertBet(playerBet);
                     betCorrectlyMade = true;
-                    gameInterface.betWasRegisteredCorrectly();
+                    gameInterface.betWasRegisteredCorrectly(playerBet);
                     gameInterface.updatePlayersInfo(match.getPlayers());
                 } catch (InvalidBetException e) {
                     switch (e.getType()) {

@@ -191,9 +191,9 @@ public class GameInterfaceView extends JFrame implements GameInterface {
      * Informs the player if his bet has correctly been registered
      */
 
-    public void betWasRegisteredCorrectly() {
-        JOptionPane.showMessageDialog(this, "Your bet has been taken!", "Correct Bet", JOptionPane.INFORMATION_MESSAGE);
-        gamePanel.updateGameLog("Bet registered!");
+    public void betWasRegisteredCorrectly(Bet bet) {
+        //JOptionPane.showMessageDialog(this, "Your bet has been taken!", "Correct Bet", JOptionPane.INFORMATION_MESSAGE);
+        gamePanel.updateGameLog("Bet registered correctly! " + bet.getBettingPlayer().getIdTag() + "has made a " + bet.getAmount() + " gold " + bet.getType() + " bet on the " + bet.getBettingStable().getColor() + " horse");
         gamePanel.clearBetFields();
         //To change body of implemented methods use File | Settings | File Templates.
     }
@@ -251,14 +251,14 @@ public class GameInterfaceView extends JFrame implements GameInterface {
     }
 
     public void playerHasLostTheGame(Player player) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        JOptionPane.showMessageDialog(this, player.getIdTag() + "has LOST!!!\n Unfortunatly he has zero Victory Points, don't be mad :)", "I'm sorry " + player.getIdTag(), JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void playerHasWonTheGame(Player winner) {
-        gamePanel.updateGameLog(winner.getIdTag() + "has WON!!!\n In the end he has" + winner.getVictoryPoints()
-                + " Victory Points and" + winner.getMoney() + " golds");
-        JOptionPane.showMessageDialog(this, winner.getIdTag() + "has WON!!!\n In the end he has" + winner.getVictoryPoints()
-                + " Victory Points and" + winner.getMoney() + " golds", "Congratulations " + winner.getIdTag(), JOptionPane.INFORMATION_MESSAGE);
+        gamePanel.updateGameLog(winner.getIdTag() + "has WON!!!\n In the end he had " + winner.getVictoryPoints()
+                + " Victory Points and " + winner.getMoney() + " golds");
+        JOptionPane.showMessageDialog(this, winner.getIdTag() + "has WON!!!\n In the end he had " + winner.getVictoryPoints()
+                + " Victory Points and " + winner.getMoney() + " golds", "Congratulations " + winner.getIdTag(), JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void userShouldStartRaceTurn() {
@@ -292,6 +292,14 @@ public class GameInterfaceView extends JFrame implements GameInterface {
 
     public void updateRaceStandings(Map<Stable, Integer> standing) {
         gamePanel.updateRaceStanding(standing);
+    }
+
+    public void showBetPayment(Bet bet) {
+        gamePanel.updateGameLog(bet.getBettingPlayer().getIdTag() + "has won his " + bet.getType() + " bet on the " + bet.getBettingStable().getColor() + " horse!");
+    }
+
+    public void updateGameLog(String s) {
+        gamePanel.updateGameLog(s);
     }
 
 }
