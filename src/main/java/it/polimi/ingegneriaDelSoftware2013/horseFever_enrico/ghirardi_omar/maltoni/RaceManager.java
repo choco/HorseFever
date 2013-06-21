@@ -549,14 +549,13 @@ public class RaceManager {
 
 
     }
-        //TODO: commentare i seguenti due metodi
-
-    /* currently untested!!!!! */
 
     /**
      * Updates the standing
      */
-    private void updateStanding() {
+
+    //TODO: controllare se ha senso metterlo public...altrimenti tolgo il test (comunque positivo!)
+    public void updateStanding() {
         ArrayList<Stable> temp = new ArrayList<Stable>(standing.keySet());
         Collections.sort(temp);
         for (Stable stable : temp) {

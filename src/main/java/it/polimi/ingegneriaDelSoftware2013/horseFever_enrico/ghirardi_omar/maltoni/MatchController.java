@@ -11,7 +11,7 @@ import java.util.Random;
  * To change this template use File | Settings | File Templates.
  */
 public class MatchController {
-    //TODO: tests on this class
+
     private Match match;
     private BetManager betManager;
     private RaceManager raceManager;
@@ -30,7 +30,7 @@ public class MatchController {
         raceManager = new RaceManager(match.getStables(), match.getMovementCardDeck());
         gameInterface = new GameInterfaceView(this);
         raceManager.setGameInterface(gameInterface);
-        //mostra interfaccia
+        //shows gui
     }
 
     /**
@@ -235,12 +235,16 @@ public class MatchController {
 
     public Player getNextPlayer() {
         int current = match.getCurrentPLayer();
+        System.out.println("1");
         switch (match.getMatchPhase()) {
             case FIRST_BET_PHASE:
             case RIG_PHASE: {
                 for (Player player : match.getPlayers()) {
+                    System.out.println("2");
                     if (player.getTurnOrder() == current) {
+                        System.out.println("3");
                         match.setCurrentPLayer(current + 1);
+                        System.out.println("4");
                         return player;
                     }
                 }
@@ -251,6 +255,7 @@ public class MatchController {
                 for (Player player : match.getPlayers()) {
                     if (player.getTurnOrder() == ((match.getPlayers().size() - 1) - current)) {
                         match.setCurrentPLayer(current + 1);
+                        System.out.println("5");
                         return player;
                     }
                 }
@@ -272,7 +277,9 @@ public class MatchController {
      * Method which updates the first player to cycle from (it's the first player which change from a turn to one another)
      */
 
-    private void updatePlayersOrder() {
+    //TODO: controllare se ha senso metterlo public, necessario per i test su matchcontroller   (era private)
+
+    public void updatePlayersOrder() {
         ArrayList<Player> players = match.getPlayers();
         int firstPlayerIndex = 0;
         for (Player player : players) {
@@ -427,4 +434,10 @@ public class MatchController {
     public RaceManager getRaceManager() {
         return raceManager;
     }
+
+    //TODO: controllare correttezza logica nell'aggiunta di questo metodo, comunque necessario per i test sul match controller
+    public Match getMatch(){
+        return this.match;
+    }
+
 }
