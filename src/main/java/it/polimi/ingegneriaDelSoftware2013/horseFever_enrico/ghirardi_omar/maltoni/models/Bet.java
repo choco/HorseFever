@@ -1,4 +1,4 @@
-package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni;
+package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.models;
 
 /**
  * Created with IntelliJ IDEA.
@@ -7,28 +7,6 @@ package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.malt
  * Time: 15:38
  * To change this template use File | Settings | File Templates.
  */
-
-enum BetType {
-    WINNING, PLACED
-}
-
-enum InvalidBetExceptionType {
-    NOTENOUGHTMONEY, NOTAMINIMUMBET, NOMOREREMAINIGBETS, NOT_ENOUGH_BET_MARKS, SAME_BET
-}
-
-class InvalidBetException extends Exception {
-
-    private InvalidBetExceptionType type;
-
-    public InvalidBetExceptionType getType() {
-        return type;
-    }
-
-    public InvalidBetException(InvalidBetExceptionType type) {
-        this.type = type;
-    }
-}
-
 
 public class Bet {
 
@@ -39,6 +17,7 @@ public class Bet {
 
     /**
      * Constructor of a bet type object
+     *
      * @param bettingPlayer current player who's making a bet
      * @param amount        amount of money the player wants to bet
      * @param bettingStable stable on which the player bets

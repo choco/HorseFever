@@ -1,4 +1,6 @@
-package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni;
+package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.interfaces;
+
+import it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.models.*;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -101,4 +103,6 @@ public interface GameInterface {
     void updateStableQuotations(ArrayList<Stable> stables);
 
     ArrayList getActionCardToPlayOnHorse(ArrayList<Horse> horses, ArrayList<ActionCard> actionCardPile);
+
+    void updateRaceStandings(Map<Stable, Integer> standing);
 }

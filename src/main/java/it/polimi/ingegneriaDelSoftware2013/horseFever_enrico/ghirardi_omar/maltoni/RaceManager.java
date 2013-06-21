@@ -1,5 +1,9 @@
 package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni;
 
+import it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.interfaces.GameInterface;
+import it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.interfaces.RaceInterface;
+import it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.models.*;
+
 import java.util.*;
 
 /**
@@ -9,13 +13,6 @@ import java.util.*;
  * Time: 15:42
  * To change this template use File | Settings | File Templates.
  */
-
-enum RacePhase {
-    START,
-    MIDDLE,
-    SPRINT,
-    FINISH
-}
 
 public class RaceManager {
 
@@ -90,8 +87,8 @@ public class RaceManager {
         return standing;
     }
 
-    public void setStanding (Map<Stable, Integer> st){
-        this.standing=st;
+    public void setStanding(Map<Stable, Integer> st) {
+        this.standing = st;
 
     }
 
@@ -115,6 +112,8 @@ public class RaceManager {
         for (Horse horse : horsesList) {
             horse.resetVars();
         }
+
+        raceInterface.updateHorsesPositions(horsesList);
 
     }
 
@@ -155,6 +154,8 @@ public class RaceManager {
         for (Stable stable : standing.keySet()) {
             System.out.println("Il cavallo color " + stable.getColor() + " è in posizione" + standing.get(stable));
         }
+
+        gameInterface.updateRaceStandings(standing);
 
     }
 

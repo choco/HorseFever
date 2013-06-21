@@ -1,5 +1,9 @@
 package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni;
 
+import it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.models.CardType;
+import it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.models.Deck;
+import it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.models.Stable;
+import it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.models.StableColor;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -17,7 +21,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class RaceManagerTest {
 
-    Map<Stable,Integer> standing;
+    Map<Stable, Integer> standing;
     Stable stable1 = new Stable(StableColor.BLACK);
     Stable stable2 = new Stable(StableColor.BLUE);
     Stable stable3 = new Stable(StableColor.GREEN);
@@ -27,16 +31,15 @@ public class RaceManagerTest {
     ArrayList<Stable> stables = new ArrayList<Stable>();
 
 
-
     @Test
     public void testUpdateStableQuotations() throws Exception {
         stable1.setQuotation(2);
         stable2.setQuotation(2);
         stable3.setQuotation(4);
         standing = new HashMap<Stable, Integer>();
-        standing.put(stable1,1);
-        standing.put(stable2,2);
-        standing.put(stable3,2);
+        standing.put(stable1, 1);
+        standing.put(stable2, 2);
+        standing.put(stable3, 2);
         stables = new ArrayList<Stable>();
         stables.add(stable1);
         stables.add(stable2);
@@ -55,7 +58,7 @@ public class RaceManagerTest {
     }
 
     @Test
-    public  void testUpdateStanding() throws Exception{
+    public void testUpdateStanding() throws Exception {
         stable1.getHorse().setGotPlaced(true);
         stable2.getHorse().setCurrentPosition(9);
         stable3.getHorse().setCurrentPosition(11);
@@ -63,13 +66,13 @@ public class RaceManagerTest {
         stable5.getHorse().setCurrentPosition(9);
         stable6.getHorse().setCurrentPosition(11);
 
-        standing=new HashMap<Stable, Integer>();
-        standing.put(stable1,1);
-        standing.put(stable2,5);
-        standing.put(stable3,2);
-        standing.put(stable4,4);
-        standing.put(stable5,6);
-        standing.put(stable6,3);
+        standing = new HashMap<Stable, Integer>();
+        standing.put(stable1, 1);
+        standing.put(stable2, 5);
+        standing.put(stable3, 2);
+        standing.put(stable4, 4);
+        standing.put(stable5, 6);
+        standing.put(stable6, 3);
 
         /*
         Current standing:
@@ -90,7 +93,7 @@ public class RaceManagerTest {
 
         Deck movD = new Deck(CardType.MOVEMENT);
 
-        RaceManager raceManager = new RaceManager(stables,movD);
+        RaceManager raceManager = new RaceManager(stables, movD);
         raceManager.setStanding(standing);
 
         raceManager.updateStanding();
@@ -102,20 +105,26 @@ public class RaceManagerTest {
         5th - BLUE,YELLOW
          */
 
-        for(Stable stable: standing.keySet()){
+        for (Stable stable : standing.keySet()) {
             switch (stable.getColor()) {
 
-                case BLACK:  assertEquals(1, (int) standing.get(stable));
+                case BLACK:
+                    assertEquals(1, (int) standing.get(stable));
                     break;
-                case BLUE:   assertEquals(5, (int) standing.get(stable));
+                case BLUE:
+                    assertEquals(5, (int) standing.get(stable));
                     break;
-                case GREEN:  assertEquals(2, (int) standing.get(stable));
+                case GREEN:
+                    assertEquals(2, (int) standing.get(stable));
                     break;
-                case RED:    assertEquals(2, (int) standing.get(stable));
+                case RED:
+                    assertEquals(2, (int) standing.get(stable));
                     break;
-                case YELLOW: assertEquals(5, (int) standing.get(stable));
+                case YELLOW:
+                    assertEquals(5, (int) standing.get(stable));
                     break;
-                case WHITE:  assertEquals(2, (int) standing.get(stable));
+                case WHITE:
+                    assertEquals(2, (int) standing.get(stable));
                     break;
             }
         }
@@ -123,13 +132,13 @@ public class RaceManagerTest {
     }
 
     @Test
-    public void testMakeHorseSprint(){
+    public void testMakeHorseSprint() {
 
 
     }
 
     @Test
-    public void testFixStandingBasedOnQuotation(){
+    public void testFixStandingBasedOnQuotation() {
 
     }
 }

@@ -1,5 +1,6 @@
 package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni;
 
+import it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.models.Player;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class MatchControllerTest {
 
 
     @Test
-    public void testSetNextFirstPlayer(){
+    public void testSetNextFirstPlayer() {
         ArrayList<String> strings = new ArrayList<String>();
         strings.add("Player1");
         strings.add("Player2");

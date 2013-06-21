@@ -1,4 +1,4 @@
-package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni;
+package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.models;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,15 +13,6 @@ import java.util.Random;
  * Time: 15:41
  * To change this template use File | Settings | File Templates.
  */
-
-enum MatchPhase {
-    START_GAME,
-    FIRST_BET_PHASE,
-    SECOND_BET_PHASE,
-    RIG_PHASE,
-    RACE_PHASE,
-    END_GAME
-}
 
 public class Match {
 
@@ -169,6 +160,7 @@ public class Match {
 
     /**
      * Sets the duration of the game based on the number of players
+     *
      * @return the number of turns
      */
 
@@ -190,6 +182,7 @@ public class Match {
 
     /**
      * Sets the number of bet marks of every  color based on the number of players
+     *
      * @return the number of turns
      */
 
@@ -211,6 +204,7 @@ public class Match {
 
     /**
      * Gets the first player from the array list of players
+     *
      * @return the first player selected
      */
 

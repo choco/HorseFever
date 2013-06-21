@@ -1,5 +1,7 @@
 package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni;
 
+import it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.models.Stable;
+import it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.models.StableColor;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -18,7 +20,7 @@ public class StableTest {
     Stable stable2 = new Stable(StableColor.BLUE);
 
     @Test
-    public void testCompareTo(){
+    public void testCompareTo() {
         stable1.getHorse().setCurrentPosition(10);
         stable2.getHorse().setCurrentPosition(9);
         int temp = stable1.compareTo(stable2);

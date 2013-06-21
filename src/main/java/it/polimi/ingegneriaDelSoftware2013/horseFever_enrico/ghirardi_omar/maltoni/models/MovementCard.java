@@ -1,4 +1,4 @@
-package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni;
+package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.models;
 
 import java.util.ArrayList;
 
@@ -21,8 +21,9 @@ public class MovementCard extends Card {
 
     /**
      * Gets the movement amount based on the quotation received
+     *
      * @param quotation quotation to check the movement for
-     * @return          the corresponding amount of steps performed by the horse of the stable with the selected quotation
+     * @return the corresponding amount of steps performed by the horse of the stable with the selected quotation
      */
 
     public int getMovementForQuotation(int quotation) {

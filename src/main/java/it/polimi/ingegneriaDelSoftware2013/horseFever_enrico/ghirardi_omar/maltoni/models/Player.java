@@ -1,4 +1,4 @@
-package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni;
+package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.models;
 
 import java.util.ArrayList;
 
@@ -23,6 +23,7 @@ public class Player {
 
     /**
      * Constructor of a player object
+     *
      * @param name the id tag associated with the player
      */
     public Player(String name) {
@@ -88,26 +89,28 @@ public class Player {
 
     /**
      * Makes a bet receiving a bet type parameter
-     * @param bet                  bet received
-     * @return                     the bet updated with the other makebet method
+     *
+     * @param bet bet received
+     * @return the bet updated with the other makebet method
      * @throws InvalidBetException exception thrown if the bet isn't valid
      */
 
-    Bet makeBet(Bet bet) throws InvalidBetException {
+    public Bet makeBet(Bet bet) throws InvalidBetException {
         return makeBet(bet.getAmount(), bet.getType(), bet.getBettingStable());
     }
 
     /**
      * Makes a proper bet receiving from the current player the amount of money he's willing to bet, the type of bet
      * And the stable he wants to bet on
-     * @param amount               amount of money on th plate
-     * @param type                 type of bet to make
-     * @param stable               stable to bet on
-     * @return                     the bet properly initialized
+     *
+     * @param amount amount of money on th plate
+     * @param type   type of bet to make
+     * @param stable stable to bet on
+     * @return the bet properly initialized
      * @throws InvalidBetException exception thrown if the bet isn't valid
      */
 
-    Bet makeBet(int amount, BetType type, Stable stable) throws InvalidBetException {
+    public Bet makeBet(int amount, BetType type, Stable stable) throws InvalidBetException {
         if (remainingBets > 0) {
             if (amount <= money) {
                 if (amount >= victoryPoints * 100) {
@@ -127,10 +130,11 @@ public class Player {
 
     /**
      * Checks if the player can make a minimum bet (a suf. and nec. condition for the player to lose the game)
+     *
      * @return true if the player can actually make a minimum bet, false if the player loses the game
      */
 
-    boolean canMakeMinimumBet() {
+    public boolean canMakeMinimumBet() {
         if (victoryPoints * 100 > money)
             return false;
         return true;
@@ -146,6 +150,7 @@ public class Player {
 
     /**
      * Adds a card to the action cards deck of the player
+     *
      * @param card card to add
      */
 
@@ -155,11 +160,12 @@ public class Player {
 
     /**
      * Play the card on the horse
+     *
      * @param card  card to assign
      * @param horse horse to assign the card to
      */
 
-    void playActionCard(ActionCard card, Horse horse) {
+    public void playActionCard(ActionCard card, Horse horse) {
         horse.addActionCard(actionCardPile.remove(actionCardPile.indexOf(card)));
     }
 

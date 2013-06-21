@@ -1,4 +1,4 @@
-package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni;
+package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.models;
 
 /**
  * Created with IntelliJ IDEA.
@@ -7,10 +7,6 @@ package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.malt
  * Time: 15:42
  * To change this template use File | Settings | File Templates.
  */
-
-enum CardType {
-    ACTION, MOVEMENT, CHARACTER, STABLE, HORSE, EMPLOYER, GOAL
-}
 
 public class Card {
     protected String imagePath;

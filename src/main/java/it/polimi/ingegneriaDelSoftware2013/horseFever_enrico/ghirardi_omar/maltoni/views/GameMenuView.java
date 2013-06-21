@@ -1,4 +1,4 @@
-package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni;
+package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.views;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +19,7 @@ public class GameMenuView extends JPanel {
 
     /**
      * Constructor of a game menu view object which is the first screen of the application
+     *
      * @param view reference to the main frame of the gui
      */
     public GameMenuView(GameInterfaceView view) {

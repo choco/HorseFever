@@ -63,7 +63,7 @@
         "cardDescription": "If this Horse is in last place when a Movement card is turned over (or it is tied for last), it moves forward four spaces instead of the number shown on the Movement card.\nThis ability does not apply at the Start of the Race"
     },
     {
-        "imagePath": "actioncard08",
+        "imagePath": "actioncard08.jpg",
         "cardName": "Globus Obscurus",
         "action": "fixedStartSteps",
         "type": "NEGATIVE",

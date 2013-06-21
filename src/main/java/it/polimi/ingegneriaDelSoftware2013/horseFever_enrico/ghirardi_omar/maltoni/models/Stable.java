@@ -1,4 +1,4 @@
-package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni;
+package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.models;
 
 /**
  * Created with IntelliJ IDEA.
@@ -7,10 +7,6 @@ package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.malt
  * Time: 19:41
  * To change this template use File | Settings | File Templates.
  */
-
-enum StableColor {
-    BLACK, BLUE, GREEN, RED, YELLOW, WHITE
-}
 
 public class Stable implements Comparable<Stable> {
 
@@ -24,6 +20,7 @@ public class Stable implements Comparable<Stable> {
 
     /**
      * Constructor of a stable object
+     *
      * @param color of the stable to create
      */
     public Stable(StableColor color) {
@@ -56,7 +53,7 @@ public class Stable implements Comparable<Stable> {
         return quotation;
     }
 
-    Horse getHorse() {
+    public Horse getHorse() {
         return horse;
     }
 
@@ -67,8 +64,9 @@ public class Stable implements Comparable<Stable> {
     /**
      * Compares the position of the horse owned by the selected stable with the position of the other horses to infer
      * The standing and if the horse is first or last (needed for some cards)
+     *
      * @param stable which owns the horse
-     * @return       the current position
+     * @return the current position
      */
 
     public int compareTo(Stable stable) {

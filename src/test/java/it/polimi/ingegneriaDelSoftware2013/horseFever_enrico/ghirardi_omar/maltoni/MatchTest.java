@@ -1,5 +1,7 @@
 package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni;
 
+import it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.models.Match;
+import it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.models.Player;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertTrue;
@@ -38,7 +40,7 @@ public class MatchTest {
     }
 
     @Test
-    public void testGetFirstPlayer(){
+    public void testGetFirstPlayer() {
         player1.setFirstPlayer(false);
         player2.setFirstPlayer(false); //just in case
         player3.setFirstPlayer(true);

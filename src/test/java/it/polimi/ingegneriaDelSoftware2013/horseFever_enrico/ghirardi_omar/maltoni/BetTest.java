@@ -1,5 +1,6 @@
 package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni;
 
+import it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.models.*;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -18,28 +19,28 @@ public class BetTest {
     Stable bettingStable = new Stable(StableColor.BLUE);
     BetType type = BetType.WINNING;
 
-    Bet bet = new Bet(bettingPlayer,amount,bettingStable,type);
+    Bet bet = new Bet(bettingPlayer, amount, bettingStable, type);
 
     @Test
-    public void testGetAmount(){
-       int temp = bet.getAmount();
-        assertEquals(1000,temp);
+    public void testGetAmount() {
+        int temp = bet.getAmount();
+        assertEquals(1000, temp);
     }
 
     @Test
-    public void testGetBettingPlayer(){
+    public void testGetBettingPlayer() {
         String temp = bettingPlayer.getIdTag();
         assert ("Player" == temp);
     }
 
     @Test
-    public void testGetBettingStable(){
+    public void testGetBettingStable() {
         StableColor color = bettingStable.getColor();
         assert (StableColor.BLUE == color);
     }
 
     @Test
-    public void testGetType(){
+    public void testGetType() {
         BetType temp = bet.getType();
         assert (BetType.WINNING == temp);
     }

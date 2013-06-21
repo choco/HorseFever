@@ -1,4 +1,4 @@
-package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni;
+package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.models;
 
 import java.util.ArrayList;
 
@@ -31,6 +31,7 @@ public class Horse {
 
     /**
      * Constructor of a horse object
+     *
      * @param ownerStable reference to the stable related to the horse
      */
     public Horse(Stable ownerStable) {
@@ -41,10 +42,11 @@ public class Horse {
 
     /**
      * If a card which changes the steps made by the horse in a fixed way (e.g horse has to move of exactly 2 steps every turn) is applied to the horse return true
+     *
      * @return true or false based one the conditions above
      */
 
-    boolean didFixedStartStepsChange() {
+    public boolean didFixedStartStepsChange() {
         if (fixedStartSteps != DID_NOT_CHANGE)
             return true;
         return false;
@@ -52,10 +54,11 @@ public class Horse {
 
     /**
      * If a card which changes the steps made by the horse in an additive way (e.g horse has to move of 2 additional steps every turn) is applied to the horse return true
+     *
      * @return true or false based one the conditions above
      */
 
-    boolean didAddStartStepsChange() {
+    public boolean didAddStartStepsChange() {
         if (addStartSteps != DID_NOT_CHANGE)
             return true;
         return false;
@@ -63,10 +66,11 @@ public class Horse {
 
     /**
      * If a card which changes the sprint steps made by the horse in a fixed way (e.g horse has to move of exactly 2 steps at every sprint) is applied to the horse return true
+     *
      * @return true or false based one the conditions above
      */
 
-    boolean didFixedSprintStepsChange() {
+    public boolean didFixedSprintStepsChange() {
         if (fixedSprintSteps != DID_NOT_CHANGE)
             return true;
         return false;
@@ -74,10 +78,11 @@ public class Horse {
 
     /**
      * If a card which changes the sprint steps made by the horse in an additive way (e.g horse has to move of 2 additional steps at every sprint) is applied to the horse return true
+     *
      * @return true or false based one the conditions above
      */
 
-    boolean didAddSprintStepsChange() {
+    public boolean didAddSprintStepsChange() {
         if (addSprintSteps != DID_NOT_CHANGE)
             return true;
         return false;
@@ -85,10 +90,11 @@ public class Horse {
 
     /**
      * If a card which makes the horse win or lose the photofinish is applied returns true, false otw
+     *
      * @return true or false based on the condition above
      */
 
-    boolean didWinsPhotofinishChange() {
+    public boolean didWinsPhotofinishChange() {
         if (winsPhotofinish != DID_NOT_CHANGE)
             return true;
         return false;
@@ -96,10 +102,11 @@ public class Horse {
 
     /**
      * If a card which affects the ability of the horse to move after the finish line is applied returns true, false otw
+     *
      * @return true or false based on the condition above
      */
 
-    boolean didCanMoveAfterFinishLineChange() {
+    public boolean didCanMoveAfterFinishLineChange() {
         if (canMoveAfterFinishLine != DID_NOT_CHANGE)
             return true;
         return false;
@@ -107,10 +114,11 @@ public class Horse {
 
     /**
      * If a card which changes the steps made by the horse after the finish line is applied to the horse return true
+     *
      * @return true or false based one the conditions above
      */
 
-    boolean didAddFinishStepsChange() {
+    public boolean didAddFinishStepsChange() {
         if (addFinishSteps != DID_NOT_CHANGE)
             return true;
         return false;
@@ -118,10 +126,11 @@ public class Horse {
 
     /**
      * If a card which changes the steps made by the horse if it's in the last position is applied to the horse return true
+     *
      * @return true or false based one the conditions above
      */
 
-    boolean didIsLastFixedStepsChange() {
+    public boolean didIsLastFixedStepsChange() {
         if (isLastFixedSteps != DID_NOT_CHANGE)
             return true;
         return false;
@@ -129,10 +138,11 @@ public class Horse {
 
     /**
      * If a card which changes the steps made by the horse if it's in the first position is applied to the horse return true
+     *
      * @return true or false based one the conditions above
      */
 
-    boolean didIsFirstFixedStepsChange() {
+    public boolean didIsFirstFixedStepsChange() {
         if (isFirstFixedSteps != DID_NOT_CHANGE)
             return true;
         return false;
@@ -228,6 +238,7 @@ public class Horse {
 
     /**
      * Add a card to the pile of cards associated to the horse
+     *
      * @param card card to add
      */
 
@@ -235,7 +246,7 @@ public class Horse {
         actionPile.add(card);
     }
 
-    ArrayList<ActionCard> getActionPile() {
+    public ArrayList<ActionCard> getActionPile() {
         return actionPile;
     }
 

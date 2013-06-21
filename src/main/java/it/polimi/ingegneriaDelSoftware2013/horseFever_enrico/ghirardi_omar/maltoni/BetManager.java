@@ -1,5 +1,7 @@
 package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni;
 
+import it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.models.*;
+
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -21,6 +23,7 @@ public class BetManager {
 
     /**
      * Constructor of a bet manager object
+     *
      * @param betMarkPool hash map representing the bet mark pool
      */
 
@@ -31,23 +34,46 @@ public class BetManager {
 
     /**
      * Inserts bet class objects in the bets array list of bets, attribute of the class bet manager
-     * @param bet                  bet to add to bets
+     *
+     * @param bet bet to add to bets
      * @throws InvalidBetException exception thrown if the bet parameter isn't valid
      */
 
-    void insertBet(Bet bet) throws InvalidBetException {
+    public void insertBet(Bet bet) throws InvalidBetException {
         checkBetValidity(bet);
         bets.add(bet);
         betMarkPool.put(bet.getBettingStable().getColor(), betMarkPool.get(bet.getBettingStable().getColor()) - 1);
     }
 
     /**
+     * Remove all bets made by a specific player (usefull when this player has lost the game)
+     *
+     * @param player The player whose bets will be removed
+     */
+
+    void removeBetsMadeByPlayer(Player player) {
+        ArrayList<Bet> betsBin = new ArrayList<Bet>();
+
+        for (Bet bet : bets) {
+            if (bet.getBettingPlayer() == player) {
+                betsBin.add(bet);
+            }
+        }
+
+        for (Bet bet : betsBin) {
+            bets.remove(bet);
+        }
+    }
+
+
+    /**
      * Check the validity of the bet
-     * @param bet                  bet to check
+     *
+     * @param bet bet to check
      * @throws InvalidBetException exception thrown if the bet parameter isn't valid
      */
 
-    void checkBetValidity(Bet bet) throws InvalidBetException {
+    public void checkBetValidity(Bet bet) throws InvalidBetException {
         System.out.println(bet);
         if (betMarkPool.get(bet.getBettingStable().getColor()) < 1)
             throw new InvalidBetException(InvalidBetExceptionType.NOT_ENOUGH_BET_MARKS);
@@ -63,12 +89,13 @@ public class BetManager {
 
     /**
      * Check all the bets in the bets array list for the winning ones
+     *
      * @param bet      bet to check
      * @param position final standing position of the stable referred by the bet
-     * @return         true if it's a winning bet, false otw
+     * @return true if it's a winning bet, false otw
      */
 
-    boolean checkWinningBet(Bet bet, int position) {
+    public boolean checkWinningBet(Bet bet, int position) {
         if (bet.getType() == BetType.WINNING) {
             if (position == 1)
                 return true;
@@ -82,10 +109,11 @@ public class BetManager {
 
     /**
      * Pays the player who's bet is a winning one by updating his money stack
+     *
      * @param bet bet to pay
      */
 
-    void payBet(Bet bet) {
+    public void payBet(Bet bet) {
         Player winner = bet.getBettingPlayer();
         if (bet.getType() == BetType.WINNING) {
             winner.setMoney(winner.getMoney() + bet.getAmount() * bet.getBettingStable().getQuotation());
@@ -98,6 +126,7 @@ public class BetManager {
 
     /**
      * Check the stable final position in the race with the one guessed by the player through the bet and pay those who win a bet
+     *
      * @param standing hash map which contains the final position of every stable after the race
      */
 

@@ -1,5 +1,10 @@
 package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni;
 
+import it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.interfaces.BetPhaseInterface;
+import it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.interfaces.GameInterface;
+import it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.models.*;
+import it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.views.GameInterfaceView;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -99,10 +104,15 @@ public class MatchController {
             winner = winnersByMoney.get(0);
         }
 
-        gameInterface.playerHasWonTheGame(winner);
+        playerHasWonTheGame(winner);
 
         //chiamo interfaccia e mostro il winner :D
 
+    }
+
+    private void playerHasWonTheGame(Player winner) {
+        gameInterface.playerHasWonTheGame(winner);
+        System.exit(0);
     }
 
     /**
@@ -113,6 +123,7 @@ public class MatchController {
         ArrayList<Player> players = match.getPlayers();
         int firstPlayerIndex = players.indexOf(match.getFirstPlayer());
         match.getFirstPlayer().setFirstPlayer(false);
+
         firstPlayerIndex++;
         if (firstPlayerIndex >= players.size()) {
             firstPlayerIndex = 0;
@@ -278,7 +289,6 @@ public class MatchController {
      */
 
     //TODO: controllare se ha senso metterlo public, necessario per i test su matchcontroller   (era private)
-
     public void updatePlayersOrder() {
         ArrayList<Player> players = match.getPlayers();
         int firstPlayerIndex = 0;
@@ -299,7 +309,24 @@ public class MatchController {
         // Segnala tramite interfaccia che il giocatore ha perso
         gameInterface.playerHasLostTheGame(player);
 
+        if (player.isFirstPlayer()) {
+            setNextFirstPlayer();
+        }
+
+        betManager.removeBetsMadeByPlayer(player);
+
+        player.getOwnedStables().get(0).setStableOwner(null);
+        for (ActionCard card : player.getActionCardPile()) {
+            match.getActionCardDeck().putBottom(card);
+        }
+
         match.getPlayers().remove(player);
+
+        gameInterface.updatePlayersInfo(match.getPlayers());
+
+        if (match.getNumberOfPlayers() == 1) {
+            playerHasWonTheGame(match.getPlayers().get(0));
+        }
 
     }
 
@@ -335,15 +362,22 @@ public class MatchController {
                     int victoryPoints = player.getVictoryPoints();
                     victoryPoints -= NUMBER_OF_VP_LOSE;
                     if (victoryPoints < 1) {
+                        System.out.println("Prova1");
                         playerHasLostGame(player);
                         canBet = false;
-                    } else
+                        break;
+                    } else {
+                        System.out.println("Prova2");
+
                         player.setVictoryPoints(victoryPoints);
+                    }
                 }
 
-                if (!canBet)
-                    break;
+                if (!canBet) {
+                    System.out.println("Prova3");
 
+                    break;
+                }
                 //chiama interfaccia e chiede al giocatore i valori per la makeBet
                 Bet playerBet = gameInterface.getPlayerBet(match.getStables());
 
@@ -436,7 +470,7 @@ public class MatchController {
     }
 
     //TODO: controllare correttezza logica nell'aggiunta di questo metodo, comunque necessario per i test sul match controller
-    public Match getMatch(){
+    public Match getMatch() {
         return this.match;
     }
 

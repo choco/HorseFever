@@ -1,4 +1,8 @@
-package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni;
+package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.views;
+
+import it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.MatchController;
+import it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.interfaces.GameInterface;
+import it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.models.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -271,6 +275,10 @@ public class GameInterfaceView extends JFrame implements GameInterface {
 
     public ArrayList getActionCardToPlayOnHorse(ArrayList<Horse> horses, ArrayList<ActionCard> actionCardPile) {
         return gamePanel.getActionCardToPlayOnHorse(horses, actionCardPile);
+    }
+
+    public void updateRaceStandings(Map<Stable, Integer> standing) {
+        gamePanel.updateRaceStanding(standing);
     }
 
 }

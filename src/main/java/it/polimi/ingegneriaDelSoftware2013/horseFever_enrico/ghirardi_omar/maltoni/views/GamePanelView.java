@@ -1,4 +1,7 @@
-package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni;
+package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.views;
+
+import it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.RaceManager;
+import it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.models.*;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -29,6 +32,9 @@ public class GamePanelView extends JPanel {
     ButtonHandler sampleHandler;
     RigButtonHandler rigButtonHandler;
 
+    private ImageIcon movementCardBackImage;
+    private ImageIcon actionCardBackImage;
+
     private JLabel playerCard;
     private JLabel stableCard;
     private JTextArea gameLog;
@@ -45,6 +51,15 @@ public class GamePanelView extends JPanel {
     private JLabel cardLabel;
     private JPanel firstSpriningHorse;
     private JPanel secondSprintingHorse;
+
+    private JPanel standingPanel;
+    private JLabel firstH;
+    private JLabel secondH;
+    private JLabel thirdH;
+    private JLabel fourthH;
+    private JLabel fifthH;
+    private JLabel sixthH;
+    private JButton pagaLeScommesseButton;
 
     private JPanel rigPanel;
     private JRadioButton blackHorseButton;
@@ -93,6 +108,8 @@ public class GamePanelView extends JPanel {
         sampleHandler = new ButtonHandler();
         rigButtonHandler = new RigButtonHandler();
 
+        movementCardBackImage = new ImageIcon("rsc/cards/movementcards/back.png");
+        actionCardBackImage = new ImageIcon(getScaledImage(new ImageIcon("rsc/cards/movementcards/back.png").getImage(), 150, 250));
 
         //left part of the gui
         leftPanel = new JPanel(new BorderLayout());
@@ -141,9 +158,8 @@ public class GamePanelView extends JPanel {
         rightBox.add(betPanel);
 
         buildRigPanel();
-        rigPanel.setVisible(true);
-        firstCard.setIcon(new ImageIcon(getScaledImage(new ImageIcon("rsc/cards/movementcards/back.png").getImage(), 150, 250)));
-        secondCard.setIcon(new ImageIcon(getScaledImage(new ImageIcon("rsc/cards/movementcards/back.png").getImage(), 150, 250)));
+        rigPanel.setVisible(false);
+        resetRigPanel();
 
         rightBox.add(rigPanel);
 
@@ -151,6 +167,10 @@ public class GamePanelView extends JPanel {
         buildRacePanel();
         racePanel.setVisible(false);
         rightBox.add(racePanel);
+
+        buildStandingPanel();
+        standingPanel.setVisible(false);
+        rightBox.add(standingPanel);
         /*
         //pulsanti azione
         JPanel actionPanel = new JPanel(new FlowLayout());
@@ -189,6 +209,33 @@ public class GamePanelView extends JPanel {
 
     }
 
+    private void resetRigPanel() {
+        firstCard.setIcon(actionCardBackImage);
+        secondCard.setIcon(actionCardBackImage);
+
+        leftCardPanel.setVisible(true);
+        rightCardPanel.setVisible(true);
+
+        firstCardName.setSelected(true);
+        firstCardName.setText("");
+        secondCardName.setSelected(false);
+        secondCardName.setText("");
+
+        blackHorseButton.setSelected(true);
+        blueHorseButton.setSelected(false);
+        greenHorseButton.setSelected(false);
+        redHorseButton.setSelected(false);
+        yellowHorseButton.setSelected(false);
+        whiteHorseButton.setSelected(false);
+    }
+
+    private void resetRacePanel() {
+        cardLabel.setIcon(movementCardBackImage);
+        firstSpriningHorse.setBackground(SystemColor.window);
+        secondSprintingHorse.setBackground(SystemColor.window);
+
+    }
+
     private void buildRacePanel() {
         racePanel = new JPanel();
         racePanel.setLayout(new GridBagLayout());
@@ -196,7 +243,7 @@ public class GamePanelView extends JPanel {
 
         movementCardPanel = new JPanel();
         movementCardPanel.setLayout(new GridBagLayout());
-        cardLabel = new JLabel(new ImageIcon("rsc/cards/movementcards/back.png"));
+        cardLabel = new JLabel(movementCardBackImage);
         movementCardPanel.add(cardLabel);
         GridBagConstraints gbc;
         gbc = new GridBagConstraints();
@@ -244,7 +291,7 @@ public class GamePanelView extends JPanel {
         firstSpriningHorse = new JPanel();
         firstSpriningHorse.setLayout(new BorderLayout(0, 0));
         firstSpriningHorse.setPreferredSize(new Dimension(50, 50));
-        firstSpriningHorse.setBackground(Color.white);
+        firstSpriningHorse.setBackground(SystemColor.window);
         firstSpriningHorse.setBorder(BorderFactory.createLoweredBevelBorder());
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -254,7 +301,7 @@ public class GamePanelView extends JPanel {
         secondSprintingHorse = new JPanel();
         secondSprintingHorse.setLayout(new BorderLayout(0, 0));
         secondSprintingHorse.setPreferredSize(new Dimension(50, 50));
-        secondSprintingHorse.setBackground(Color.white);
+        secondSprintingHorse.setBackground(SystemColor.window);
         secondSprintingHorse.setBorder(BorderFactory.createLoweredBevelBorder());
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
@@ -391,6 +438,7 @@ public class GamePanelView extends JPanel {
         hideRacePanel();
         hideBetPanels();
         hideRigPanel();
+        hideStandingPanel();
     }
 
     private void hideRigPanel() {
@@ -398,6 +446,7 @@ public class GamePanelView extends JPanel {
     }
 
     public void showRigPanel() {
+        resetRigPanel();
         rigPanel.setVisible(true);
     }
 
@@ -413,6 +462,7 @@ public class GamePanelView extends JPanel {
         switch (racePhase) {
 
             case START:
+                resetRacePanel();
                 prossimoTurnoDiCorsaButton.setText("Inizia la corsa");
                 prossimoTurnoDiCorsaButton.setEnabled(true);
                 faiSprintareICavalliButton.setEnabled(false);
@@ -425,6 +475,8 @@ public class GamePanelView extends JPanel {
                 faiSprintareICavalliButton.setEnabled(false);
                 break;
             case SPRINT:
+                firstSpriningHorse.setBackground(SystemColor.window);
+                secondSprintingHorse.setBackground(SystemColor.window);
                 prossimoTurnoDiCorsaButton.setEnabled(false);
                 faiSprintareICavalliButton.setEnabled(true);
                 break;
@@ -518,6 +570,8 @@ public class GamePanelView extends JPanel {
         result.add(playCard);
         result.add(riggedHorse);
 
+        resetRigPanel();
+
         return result;
     }
 
@@ -544,6 +598,45 @@ public class GamePanelView extends JPanel {
         }
     }
 
+    public void updateRaceStanding(Map<Stable, Integer> standing) {
+        hideRacePanel();
+
+        for (Stable stable : standing.keySet()) {
+            switch (standing.get(stable)) {
+                case 1:
+                    firstH.setText(stable.getColor().toString());
+                    break;
+                case 2:
+                    secondH.setText(stable.getColor().toString());
+                    break;
+                case 3:
+                    thirdH.setText(stable.getColor().toString());
+                    break;
+                case 4:
+                    fourthH.setText(stable.getColor().toString());
+                    break;
+                case 5:
+                    fifthH.setText(stable.getColor().toString());
+                    break;
+                case 6:
+                    sixthH.setText(stable.getColor().toString());
+                    break;
+            }
+        }
+
+        showStandingPanel();
+
+        viewRef.pauseGameFlow();
+    }
+
+    private void showStandingPanel() {
+        standingPanel.setVisible(true);
+    }
+
+    private void hideStandingPanel() {
+        standingPanel.setVisible(false);
+    }
+
 
     /**
      * Action listener of the register bet button
@@ -553,7 +646,7 @@ public class GamePanelView extends JPanel {
         public void actionPerformed(ActionEvent event) {
             if (event.getSource() == registraScommessaBtn || event.getSource() == betAmountField) {
                 registerBet();
-            } else if (event.getSource() == faiSprintareICavalliButton || event.getSource() == prossimoTurnoDiCorsaButton || event.getSource() == playActionCardButton) {
+            } else if (event.getSource() == faiSprintareICavalliButton || event.getSource() == prossimoTurnoDiCorsaButton || event.getSource() == playActionCardButton || event.getSource() == pagaLeScommesseButton) {
                 viewRef.resumeGameFlow();
             }
 
@@ -1379,6 +1472,200 @@ public class GamePanelView extends JPanel {
         playerPanel.add(stableCard, c);
 
         return playerPanel;
+    }
+
+    private void buildStandingPanel() {
+        standingPanel = new JPanel();
+        standingPanel.setLayout(new GridBagLayout());
+        standingPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Classifica"));
+        final JPanel panel2 = new JPanel();
+        panel2.setLayout(new GridBagLayout());
+        GridBagConstraints gbc;
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridheight = 2;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.fill = GridBagConstraints.BOTH;
+        standingPanel.add(panel2, gbc);
+        panel2.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(7, 7, 7, 7), null));
+        final JPanel panel3 = new JPanel();
+        panel3.setLayout(new GridBagLayout());
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel2.add(panel3, gbc);
+        final JLabel label1 = new JLabel();
+        label1.setText("Ordine di arrivo dei cavalli:");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        gbc.anchor = GridBagConstraints.NORTHWEST;
+        panel3.add(label1, gbc);
+        final JPanel spacer1 = new JPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.fill = GridBagConstraints.VERTICAL;
+        panel3.add(spacer1, gbc);
+        final JPanel panel4 = new JPanel();
+        panel4.setLayout(new GridBagLayout());
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.weighty = 1.0;
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel2.add(panel4, gbc);
+        final JLabel label2 = new JLabel();
+        label2.setText("1°");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 0.02;
+        gbc.anchor = GridBagConstraints.NORTHWEST;
+        panel4.add(label2, gbc);
+        final JLabel label3 = new JLabel();
+        label3.setText("2°");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 2;
+        gbc.weightx = 0.02;
+        gbc.anchor = GridBagConstraints.NORTHWEST;
+        panel4.add(label3, gbc);
+        final JPanel spacer2 = new JPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 6;
+        gbc.fill = GridBagConstraints.VERTICAL;
+        panel4.add(spacer2, gbc);
+        final JPanel spacer3 = new JPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 6;
+        gbc.fill = GridBagConstraints.VERTICAL;
+        panel4.add(spacer3, gbc);
+        final JLabel label4 = new JLabel();
+        label4.setText("3°");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.weightx = 0.02;
+        gbc.anchor = GridBagConstraints.WEST;
+        panel4.add(label4, gbc);
+        final JPanel spacer4 = new JPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        gbc.gridwidth = 6;
+        gbc.fill = GridBagConstraints.VERTICAL;
+        panel4.add(spacer4, gbc);
+        final JLabel label5 = new JLabel();
+        label5.setText("4°");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        gbc.weightx = 0.02;
+        gbc.anchor = GridBagConstraints.WEST;
+        panel4.add(label5, gbc);
+        final JPanel spacer5 = new JPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 7;
+        gbc.gridwidth = 6;
+        gbc.fill = GridBagConstraints.VERTICAL;
+        panel4.add(spacer5, gbc);
+        final JPanel spacer6 = new JPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 9;
+        gbc.gridwidth = 6;
+        gbc.fill = GridBagConstraints.VERTICAL;
+        panel4.add(spacer6, gbc);
+        final JLabel label6 = new JLabel();
+        label6.setText("5°");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 8;
+        gbc.weightx = 0.02;
+        gbc.anchor = GridBagConstraints.WEST;
+        panel4.add(label6, gbc);
+        final JLabel label7 = new JLabel();
+        label7.setText("6°");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 10;
+        gbc.weightx = 0.02;
+        gbc.anchor = GridBagConstraints.WEST;
+        panel4.add(label7, gbc);
+        secondH = new JLabel();
+        secondH.setText("");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2;
+        gbc.gridy = 2;
+        gbc.gridwidth = 4;
+        gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel4.add(secondH, gbc);
+        firstH = new JLabel();
+        firstH.setText("");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2;
+        gbc.gridy = 0;
+        gbc.gridwidth = 4;
+        gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel4.add(firstH, gbc);
+        thirdH = new JLabel();
+        thirdH.setText("");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2;
+        gbc.gridy = 4;
+        gbc.gridwidth = 4;
+        gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel4.add(thirdH, gbc);
+        fourthH = new JLabel();
+        fourthH.setText("");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2;
+        gbc.gridy = 6;
+        gbc.gridwidth = 4;
+        gbc.anchor = GridBagConstraints.WEST;
+        panel4.add(fourthH, gbc);
+        fifthH = new JLabel();
+        fifthH.setText("");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2;
+        gbc.gridy = 8;
+        gbc.gridwidth = 4;
+        gbc.anchor = GridBagConstraints.WEST;
+        panel4.add(fifthH, gbc);
+        sixthH = new JLabel();
+        sixthH.setText("");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2;
+        gbc.gridy = 10;
+        gbc.gridwidth = 3;
+        gbc.anchor = GridBagConstraints.WEST;
+        panel4.add(sixthH, gbc);
+        pagaLeScommesseButton = new JButton();
+        pagaLeScommesseButton.setText("Paga le scommesse");
+        pagaLeScommesseButton.addActionListener(sampleHandler);
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.weighty = 1.0;
+        gbc.anchor = GridBagConstraints.NORTHEAST;
+        panel2.add(pagaLeScommesseButton, gbc);
     }
 
 

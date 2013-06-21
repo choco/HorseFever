@@ -1,5 +1,6 @@
 package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni;
 
+import it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.models.*;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -18,24 +19,24 @@ public class PlayerTest {
     BetType type = BetType.WINNING;
 
 
-    @Test (expected = InvalidBetException.class)
+    @Test(expected = InvalidBetException.class)
     public void testMakeBetException1() throws Exception {
         player.setMoney(1000);
-        player.makeBet(2000,type,stable);
+        player.makeBet(2000, type, stable);
     }
 
-    @Test (expected = InvalidBetException.class)
+    @Test(expected = InvalidBetException.class)
     public void testMakeBetException2() throws Exception {
         player.setMoney(1000);
         player.setVictoryPoints(2);
-        player.makeBet(100,type,stable);
+        player.makeBet(100, type, stable);
     }
 
     @Test
     public void testMakeBetMoneySubtraction() throws InvalidBetException {
         player.setMoney(1000);
         player.setVictoryPoints(2);
-        player.makeBet(200,type,stable);
+        player.makeBet(200, type, stable);
         assertEquals(800, player.getMoney());
     }
 }

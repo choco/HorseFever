@@ -1,4 +1,4 @@
-package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni;
+package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.views;
 
 import javax.swing.*;
 import java.awt.*;
@@ -180,7 +180,18 @@ public class GameLobbyView extends JPanel {
                 }
 
             } else if (event.getSource() == startGameBtn) {
-                viewRef.startMatchWithPlayers(nicknamesList);
+                if (nicknamesList.size() < 2) {
+                    JOptionPane.showMessageDialog(null, "I need at least two players!", "Error", JOptionPane.INFORMATION_MESSAGE);
+                } else if (nicknamesList.size() > 6) {
+                    JOptionPane.showMessageDialog(null, "To many players, only up to six can play", "Error", JOptionPane.INFORMATION_MESSAGE);
+                    int numberOfPlayersToRemove = nicknamesList.size() - 6;
+                    for (int i = 0; i < numberOfPlayersToRemove; i++) {
+                        nicknamesList.remove(nicknamesList.size() - 1);
+                    }
+                    updateList();
+                } else {
+                    viewRef.startMatchWithPlayers(nicknamesList);
+                }
             } else if (event.getSource() == backBtn) {
                 //viewRef.setGameMenuAsMainPanel
             }

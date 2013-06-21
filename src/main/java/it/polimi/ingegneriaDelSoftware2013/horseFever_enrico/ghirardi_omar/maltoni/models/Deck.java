@@ -1,4 +1,4 @@
-package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni;
+package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.models;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
@@ -28,7 +28,8 @@ public class Deck {
 
     /**
      * Constructor of a deck object
-     * @param type         card type of the cards composing the deck
+     *
+     * @param type card type of the cards composing the deck
      * @throws IOException throws the exception if the file can't be read
      */
     public Deck(CardType type) throws IOException {
@@ -106,6 +107,7 @@ public class Deck {
 
     /**
      * Constructor of a deck object
+     *
      * @param cards array list of cards which has to be assigned to deck's cards attribute
      */
 
@@ -115,6 +117,7 @@ public class Deck {
 
     /**
      * Verifies if the selected deck is empty
+     *
      * @return a boolean value depending on the emptiness of the deck (true => empty, false otw)
      */
 
@@ -142,6 +145,7 @@ public class Deck {
 
     /**
      * Draw a card by removing the first element of cards attribute
+     *
      * @return removed card
      */
 
@@ -151,6 +155,7 @@ public class Deck {
 
     /**
      * Put the drawn card at the bottom of the deck by adding it has the last element of cards
+     *
      * @param card card to add
      */
 
