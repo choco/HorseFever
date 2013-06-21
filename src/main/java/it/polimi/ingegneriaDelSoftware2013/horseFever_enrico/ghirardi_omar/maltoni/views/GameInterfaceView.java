@@ -220,10 +220,12 @@ public class GameInterfaceView extends JFrame implements GameInterface {
             case RIG_PHASE:
                 gamePanel.hideAllRightPanels();
                 gamePanel.showRigPanel();
+                gamePanel.showActionDescriptionTextArea();
                 break;
             case RACE_PHASE:
                 gamePanel.hideAllRightPanels();
                 gamePanel.showRacePanel();
+                gamePanel.showActionDescriptionTextArea();
                 break;
             case END_GAME:
                 break;

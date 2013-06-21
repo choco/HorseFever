@@ -246,16 +246,12 @@ public class MatchController {
 
     public Player getNextPlayer() {
         int current = match.getCurrentPLayer();
-        System.out.println("1");
         switch (match.getMatchPhase()) {
             case FIRST_BET_PHASE:
             case RIG_PHASE: {
                 for (Player player : match.getPlayers()) {
-                    System.out.println("2");
                     if (player.getTurnOrder() == current) {
-                        System.out.println("3");
                         match.setCurrentPLayer(current + 1);
-                        System.out.println("4");
                         return player;
                     }
                 }
@@ -266,7 +262,6 @@ public class MatchController {
                 for (Player player : match.getPlayers()) {
                     if (player.getTurnOrder() == ((match.getPlayers().size() - 1) - current)) {
                         match.setCurrentPLayer(current + 1);
-                        System.out.println("5");
                         return player;
                     }
                 }
@@ -352,8 +347,6 @@ public class MatchController {
                 wantsToBet = gameInterface.userWantsToBet(player); //prende valore da interfaccia, voglio fare seconda socmmessa?
             }
 
-            System.out.println("L'utente vuole scommettere: " + wantsToBet);
-
             boolean betCorrectlyMade = false;
             boolean canBet = true;
 
@@ -362,20 +355,15 @@ public class MatchController {
                     int victoryPoints = player.getVictoryPoints();
                     victoryPoints -= NUMBER_OF_VP_LOSE;
                     if (victoryPoints < 1) {
-                        System.out.println("Prova1");
                         playerHasLostGame(player);
                         canBet = false;
                         break;
                     } else {
-                        System.out.println("Prova2");
-
                         player.setVictoryPoints(victoryPoints);
                     }
                 }
 
                 if (!canBet) {
-                    System.out.println("Prova3");
-
                     break;
                 }
                 //chiama interfaccia e chiede al giocatore i valori per la makeBet

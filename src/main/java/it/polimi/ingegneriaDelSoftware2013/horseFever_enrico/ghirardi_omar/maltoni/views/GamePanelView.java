@@ -32,6 +32,8 @@ public class GamePanelView extends JPanel {
     ButtonHandler sampleHandler;
     RigButtonHandler rigButtonHandler;
 
+    JTextArea actionDescription;
+
     private ImageIcon movementCardBackImage;
     private ImageIcon actionCardBackImage;
 
@@ -62,6 +64,8 @@ public class GamePanelView extends JPanel {
     private JButton pagaLeScommesseButton;
 
     private JPanel rigPanel;
+    private String firstCardDescription;
+    private String secondCardDescription;
     private JRadioButton blackHorseButton;
     private JRadioButton blueHorseButton;
     private JRadioButton greenHorseButton;
@@ -103,6 +107,9 @@ public class GamePanelView extends JPanel {
 
         viewRef = view;
         setLayout(new BorderLayout());
+
+        actionDescription = new JTextArea(15, 32);
+
 
         mouseListener = new MouseClickHandler();
         sampleHandler = new ButtonHandler();
@@ -188,9 +195,10 @@ public class GamePanelView extends JPanel {
         //aggiunti i pulsanti azione    */
 
         //textArea actionCard description
-        JTextArea actionDescription = new JTextArea(15, 32);
         actionDescription.setLineWrap(true);
         actionDescription.setBorder(new TitledBorder("Action Card Description"));
+        actionDescription.setEditable(false);
+        actionDescription.setVisible(false);
         rightBox.add(actionDescription);
         //added last element to default rightBox
 
@@ -227,6 +235,8 @@ public class GamePanelView extends JPanel {
         redHorseButton.setSelected(false);
         yellowHorseButton.setSelected(false);
         whiteHorseButton.setSelected(false);
+
+        actionDescription.setText("");
     }
 
     private void resetRacePanel() {
@@ -439,6 +449,15 @@ public class GamePanelView extends JPanel {
         hideBetPanels();
         hideRigPanel();
         hideStandingPanel();
+        hideActionDescriptionTextArea();
+    }
+
+    private void hideActionDescriptionTextArea() {
+        actionDescription.setVisible(false);
+    }
+
+    public void showActionDescriptionTextArea() {
+        actionDescription.setVisible(true);
     }
 
     private void hideRigPanel() {
@@ -582,6 +601,9 @@ public class GamePanelView extends JPanel {
 
             firstCard.setIcon(new ImageIcon(getScaledImage(new ImageIcon(firstCardPath).getImage(), 150, 250)));
             firstCardName.setText(actionCardPile.get(0).getCardName());
+            firstCardName.setActionCommand(actionCardPile.get(0).getCardDescription());
+
+            actionDescription.setText(actionCardPile.get(0).getCardDescription());
 
         } else {
             rightCardPanel.setVisible(true);
@@ -593,7 +615,13 @@ public class GamePanelView extends JPanel {
             secondCard.setIcon(new ImageIcon(getScaledImage(new ImageIcon(secondCardPath).getImage(), 150, 250)));
 
             firstCardName.setText(actionCardPile.get(0).getCardName());
+            firstCardName.setActionCommand(actionCardPile.get(0).getCardDescription());
+
             secondCardName.setText(actionCardPile.get(1).getCardName());
+            secondCardName.setActionCommand(actionCardPile.get(1).getCardDescription());
+
+            actionDescription.setText(actionCardPile.get(0).getCardDescription());
+
 
         }
     }
@@ -659,6 +687,7 @@ public class GamePanelView extends JPanel {
 
     private class RigButtonHandler implements ActionListener {
         public void actionPerformed(ActionEvent event) {
+            actionDescription.setText(event.getActionCommand());
 
         }
     }
@@ -695,13 +724,16 @@ public class GamePanelView extends JPanel {
 
     private class MouseClickHandler extends MouseAdapter {
         public void mouseClicked(MouseEvent event) {
-            if (event.getSource() == stableCard) {
+            JLabel temp = (JLabel) event.getSource();
+            JOptionPane.showMessageDialog(null, null, "Selected Card",
+                    JOptionPane.PLAIN_MESSAGE, new ImageIcon(temp.getName()));
+            /*if (event.getSource()) {
                 JOptionPane.showMessageDialog(null, null, "Stable Card",
                         JOptionPane.PLAIN_MESSAGE, new ImageIcon(getStableDir() + "stablecard55.jpg"));
             } else if (event.getSource() == playerCard) {
                 JOptionPane.showMessageDialog(null, null, "Character Card",
                         JOptionPane.PLAIN_MESSAGE, new ImageIcon(getCharDir() + "charactercard71.jpg"));
-            }
+            } */
 
         }
     }
@@ -913,7 +945,7 @@ public class GamePanelView extends JPanel {
         leftCardPanel.add(firstCard, gbc);
         firstCardName = new JRadioButton();
         firstCardName.setSelected(true);
-        firstCardName.setText("RadioButton");
+        firstCardName.setText("");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 1;
@@ -943,7 +975,7 @@ public class GamePanelView extends JPanel {
         //gbc.anchor = GridBagConstraints.WEST;
         rightCardPanel.add(secondCard, gbc);
         secondCardName = new JRadioButton();
-        secondCardName.setText("RadioButton");
+        secondCardName.setText("");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 1;
@@ -981,13 +1013,16 @@ public class GamePanelView extends JPanel {
         redHorseButton.setActionCommand("red");
         yellowHorseButton.setActionCommand("yellow");
         whiteHorseButton.setActionCommand("white");
-
+        /*
         blackHorseButton.addActionListener(rigButtonHandler);
         blueHorseButton.addActionListener(rigButtonHandler);
         greenHorseButton.addActionListener(rigButtonHandler);
         redHorseButton.addActionListener(rigButtonHandler);
         yellowHorseButton.addActionListener(rigButtonHandler);
-        whiteHorseButton.addActionListener(rigButtonHandler);
+        whiteHorseButton.addActionListener(rigButtonHandler);*/
+
+        firstCardName.addActionListener(rigButtonHandler);
+        secondCardName.addActionListener(rigButtonHandler);
 
 
     }
@@ -1407,9 +1442,10 @@ public class GamePanelView extends JPanel {
         playerPanel.setBorder(new TitledBorder(player.getIdTag()));
 
         //avatar
-        playerCard = new JLabel();
+        JLabel playerCard = new JLabel();
         playerCard.addMouseListener(mouseListener);
-        System.out.println(getCharDir() + player.getCharCard().getImagePath());
+        playerCard.setName(getCharDir() + player.getCharCard().getImagePath());
+
         ImageIcon charImage = new ImageIcon(getCharDir() + player.getCharCard().getImagePath());
         ImageIcon resizedCharCard = new ImageIcon(getScaledImage(charImage.getImage(), 27, 52));
         playerCard.setIcon(resizedCharCard);
@@ -1458,8 +1494,9 @@ public class GamePanelView extends JPanel {
         playerPanel.add(vpIcon, c);
 
         //stable card
-        stableCard = new JLabel();
+        JLabel stableCard = new JLabel();
         stableCard.addMouseListener(mouseListener);
+        stableCard.setName(getStableDir() + player.getOwnedStables().get(0).getStableCard().getImagePath());
         ImageIcon stableImage = new ImageIcon(getStableDir() + player.getOwnedStables().get(0).getStableCard().getImagePath());
         ImageIcon resizedStableCard = new ImageIcon(getScaledImage(stableImage.getImage(), 27, 52));
         stableCard.setIcon(resizedStableCard);

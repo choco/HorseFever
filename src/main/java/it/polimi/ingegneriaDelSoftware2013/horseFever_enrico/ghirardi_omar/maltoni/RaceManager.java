@@ -140,12 +140,6 @@ public class RaceManager {
             for (Horse horse : horsesList) {
                 System.out.println("Il cavallo color " + horse.getOwnerStable().getColor() + " ha fatto " + horse.getCurrentPosition() + "passi! Ed è arrivato: " + horse.hasFinishedRace() + " ed è stato piazzato: " + horse.gotPlaced());
             }
-            System.out.println("\n");
-
-            for (Stable stable : standing.keySet()) {
-                System.out.println("Il cavallo color " + stable.getColor() + " è in posizione" + standing.get(stable));
-            }
-
         }
 
         racePhase = RacePhase.FINISH;
@@ -184,7 +178,6 @@ public class RaceManager {
             checkIfHorseArrived(horse);
         }
 
-        System.out.println(horsesList);
         raceInterface.updateHorsesPositions(horsesList);
 
         racePhase = RacePhase.SPRINT;
@@ -343,23 +336,18 @@ public class RaceManager {
                 case START:
                     if (horse.didFixedStartStepsChange()) {
                         if (horse.didAddStartStepsChange()) {
-                            System.out.println("Qui 1");
                             System.out.println("Il cavallo parte con " + horse.getFixedStartSteps() + " e ci aggiunge " + horse.getAddStartSteps());
 
                             horse.setCurrentPosition(horse.getFixedStartSteps() + horse.getAddStartSteps());
                         } else {
-                            System.out.println("Qui 2");
 
                             horse.setCurrentPosition(horse.getFixedStartSteps());
                         }
                     } else {
                         if (horse.didAddStartStepsChange()) {
-                            System.out.println("Qui 3");
 
                             horse.setCurrentPosition(baseMovement + horse.getAddStartSteps());
                         } else {
-                            System.out.println("Qui 4");
-
                             horse.setCurrentPosition(baseMovement);
                         }
                     }
@@ -367,22 +355,18 @@ public class RaceManager {
                 case MIDDLE:
                     if (horse.didIsFirstFixedStepsChange()) {
                         if (isHorseFirst(horse)) {
-                            System.out.println("Qui 5");
-
                             horse.setCurrentPosition(horse.getCurrentPosition() + horse.getFirstFixedSteps());
                         } else {
                             horse.setCurrentPosition(horse.getCurrentPosition() + baseMovement);
                         }
                     } else if (horse.didIsLastFixedStepsChange()) {
                         if (isHorseLast(horse)) {
-                            System.out.println("Qui 6");
 
                             horse.setCurrentPosition(horse.getCurrentPosition() + horse.getLastFixedSteps());
                         } else {
                             horse.setCurrentPosition(horse.getCurrentPosition() + baseMovement);
                         }
                     } else {
-                        System.out.println("Qui 7");
 
                         horse.setCurrentPosition(horse.getCurrentPosition() + baseMovement);
                     }

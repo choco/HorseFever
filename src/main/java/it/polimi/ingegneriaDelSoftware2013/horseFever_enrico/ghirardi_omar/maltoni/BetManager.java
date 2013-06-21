@@ -74,7 +74,6 @@ public class BetManager {
      */
 
     public void checkBetValidity(Bet bet) throws InvalidBetException {
-        System.out.println(bet);
         if (betMarkPool.get(bet.getBettingStable().getColor()) < 1)
             throw new InvalidBetException(InvalidBetExceptionType.NOT_ENOUGH_BET_MARKS);
         for (Bet temp : bets) {
