@@ -137,7 +137,7 @@ public class GamePanelView extends JPanel {
         initializeGameLog();
         //gameLog added
 
-        //aggiunge leftPanel al frame
+        //adds leftPanel to frame
         add(leftPanel, BorderLayout.WEST);
 
         //creates board panel
@@ -178,21 +178,6 @@ public class GamePanelView extends JPanel {
         buildStandingPanel();
         standingPanel.setVisible(false);
         rightBox.add(standingPanel);
-        /*
-        //pulsanti azione
-        JPanel actionPanel = new JPanel(new FlowLayout());
-        actionPanel.setBorder((new TitledBorder("Action Buttons")));
-        //per ora ci agigunge 3 pulsanti
-        throwDice = new JButton("Throw Dice");
-        actionPanel.add(throwDice);
-        action1 = new JButton("Action 1");
-        actionPanel.add(action1);
-        nextTurn = new JButton("Next Turn");
-        actionPanel.add(nextTurn);
-
-        rightBox.add(actionPanel);
-
-        //aggiunti i pulsanti azione    */
 
         //textArea actionCard description
         actionDescription.setLineWrap(true);
@@ -206,11 +191,6 @@ public class GamePanelView extends JPanel {
         rightPanel.add(rightBox);
         //adds last panel
         add(rightPanel, BorderLayout.EAST);
-
-        //creo e aggiungi handler
-        //throwDice.addActionListener(sampleHandler);
-        //action1.addActionListener(sampleHandler);
-        //nextTurn.addActionListener(sampleHandler);
 
         Dimension size = new Dimension(1600, 980);
         setPreferredSize(size);
@@ -241,8 +221,8 @@ public class GamePanelView extends JPanel {
 
     private void resetRacePanel() {
         cardLabel.setIcon(movementCardBackImage);
-        firstSpriningHorse.setBackground(SystemColor.window);
-        secondSprintingHorse.setBackground(SystemColor.window);
+        firstSpriningHorse.setBackground(SystemColor.control);
+        secondSprintingHorse.setBackground(SystemColor.control);
 
     }
 
@@ -264,6 +244,7 @@ public class GamePanelView extends JPanel {
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.BOTH;
         racePanel.add(movementCardPanel, gbc);
+
         final JPanel panel2 = new JPanel();
         panel2.setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
@@ -273,6 +254,7 @@ public class GamePanelView extends JPanel {
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.BOTH;
         racePanel.add(panel2, gbc);
+
         final JPanel panel3 = new JPanel();
         panel3.setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
@@ -283,11 +265,12 @@ public class GamePanelView extends JPanel {
         gbc.fill = GridBagConstraints.BOTH;
         panel2.add(panel3, gbc);
         faiSprintareICavalliButton = new JButton();
-        faiSprintareICavalliButton.setText("Fai sprintare i cavalli");
+        faiSprintareICavalliButton.setText("Make them sprint!");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
+
         panel3.add(faiSprintareICavalliButton, gbc);
         final JPanel panel4 = new JPanel();
         panel4.setLayout(new GridBagLayout());
@@ -301,8 +284,9 @@ public class GamePanelView extends JPanel {
         firstSpriningHorse = new JPanel();
         firstSpriningHorse.setLayout(new BorderLayout(0, 0));
         firstSpriningHorse.setPreferredSize(new Dimension(50, 50));
-        firstSpriningHorse.setBackground(SystemColor.window);
+        firstSpriningHorse.setBackground(SystemColor.control);
         firstSpriningHorse.setBorder(BorderFactory.createLoweredBevelBorder());
+
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -311,25 +295,29 @@ public class GamePanelView extends JPanel {
         secondSprintingHorse = new JPanel();
         secondSprintingHorse.setLayout(new BorderLayout(0, 0));
         secondSprintingHorse.setPreferredSize(new Dimension(50, 50));
-        secondSprintingHorse.setBackground(SystemColor.window);
+        secondSprintingHorse.setBackground(SystemColor.control);
         secondSprintingHorse.setBorder(BorderFactory.createLoweredBevelBorder());
+
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.BOTH;
         panel4.add(secondSprintingHorse, gbc);
+
         final JPanel spacer1 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.VERTICAL;
         panel3.add(spacer1, gbc);
+
         final JPanel spacer2 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.fill = GridBagConstraints.VERTICAL;
         panel3.add(spacer2, gbc);
+
         final JPanel panel5 = new JPanel();
         panel5.setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
@@ -339,20 +327,23 @@ public class GamePanelView extends JPanel {
         gbc.weighty = 0.5;
         gbc.fill = GridBagConstraints.BOTH;
         racePanel.add(panel5, gbc);
+
         final JPanel spacer3 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel5.add(spacer3, gbc);
+
         final JPanel spacer4 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel5.add(spacer4, gbc);
+
         prossimoTurnoDiCorsaButton = new JButton();
-        prossimoTurnoDiCorsaButton.setText("Prossimo turno di corsa");
+        prossimoTurnoDiCorsaButton.setText("Next Race Turn");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 1;
@@ -366,12 +357,12 @@ public class GamePanelView extends JPanel {
     }
 
     /**
-     * Resizes the images received to the following dimension: width=w and height=i
+     * Resize of the images received to the following dimension: width=w and height=i
      *
      * @param srcImg image to resize
      * @param w      final width
      * @param h      final height
-     * @return resized image
+     * @return rescaled image
      */
 
     private Image getScaledImage(Image srcImg, int w, int h) {
@@ -482,20 +473,20 @@ public class GamePanelView extends JPanel {
 
             case START:
                 resetRacePanel();
-                prossimoTurnoDiCorsaButton.setText("Inizia la corsa");
+                prossimoTurnoDiCorsaButton.setText("Race start!");
                 prossimoTurnoDiCorsaButton.setEnabled(true);
                 faiSprintareICavalliButton.setEnabled(false);
                 revalidate();
                 repaint();
                 break;
             case MIDDLE:
-                prossimoTurnoDiCorsaButton.setText("Inizia prossimo turno di corsa");
+                prossimoTurnoDiCorsaButton.setText("To the next Race turn");
                 prossimoTurnoDiCorsaButton.setEnabled(true);
                 faiSprintareICavalliButton.setEnabled(false);
                 break;
             case SPRINT:
-                firstSpriningHorse.setBackground(SystemColor.window);
-                secondSprintingHorse.setBackground(SystemColor.window);
+                firstSpriningHorse.setBackground(SystemColor.control);
+                secondSprintingHorse.setBackground(SystemColor.control);
                 prossimoTurnoDiCorsaButton.setEnabled(false);
                 faiSprintareICavalliButton.setEnabled(true);
                 break;
@@ -588,6 +579,8 @@ public class GamePanelView extends JPanel {
         ArrayList result = new ArrayList();
         result.add(playCard);
         result.add(riggedHorse);
+
+        gameLog.append("\nA card is played on " + riggedHorse.getOwnerStable().getColor() + " horse!");
 
         resetRigPanel();
 
@@ -752,36 +745,6 @@ public class GamePanelView extends JPanel {
         repaint();
     }
 
-    /*public boolean wantsToPlayAgain() {
-
-        viewRef.pauseGameFlow();
-        /*while(!fine){
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            }
-        }
-
-        final boolean[] wait = new boolean[1];
-        wait[0] = false;
-        do {
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            }
-            SwingUtilities.invokeLater(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        wait[0] = getFine();
-                    }
-                });
-        } while (!wait[0]);
-        return true;
-    }  */
-
     /**
      * Registers a bet
      */
@@ -858,7 +821,7 @@ public class GamePanelView extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         rigPanel.add(panel1, gbc);
         final JLabel label1 = new JLabel();
-        label1.setText("Seleziona il cavallo su cui giocare la carta azione:");
+        label1.setText("Choose the horse to play the action card on:");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -868,7 +831,7 @@ public class GamePanelView extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(label1, gbc);
         blackHorseButton = new JRadioButton();
-        blackHorseButton.setText("Nero");
+        blackHorseButton.setText("Black");
         blackHorseButton.setSelected(true);
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -876,28 +839,28 @@ public class GamePanelView extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(blackHorseButton, gbc);
         blueHorseButton = new JRadioButton();
-        blueHorseButton.setText("Blu");
+        blueHorseButton.setText("Blue");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(blueHorseButton, gbc);
         greenHorseButton = new JRadioButton();
-        greenHorseButton.setText("Verde");
+        greenHorseButton.setText("Green");
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(greenHorseButton, gbc);
         redHorseButton = new JRadioButton();
-        redHorseButton.setText("Rosso");
+        redHorseButton.setText("Red");
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
         gbc.gridy = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(redHorseButton, gbc);
         whiteHorseButton = new JRadioButton();
-        whiteHorseButton.setText("Bianco");
+        whiteHorseButton.setText("White");
         gbc = new GridBagConstraints();
         gbc.gridx = 5;
         gbc.gridy = 2;
@@ -910,7 +873,7 @@ public class GamePanelView extends JPanel {
         gbc.fill = GridBagConstraints.VERTICAL;
         panel1.add(spacer1, gbc);
         yellowHorseButton = new JRadioButton();
-        yellowHorseButton.setText("Giallo");
+        yellowHorseButton.setText("Yellow");
         gbc = new GridBagConstraints();
         gbc.gridx = 4;
         gbc.gridy = 2;
@@ -1026,38 +989,6 @@ public class GamePanelView extends JPanel {
 
 
     }
-     /*
-    private class RadioButtonHandler implements ItemListener{
-
-        private int rHorse;
-
-        public RadioButtonHandler(int i){
-            rHorse = i;
-        }
-
-        public void itemStateChanged(ItemEvent event){
-            riggedHorse=rHorse;
-            gameLog.append("\nHorse number" + riggedHorse + "is the selected horse to rig. Let's do it!");
-            riggedHorseChoosen=true;
-        }
-
-    }
-
-    private class MouseClickACHandler extends MouseAdapter{
-            public void mouseClicked(MouseEvent event){ /*
-                if(event.getSource() == actionCard1){
-                    aCChoosen = 0;
-                    actionCardChoosen = true;
-                    actionDescription.append("AC1");
-                } else if(event.getSource() == playerCard){
-                    aCChoosen = 1;
-                    actionCardChoosen = true;
-                    actionDescription.append("AC2");
-                }
-
-            }
-    }  */
-
 
     /**
      * Builds bet panel on the right of the gui
@@ -1384,6 +1315,7 @@ public class GamePanelView extends JPanel {
             betMarkValue[i] = new JTextArea();
             betMarkValue[i].setEditable(false);
             betMarkValue[i].append("0");
+            betMarkValue[i].setBackground(SystemColor.control);
             c.gridx = i;
             c.gridy = 1;
             c.gridwidth = 1;
@@ -1395,6 +1327,7 @@ public class GamePanelView extends JPanel {
             //BetMark Icon
             JTextArea betMarkIcon = new JTextArea();
             betMarkIcon.setEditable(false);
+            betMarkIcon.setBackground(SystemColor.control);
             switch (i) {
                 case 0:
                     betMarkIcon.append("Black");
@@ -1458,9 +1391,22 @@ public class GamePanelView extends JPanel {
         playerPanel.add(playerCard, c);
 
         //money
+        JTextArea gold = new JTextArea();
+        gold.setEditable(false);
+        gold.append("Gold");
+        gold.setBackground(SystemColor.control);
+        c.gridx = 1;
+        c.gridy = 0;
+        c.gridwidth = 1;
+        c.gridheight = 1;
+        c.weightx = 0.5;
+        c.anchor = GridBagConstraints.PAGE_START;
+        playerPanel.add(gold, c);
+
         JTextArea money = new JTextArea();
         money.setEditable(false);
-        money.append("Gold: " + player.getMoney());
+        money.append("" + player.getMoney());
+        money.setBackground(SystemColor.control);
         c.gridx = 1;
         c.gridy = 1;
         c.gridwidth = 1;
@@ -1472,7 +1418,8 @@ public class GamePanelView extends JPanel {
         //VP
         JTextArea vp = new JTextArea();
         vp.setEditable(false);
-        vp.append("VP: " + player.getVictoryPoints());
+        vp.append("" + player.getVictoryPoints());
+        vp.setBackground(SystemColor.control);
         c.gridx = 2;
         c.gridy = 1;
         c.gridwidth = 1;
@@ -1484,7 +1431,8 @@ public class GamePanelView extends JPanel {
         //vpicon
         JTextArea vpIcon = new JTextArea();
         vpIcon.setEditable(false);
-        vpIcon.append("VP Icon");
+        vpIcon.append("Victory Points");
+        vpIcon.setBackground(SystemColor.control);
         c.gridx = 2;
         c.gridy = 0;
         c.gridwidth = 1;
@@ -1514,7 +1462,7 @@ public class GamePanelView extends JPanel {
     private void buildStandingPanel() {
         standingPanel = new JPanel();
         standingPanel.setLayout(new GridBagLayout());
-        standingPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Classifica"));
+        standingPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Standing"));
         final JPanel panel2 = new JPanel();
         panel2.setLayout(new GridBagLayout());
         GridBagConstraints gbc;
@@ -1537,7 +1485,7 @@ public class GamePanelView extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel2.add(panel3, gbc);
         final JLabel label1 = new JLabel();
-        label1.setText("Ordine di arrivo dei cavalli:");
+        label1.setText("Finish line horse order:");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -1695,7 +1643,7 @@ public class GamePanelView extends JPanel {
         gbc.anchor = GridBagConstraints.WEST;
         panel4.add(sixthH, gbc);
         pagaLeScommesseButton = new JButton();
-        pagaLeScommesseButton.setText("Paga le scommesse");
+        pagaLeScommesseButton.setText("Pay bets");
         pagaLeScommesseButton.addActionListener(sampleHandler);
         gbc = new GridBagConstraints();
         gbc.gridx = 0;

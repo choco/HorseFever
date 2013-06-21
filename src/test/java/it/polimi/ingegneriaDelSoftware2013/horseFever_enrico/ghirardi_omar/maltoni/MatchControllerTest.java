@@ -1,5 +1,6 @@
 package it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni;
 
+import it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.models.MatchPhase;
 import it.polimi.ingegneriaDelSoftware2013.horseFever_enrico.ghirardi_omar.maltoni.models.Player;
 import org.junit.Test;
 
@@ -36,7 +37,7 @@ public class MatchControllerTest {
         assertTrue(s.equals(matchController.getMatch().getFirstPlayer().getIdTag()));
     }
 
-  /*  @Test
+    @Test
     public void testGetNextPlayer(){
         Player p1 = new Player("Player1");
         Player p2 = new Player("Player2");
@@ -45,7 +46,7 @@ public class MatchControllerTest {
         p1.setFirstPlayer(false); //just in case
         p2.setFirstPlayer(true);
         p3.setFirstPlayer(false); //just in case
-        p4.setFirstPlayer(false);
+        p4.setFirstPlayer(false); //just in case
 
         matchController.getMatch().addPlayer(p1);
         matchController.getMatch().addPlayer(p2);
@@ -61,10 +62,10 @@ public class MatchControllerTest {
 
         matchController.getMatch().setMatchPhase(MatchPhase.RIG_PHASE);
         String s2 = matchController.getNextPlayer().getIdTag();
-        assertTrue(s2.equals("Player3"));
+        assertTrue(s2.equals("Player4"));
 
         matchController.getMatch().setMatchPhase(MatchPhase.SECOND_BET_PHASE);
         String s3 = matchController.getNextPlayer().getIdTag();
-        assertTrue(s3.equals("Player4"));
-    }                                                     */
+        assertTrue(s3.equals("Player2"));
+    }
 }

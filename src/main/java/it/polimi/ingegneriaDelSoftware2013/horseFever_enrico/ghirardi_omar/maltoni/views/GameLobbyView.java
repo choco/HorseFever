@@ -181,9 +181,9 @@ public class GameLobbyView extends JPanel {
 
             } else if (event.getSource() == startGameBtn) {
                 if (nicknamesList.size() < 2) {
-                    JOptionPane.showMessageDialog(null, "I need at least two players!", "Error", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "At least two players are needed!", "Error", JOptionPane.INFORMATION_MESSAGE);
                 } else if (nicknamesList.size() > 6) {
-                    JOptionPane.showMessageDialog(null, "To many players, only up to six can play", "Error", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Too many players! Six is the maximum number of players allowed.\nThe others we'll have to cheer!", "Error", JOptionPane.INFORMATION_MESSAGE);
                     int numberOfPlayersToRemove = nicknamesList.size() - 6;
                     for (int i = 0; i < numberOfPlayersToRemove; i++) {
                         nicknamesList.remove(nicknamesList.size() - 1);
@@ -193,7 +193,7 @@ public class GameLobbyView extends JPanel {
                     viewRef.startMatchWithPlayers(nicknamesList);
                 }
             } else if (event.getSource() == backBtn) {
-                //viewRef.setGameMenuAsMainPanel
+                viewRef.setGameMenuAsMainPanel();
             }
 
 

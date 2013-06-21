@@ -31,7 +31,7 @@ public class GameInterfaceView extends JFrame implements GameInterface {
      */
 
     public GameInterfaceView(MatchController matchController) {
-        super("Horse Fever");
+        super("Horse Fever v0.60");
         this.matchController = matchController;
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -54,6 +54,17 @@ public class GameInterfaceView extends JFrame implements GameInterface {
 
     void setGamePanelAsMainPanel() {
         this.setContentPane(gamePanel);
+
+        pack();
+        centerWindow();
+    }
+
+    /**
+     * Sets the game menu as the main panel of the frame (this) by removing the older one
+     */
+
+    void setGameMenuAsMainPanel() {
+        this.setContentPane(gameMenu);
 
         pack();
         centerWindow();
@@ -159,7 +170,7 @@ public class GameInterfaceView extends JFrame implements GameInterface {
     public boolean userWantsToBet(Player player) {
         int result = JOptionPane.showConfirmDialog(this, "It's " + player.getIdTag() + "'s turn.\nDo you want to make a second bet?", "Second bet", JOptionPane.YES_NO_OPTION);
         if (result == JOptionPane.YES_OPTION) {
-            gamePanel.updateGameLog("\n" + player.getIdTag() + "wants to make a second bet. Keep an eye on this smart fellow!");
+            gamePanel.updateGameLog("\n" + player.getIdTag() + " wants to make a second bet. Keep an eye on this smart fellow!");
             return true;
         }
         return false;
